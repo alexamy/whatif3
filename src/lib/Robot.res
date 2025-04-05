@@ -58,14 +58,15 @@ module Make = (Info: MachineInfo) => {
     ~initialContext: Info.initialContext,
   ) => service = "interpret"
 
-  type send = Info.event => unit
   type current = {
     name: Info.state,
     context: Info.context,
   }
+  type send = Info.event => unit
+  type hook = (current, send, service)
 
   @module("react-robot")
-  external useMachine: (machine, Info.initialContext) => (current, send, service) = "useMachine"
+  external useMachine: (machine, Info.initialContext) => hook = "useMachine"
 
   external _toStatePairs: array<(Info.state, state)> => array<(string, state)> = "%identity"
   external _toStates: dict<state> => states = "%identity"
