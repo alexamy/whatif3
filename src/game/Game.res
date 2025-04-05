@@ -34,9 +34,9 @@ module Start = {
     <Screen
       content={<p> {React.string("You were chosen to participate in a secret experiment.")} </p>}
       options={[
-        {element: React.string("Listen"), onClick: _ => send(Listen)},
-        {element: React.string("Go away"), onClick: _ => send(GoAway)},
-        {element: React.string("Run"), onClick: _ => send(Run)},
+        (React.string("Listen"), _ => send(Listen)),
+        (React.string("Go away"), _ => send(GoAway)),
+        (React.string("Run"), _ => send(Run)),
       ]}
     />
   }
@@ -49,7 +49,10 @@ module Listen = {
       content={<p>
         {React.string("You are listening to a recording of a person who is being tortured.")}
       </p>}
-      options={[{element: React.string("Go back"), onClick: _ => send(GoAway)}]}
+      options={[
+        (React.string("Go back"), _ => send(GoAway)),
+        (React.string("Run"), _ => send(Run)),
+      ]}
     />
   }
 }

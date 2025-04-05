@@ -38,24 +38,24 @@ function Game$Start(props) {
                     children: "You were chosen to participate in a secret experiment."
                   }),
               options: [
-                {
-                  element: "Listen",
-                  onClick: (function () {
+                [
+                  "Listen",
+                  (function () {
                       send("Listen");
                     })
-                },
-                {
-                  element: "Go away",
-                  onClick: (function () {
+                ],
+                [
+                  "Go away",
+                  (function () {
                       send("GoAway");
                     })
-                },
-                {
-                  element: "Run",
-                  onClick: (function () {
+                ],
+                [
+                  "Run",
+                  (function () {
                       send("Run");
                     })
-                }
+                ]
               ]
             });
 }
@@ -70,12 +70,20 @@ function Game$Listen(props) {
               content: JsxRuntime.jsx("p", {
                     children: "You are listening to a recording of a person who is being tortured."
                   }),
-              options: [{
-                  element: "Go back",
-                  onClick: (function () {
+              options: [
+                [
+                  "Go back",
+                  (function () {
                       send("GoAway");
                     })
-                }]
+                ],
+                [
+                  "Run",
+                  (function () {
+                      send("Run");
+                    })
+                ]
+              ]
             });
 }
 

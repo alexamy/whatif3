@@ -11,13 +11,14 @@ function $$Screen(props) {
                     }),
                 JsxRuntime.jsx("nav", {
                       children: JsxRuntime.jsx("ul", {
-                            children: Belt_Array.mapWithIndex(props.options, (function (i, nav) {
+                            children: Belt_Array.mapWithIndex(props.options, (function (i, param) {
+                                    var onClick = param[1];
                                     return JsxRuntime.jsx("li", {
                                                 children: JsxRuntime.jsx("a", {
-                                                      children: nav.element,
+                                                      children: param[0],
                                                       href: "#",
                                                       onClick: (function (param) {
-                                                          nav.onClick();
+                                                          onClick();
                                                         })
                                                     })
                                               }, String(i));

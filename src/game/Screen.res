@@ -1,7 +1,4 @@
-type nav = {
-  element: React.element,
-  onClick: unit => unit,
-}
+type nav = (React.element, unit => unit)
 
 @react.component
 let make = (~content: React.element, ~options: array<nav>) => {
@@ -10,9 +7,9 @@ let make = (~content: React.element, ~options: array<nav>) => {
     <nav>
       <ul>
         {React.array(
-          Array.mapWithIndex(options, (i, nav) =>
+          Array.mapWithIndex(options, (i, (element, onClick)) =>
             <li key={Int.toString(i)}>
-              <a href="#" onClick={_ => nav.onClick()}> {nav.element} </a>
+              <a href="#" onClick={_ => onClick()}> {element} </a>
             </li>
           ),
         )}
