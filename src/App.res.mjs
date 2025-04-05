@@ -4,7 +4,8 @@ import * as JsxRuntime from "react/jsx-runtime";
 
 function App(props) {
   return JsxRuntime.jsx("div", {
-              children: "Hello!"
+              children: "Hello!",
+              className: "bg-black"
             });
 }
 

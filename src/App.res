@@ -1,4 +1,4 @@
 @react.component
 let make = () => {
-  <div> {React.string("Hello!")} </div>
+  <div className="bg-black"> {React.string("Hello!")} </div>
 }
