@@ -2,7 +2,12 @@
 
 
 function Make(Info) {
-  return {};
+  var states = function (pairs) {
+    return Object.fromEntries(pairs);
+  };
+  return {
+          states: states
+        };
 }
 
 export {

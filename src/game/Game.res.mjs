@@ -9,7 +9,7 @@ var Info = {};
 
 var Machine = Robot.Make(Info);
 
-var machine = Robot3.createMachine("Start", Object.fromEntries([
+var machine = Robot3.createMachine("Start", Machine.states([
           [
             "Start",
             Robot3.state(Robot3.transition("Listen", "Listen"))

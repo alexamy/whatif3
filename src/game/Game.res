@@ -13,28 +13,16 @@ module Info = {
 }
 
 module Machine = Robot.Make(Info)
-
 open Info
+
 let machine = Machine.createMachine(
   ~initial=Start,
   ~context=initialContext => initialContext,
-  ~states=Dict.fromArray([
-    (
-      (Start :> string),
-      Machine.state([Machine.transition(~event=Listen, ~target=Listen, ~modifiers=[])]),
-    ),
-    (
-      (Listen :> string),
-      Machine.state([Machine.transition(~event=GoAway, ~target=Start, ~modifiers=[])]),
-    ),
-    (
-      (GoAway :> string),
-      Machine.state([Machine.transition(~event=Run, ~target=Run, ~modifiers=[])]),
-    ),
-    (
-      (Run :> string),
-      Machine.state([Machine.transition(~event=Start, ~target=Start, ~modifiers=[])]),
-    ),
+  ~states=Machine.states([
+    (Start, Machine.state([Machine.transition(~event=Listen, ~target=Listen, ~modifiers=[])])),
+    (Listen, Machine.state([Machine.transition(~event=GoAway, ~target=Start, ~modifiers=[])])),
+    (GoAway, Machine.state([Machine.transition(~event=Run, ~target=Run, ~modifiers=[])])),
+    (Run, Machine.state([Machine.transition(~event=Start, ~target=Start, ~modifiers=[])])),
   ]),
 )
 

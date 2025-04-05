@@ -8,6 +8,7 @@ module type MachineInfo = {
 
 module Make = (Info: MachineInfo) => {
   type state
+  type states
   type machine
   type service
 
@@ -46,7 +47,7 @@ module Make = (Info: MachineInfo) => {
   @module("robot3")
   external createMachine: (
     ~initial: Info.state,
-    ~states: dict<state>,
+    ~states: states,
     ~context: Info.initialContext => Info.context,
   ) => machine = "createMachine"
 
@@ -65,4 +66,11 @@ module Make = (Info: MachineInfo) => {
 
   @module("react-robot")
   external useMachine: (machine, Info.initialContext) => (current, send, service) = "useMachine"
+
+  external _toStatePairs: array<(Info.state, state)> => array<(string, state)> = "%identity"
+  external _toStates: dict<state> => states = "%identity"
+
+  let states = (pairs: array<(Info.state, state)>): states => {
+    pairs->_toStatePairs->Dict.fromArray->_toStates
+  }
 }
