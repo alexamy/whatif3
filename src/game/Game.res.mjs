@@ -7,9 +7,9 @@ import * as JsxRuntime from "react/jsx-runtime";
 
 var Info = {};
 
-var Machine = Robot.Make(Info);
+var M = Robot.Make(Info);
 
-var machine = Robot3.createMachine("Start", Machine.states([
+var machine = Robot3.createMachine("Start", M.states([
           [
             "Start",
             Robot3.state(Robot3.transition("Listen", "Listen"))
@@ -134,10 +134,10 @@ var make = Game;
 
 export {
   Info ,
-  Machine ,
+  M ,
   machine ,
   Start ,
   Listen ,
   make ,
 }
-/* Machine Not a pure module */
+/* M Not a pure module */

@@ -12,17 +12,17 @@ module Info = {
   type context = unit
 }
 
-module Machine = Robot.Make(Info)
+module M = Robot.Make(Info)
 open Info
 
-let machine = Machine.createMachine(
+let machine = M.createMachine(
   ~initial=Start,
   ~context=initialContext => initialContext,
-  ~states=Machine.states([
-    (Start, Machine.state([Machine.transition(~event=Listen, ~target=Listen, ~modifiers=[])])),
-    (Listen, Machine.state([Machine.transition(~event=GoAway, ~target=Start, ~modifiers=[])])),
-    (GoAway, Machine.state([Machine.transition(~event=Run, ~target=Run, ~modifiers=[])])),
-    (Run, Machine.state([Machine.transition(~event=Start, ~target=Start, ~modifiers=[])])),
+  ~states=M.states([
+    (Start, M.state([M.transition(~event=Listen, ~target=Listen, ~modifiers=[])])),
+    (Listen, M.state([M.transition(~event=GoAway, ~target=Start, ~modifiers=[])])),
+    (GoAway, M.state([M.transition(~event=Run, ~target=Run, ~modifiers=[])])),
+    (Run, M.state([M.transition(~event=Start, ~target=Start, ~modifiers=[])])),
   ]),
 )
 
@@ -30,7 +30,7 @@ type context = {}
 
 module Start = {
   @react.component
-  let make = (~send: Machine.send) => {
+  let make = (~send: M.send) => {
     <>
       <article>
         <p> {React.string("You were chosen to participate in a secret experiment.")} </p>
@@ -55,7 +55,7 @@ module Start = {
 
 module Listen = {
   @react.component
-  let make = (~send: Machine.send) => {
+  let make = (~send: M.send) => {
     <>
       <article>
         <p>
@@ -75,7 +75,7 @@ module Listen = {
 
 @react.component
 let make = () => {
-  let (state, send, _) = Machine.useMachine(machine, ())
+  let (state, send, _) = M.useMachine(machine, ())
 
   switch state.name {
   | Start => <Start send />
