@@ -19,8 +19,10 @@ var machine = Robot3.createMachine("Start", M.states([
             "Listen",
             Robot3.state(Robot3.transition("GoBack", "Start"))
           ]
-        ]), (function (initialContext) {
-        
+        ]), (function () {
+        return {
+                count: 0
+              };
       }));
 
 function Game$Start(props) {
@@ -64,13 +66,16 @@ var Listen = {
 function Game(props) {
   var match = ReactRobot.useMachine(machine, undefined);
   var send = match[1];
-  var match$1 = match[0].name;
+  var state = match[0];
+  var match$1 = state.name;
   if (match$1 === "Start") {
     return JsxRuntime.jsx(Game$Start, {
+                state: state,
                 send: send
               });
   } else {
     return JsxRuntime.jsx(Game$Listen, {
+                state: state,
                 send: send
               });
   }

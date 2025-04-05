@@ -2,7 +2,7 @@ type nav = (React.element, unit => unit)
 
 @react.component
 let make = (~content: React.element, ~options: array<nav>) => {
-  <>
+  <div>
     <article> {content} </article>
     <nav>
       <ul>
@@ -15,5 +15,5 @@ let make = (~content: React.element, ~options: array<nav>) => {
         )}
       </ul>
     </nav>
-  </>
+  </div>
 }

@@ -4,7 +4,7 @@ import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as JsxRuntime from "react/jsx-runtime";
 
 function $$Screen(props) {
-  return JsxRuntime.jsxs(JsxRuntime.Fragment, {
+  return JsxRuntime.jsxs("div", {
               children: [
                 JsxRuntime.jsx("article", {
                       children: props.content
