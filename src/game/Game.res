@@ -41,9 +41,9 @@ module Screen = {
       <nav>
         <ul>
           {React.array(
-            Array.map(options, n =>
-              <li>
-                <a href="#" onClick={_ => n.onClick()}> {n.element} </a>
+            Array.mapWithIndex(options, (i, nav) =>
+              <li key={Int.toString(i)}>
+                <a href="#" onClick={_ => nav.onClick()}> {nav.element} </a>
               </li>
             ),
           )}
@@ -56,45 +56,26 @@ module Screen = {
 module Start = {
   @react.component
   let make = (~send: M.send) => {
-    <>
-      <article>
-        <p> {React.string("You were chosen to participate in a secret experiment.")} </p>
-        <p> {React.string("But a recent study shows that to be a lie.")} </p>
-      </article>
-      <nav>
-        <ul>
-          <li>
-            <a href="#" onClick={_ => send(Listen)}> {React.string("Listen")} </a>
-          </li>
-          <li>
-            <a href="#" onClick={_ => send(GoAway)}> {React.string("Go away")} </a>
-          </li>
-          <li>
-            <a href="#" onClick={_ => send(Run)}> {React.string("Run")} </a>
-          </li>
-        </ul>
-      </nav>
-    </>
+    <Screen
+      content={<p> {React.string("You were chosen to participate in a secret experiment.")} </p>}
+      options={[
+        {element: <p> {React.string("Listen")} </p>, onClick: _ => send(Listen)},
+        {element: <p> {React.string("Go away")} </p>, onClick: _ => send(GoAway)},
+        {element: <p> {React.string("Run")} </p>, onClick: _ => send(Run)},
+      ]}
+    />
   }
 }
 
 module Listen = {
   @react.component
   let make = (~send: M.send) => {
-    <>
-      <article>
-        <p>
-          {React.string("You are listening to a recording of a person who is being tortured.")}
-        </p>
-      </article>
-      <nav>
-        <ul>
-          <li>
-            <a href="#" onClick={_ => send(GoAway)}> {React.string("Go back")} </a>
-          </li>
-        </ul>
-      </nav>
-    </>
+    <Screen
+      content={<p>
+        {React.string("You are listening to a recording of a person who is being tortured.")}
+      </p>}
+      options={[{element: <p> {React.string("Go back")} </p>, onClick: _ => send(GoAway)}]}
+    />
   }
 }
 

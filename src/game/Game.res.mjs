@@ -39,16 +39,16 @@ function Game$Screen(props) {
                     }),
                 JsxRuntime.jsx("nav", {
                       children: JsxRuntime.jsx("ul", {
-                            children: Belt_Array.map(props.options, (function (n) {
+                            children: Belt_Array.mapWithIndex(props.options, (function (i, nav) {
                                     return JsxRuntime.jsx("li", {
                                                 children: JsxRuntime.jsx("a", {
-                                                      children: n.element,
+                                                      children: nav.element,
                                                       href: "#",
                                                       onClick: (function (param) {
-                                                          n.onClick();
+                                                          nav.onClick();
                                                         })
                                                     })
-                                              });
+                                              }, String(i));
                                   }))
                           })
                     })
@@ -62,51 +62,35 @@ var $$Screen = {
 
 function Game$Start(props) {
   var send = props.send;
-  return JsxRuntime.jsxs(JsxRuntime.Fragment, {
-              children: [
-                JsxRuntime.jsxs("article", {
-                      children: [
-                        JsxRuntime.jsx("p", {
-                              children: "You were chosen to participate in a secret experiment."
-                            }),
-                        JsxRuntime.jsx("p", {
-                              children: "But a recent study shows that to be a lie."
-                            })
-                      ]
-                    }),
-                JsxRuntime.jsx("nav", {
-                      children: JsxRuntime.jsxs("ul", {
-                            children: [
-                              JsxRuntime.jsx("li", {
-                                    children: JsxRuntime.jsx("a", {
-                                          children: "Listen",
-                                          href: "#",
-                                          onClick: (function (param) {
-                                              send("Listen");
-                                            })
-                                        })
-                                  }),
-                              JsxRuntime.jsx("li", {
-                                    children: JsxRuntime.jsx("a", {
-                                          children: "Go away",
-                                          href: "#",
-                                          onClick: (function (param) {
-                                              send("GoAway");
-                                            })
-                                        })
-                                  }),
-                              JsxRuntime.jsx("li", {
-                                    children: JsxRuntime.jsx("a", {
-                                          children: "Run",
-                                          href: "#",
-                                          onClick: (function (param) {
-                                              send("Run");
-                                            })
-                                        })
-                                  })
-                            ]
-                          })
+  return JsxRuntime.jsx(Game$Screen, {
+              content: JsxRuntime.jsx("p", {
+                    children: "You were chosen to participate in a secret experiment."
+                  }),
+              options: [
+                {
+                  element: JsxRuntime.jsx("p", {
+                        children: "Listen"
+                      }),
+                  onClick: (function () {
+                      send("Listen");
                     })
+                },
+                {
+                  element: JsxRuntime.jsx("p", {
+                        children: "Go away"
+                      }),
+                  onClick: (function () {
+                      send("GoAway");
+                    })
+                },
+                {
+                  element: JsxRuntime.jsx("p", {
+                        children: "Run"
+                      }),
+                  onClick: (function () {
+                      send("Run");
+                    })
+                }
               ]
             });
 }
@@ -117,27 +101,18 @@ var Start = {
 
 function Game$Listen(props) {
   var send = props.send;
-  return JsxRuntime.jsxs(JsxRuntime.Fragment, {
-              children: [
-                JsxRuntime.jsx("article", {
-                      children: JsxRuntime.jsx("p", {
-                            children: "You are listening to a recording of a person who is being tortured."
-                          })
-                    }),
-                JsxRuntime.jsx("nav", {
-                      children: JsxRuntime.jsx("ul", {
-                            children: JsxRuntime.jsx("li", {
-                                  children: JsxRuntime.jsx("a", {
-                                        children: "Go back",
-                                        href: "#",
-                                        onClick: (function (param) {
-                                            send("GoAway");
-                                          })
-                                      })
-                                })
-                          })
+  return JsxRuntime.jsx(Game$Screen, {
+              content: JsxRuntime.jsx("p", {
+                    children: "You are listening to a recording of a person who is being tortured."
+                  }),
+              options: [{
+                  element: JsxRuntime.jsx("p", {
+                        children: "Go back"
+                      }),
+                  onClick: (function () {
+                      send("GoAway");
                     })
-              ]
+                }]
             });
 }
 
