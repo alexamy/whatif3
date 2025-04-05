@@ -42,3 +42,12 @@ external interpret: (
   ~onChange: service => unit,
   ~initialContext: 'initialContext,
 ) => service = "interpret"
+
+type current<'context> = {
+  name: string,
+  content: 'context,
+}
+
+@module("react-robot")
+external useMachine: (machine, 'initialContext) => (current<'context>, 'event => unit, service) =
+  "useMachine"
