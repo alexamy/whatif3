@@ -3,10 +3,8 @@ module Info = {
   type state =
     | Start
     | Listen
-    | GoAway
-    | Run
 
-  type event = state
+  type event = GoBack | Listen
 
   type initialContext = unit
   type context = unit
@@ -20,9 +18,7 @@ let machine = M.createMachine(
   ~context=initialContext => initialContext,
   ~states=M.states([
     (Start, M.state([M.transition(~event=Listen, ~target=Listen, ~modifiers=[])])),
-    (Listen, M.state([M.transition(~event=GoAway, ~target=Start, ~modifiers=[])])),
-    (GoAway, M.state([M.transition(~event=Run, ~target=Run, ~modifiers=[])])),
-    (Run, M.state([M.transition(~event=Start, ~target=Start, ~modifiers=[])])),
+    (Listen, M.state([M.transition(~event=GoBack, ~target=Start, ~modifiers=[])])),
   ]),
 )
 
@@ -33,11 +29,7 @@ module Start = {
   let make = (~send: M.send) => {
     <Screen
       content={<p> {React.string("You were chosen to participate in a secret experiment.")} </p>}
-      options={[
-        (React.string("Listen"), _ => send(Listen)),
-        (React.string("Go away"), _ => send(GoAway)),
-        (React.string("Run"), _ => send(Run)),
-      ]}
+      options={[(React.string("Listen"), _ => send(Listen))]}
     />
   }
 }
@@ -49,7 +41,7 @@ module Listen = {
       content={<p>
         {React.string("You are listening to a recording of a person who is being tortured.")}
       </p>}
-      options={[(React.string("Go back"), _ => send(GoAway))]}
+      options={[(React.string("Go back"), _ => send(GoBack))]}
     />
   }
 }
@@ -61,7 +53,5 @@ let make = () => {
   switch state.name {
   | Start => <Start send />
   | Listen => <Listen send />
-  | GoAway => <Start send />
-  | Run => <Start send />
   }
 }

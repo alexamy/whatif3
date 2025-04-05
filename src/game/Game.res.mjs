@@ -17,15 +17,7 @@ var machine = Robot3.createMachine("Start", M.states([
           ],
           [
             "Listen",
-            Robot3.state(Robot3.transition("GoAway", "Start"))
-          ],
-          [
-            "GoAway",
-            Robot3.state(Robot3.transition("Run", "Run"))
-          ],
-          [
-            "Run",
-            Robot3.state(Robot3.transition("Start", "Start"))
+            Robot3.state(Robot3.transition("GoBack", "Start"))
           ]
         ]), (function (initialContext) {
         
@@ -37,26 +29,12 @@ function Game$Start(props) {
               content: JsxRuntime.jsx("p", {
                     children: "You were chosen to participate in a secret experiment."
                   }),
-              options: [
-                [
+              options: [[
                   "Listen",
                   (function () {
                       send("Listen");
                     })
-                ],
-                [
-                  "Go away",
-                  (function () {
-                      send("GoAway");
-                    })
-                ],
-                [
-                  "Run",
-                  (function () {
-                      send("Run");
-                    })
-                ]
-              ]
+                ]]
             });
 }
 
@@ -73,7 +51,7 @@ function Game$Listen(props) {
               options: [[
                   "Go back",
                   (function () {
-                      send("GoAway");
+                      send("GoBack");
                     })
                 ]]
             });
@@ -87,12 +65,12 @@ function Game(props) {
   var match = ReactRobot.useMachine(machine, undefined);
   var send = match[1];
   var match$1 = match[0].name;
-  if (match$1 === "Listen") {
-    return JsxRuntime.jsx(Game$Listen, {
+  if (match$1 === "Start") {
+    return JsxRuntime.jsx(Game$Start, {
                 send: send
               });
   } else {
-    return JsxRuntime.jsx(Game$Start, {
+    return JsxRuntime.jsx(Game$Listen, {
                 send: send
               });
   }
