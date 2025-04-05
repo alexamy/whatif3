@@ -39,25 +39,19 @@ function Game$Start(props) {
                   }),
               options: [
                 {
-                  element: JsxRuntime.jsx("p", {
-                        children: "Listen"
-                      }),
+                  element: "Listen",
                   onClick: (function () {
                       send("Listen");
                     })
                 },
                 {
-                  element: JsxRuntime.jsx("p", {
-                        children: "Go away"
-                      }),
+                  element: "Go away",
                   onClick: (function () {
                       send("GoAway");
                     })
                 },
                 {
-                  element: JsxRuntime.jsx("p", {
-                        children: "Run"
-                      }),
+                  element: "Run",
                   onClick: (function () {
                       send("Run");
                     })
@@ -77,9 +71,7 @@ function Game$Listen(props) {
                     children: "You are listening to a recording of a person who is being tortured."
                   }),
               options: [{
-                  element: JsxRuntime.jsx("p", {
-                        children: "Go back"
-                      }),
+                  element: "Go back",
                   onClick: (function () {
                       send("GoAway");
                     })
