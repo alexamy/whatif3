@@ -4,13 +4,15 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm-run-all --serial res:build vite:build",
+    "dev": "npm-run-all --parallel res:dev vite:dev",
     "lint": "eslint .",
     "preview": "vite preview",
     "res:build": "rescript",
     "res:clean": "rescript clean",
-    "res:dev": "rescript -w"
+    "res:dev": "rescript -w",
+    "vite:build": "vite build",
+    "vite:dev": "vite"
   },
   "dependencies": {
     "@rescript/core": "^1.6.1",
@@ -31,6 +33,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
+    "npm-run-all": "^4.1.5",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0"
