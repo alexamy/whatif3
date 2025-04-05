@@ -2,6 +2,7 @@
 
 import * as Robot from "../lib/Robot.res.mjs";
 import * as Robot3 from "robot3";
+import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as ReactRobot from "react-robot";
 import * as JsxRuntime from "react/jsx-runtime";
 
@@ -29,6 +30,35 @@ var machine = Robot3.createMachine("Start", M.states([
         ]), (function (initialContext) {
         
       }));
+
+function Game$Screen(props) {
+  return JsxRuntime.jsxs(JsxRuntime.Fragment, {
+              children: [
+                JsxRuntime.jsx("article", {
+                      children: props.content
+                    }),
+                JsxRuntime.jsx("nav", {
+                      children: JsxRuntime.jsx("ul", {
+                            children: Belt_Array.map(props.options, (function (n) {
+                                    return JsxRuntime.jsx("li", {
+                                                children: JsxRuntime.jsx("a", {
+                                                      children: n.element,
+                                                      href: "#",
+                                                      onClick: (function (param) {
+                                                          n.onClick();
+                                                        })
+                                                    })
+                                              });
+                                  }))
+                          })
+                    })
+              ]
+            });
+}
+
+var $$Screen = {
+  make: Game$Screen
+};
 
 function Game$Start(props) {
   var send = props.send;
@@ -136,6 +166,7 @@ export {
   Info ,
   M ,
   machine ,
+  $$Screen ,
   Start ,
   Listen ,
   make ,

@@ -28,6 +28,31 @@ let machine = M.createMachine(
 
 type context = {}
 
+module Screen = {
+  type nav = {
+    element: React.element,
+    onClick: unit => unit,
+  }
+
+  @react.component
+  let make = (~content: React.element, ~options: array<nav>) => {
+    <>
+      <article> {content} </article>
+      <nav>
+        <ul>
+          {React.array(
+            Array.map(options, n =>
+              <li>
+                <a href="#" onClick={_ => n.onClick()}> {n.element} </a>
+              </li>
+            ),
+          )}
+        </ul>
+      </nav>
+    </>
+  }
+}
+
 module Start = {
   @react.component
   let make = (~send: M.send) => {
