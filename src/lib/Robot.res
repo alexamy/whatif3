@@ -45,7 +45,7 @@ external interpret: (
 
 type current<'context> = {
   name: string,
-  content: 'context,
+  context: 'context,
 }
 
 @module("react-robot")

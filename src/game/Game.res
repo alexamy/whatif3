@@ -1,5 +1,18 @@
+let machine = Robot.createMachine(
+  ~initial="start",
+  ~context=initialContext => initialContext,
+  ~states=Dict.fromArray([
+    ("start", Robot.state([Robot.transition(~event="next", ~target="next", ~modifiers=[])])),
+    ("next", Robot.state([Robot.transition(~event="next", ~target="next", ~modifiers=[])])),
+  ]),
+)
+
+type context = {count: int}
+
 @react.component
 let make = () => {
+  let (current, send, _) = Robot.useMachine(machine, {count: 0})
+
   <>
     <article>
       <h1> {React.string("It is a story")} </h1>
@@ -12,6 +25,9 @@ let make = () => {
         {React.string("But a recent \n study shows that the celebrated appetizer may be linked to a series of rabies cases
     springing up around the country.")}
       </p>
+      <button onClick={_ => send("next")}> {React.string("Next")} </button>
+      <p> {React.string(current.name)} </p>
+      <p> {React.string(Int.toString(current.context.count))} </p>
     </article>
     <nav>
       <ul>
