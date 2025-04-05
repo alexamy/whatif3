@@ -16,7 +16,7 @@ var machine = Robot3.createMachine("Start", Object.fromEntries([
           ],
           [
             "Listen",
-            Robot3.state(Robot3.transition("GoAway", "GoAway"))
+            Robot3.state(Robot3.transition("GoAway", "Start"))
           ],
           [
             "GoAway",
@@ -85,11 +85,49 @@ var Start = {
   make: Game$Start
 };
 
+function Game$Listen(props) {
+  var send = props.send;
+  return JsxRuntime.jsxs(JsxRuntime.Fragment, {
+              children: [
+                JsxRuntime.jsx("article", {
+                      children: JsxRuntime.jsx("p", {
+                            children: "You are listening to a recording of a person who is being tortured."
+                          })
+                    }),
+                JsxRuntime.jsx("nav", {
+                      children: JsxRuntime.jsx("ul", {
+                            children: JsxRuntime.jsx("li", {
+                                  children: JsxRuntime.jsx("a", {
+                                        children: "Go back",
+                                        href: "#",
+                                        onClick: (function (param) {
+                                            send("GoAway");
+                                          })
+                                      })
+                                })
+                          })
+                    })
+              ]
+            });
+}
+
+var Listen = {
+  make: Game$Listen
+};
+
 function Game(props) {
   var match = ReactRobot.useMachine(machine, undefined);
-  return JsxRuntime.jsx(Game$Start, {
-              send: match[1]
-            });
+  var send = match[1];
+  var match$1 = match[0].name;
+  if (match$1 === "Listen") {
+    return JsxRuntime.jsx(Game$Listen, {
+                send: send
+              });
+  } else {
+    return JsxRuntime.jsx(Game$Start, {
+                send: send
+              });
+  }
 }
 
 var make = Game;
@@ -99,6 +137,7 @@ export {
   Machine ,
   machine ,
   Start ,
+  Listen ,
   make ,
 }
 /* Machine Not a pure module */

@@ -25,7 +25,7 @@ let machine = Machine.createMachine(
     ),
     (
       (Listen :> string),
-      Machine.state([Machine.transition(~event=GoAway, ~target=GoAway, ~modifiers=[])]),
+      Machine.state([Machine.transition(~event=GoAway, ~target=Start, ~modifiers=[])]),
     ),
     (
       (GoAway :> string),
@@ -65,13 +65,33 @@ module Start = {
   }
 }
 
+module Listen = {
+  @react.component
+  let make = (~send: Machine.send) => {
+    <>
+      <article>
+        <p>
+          {React.string("You are listening to a recording of a person who is being tortured.")}
+        </p>
+      </article>
+      <nav>
+        <ul>
+          <li>
+            <a href="#" onClick={_ => send(GoAway)}> {React.string("Go back")} </a>
+          </li>
+        </ul>
+      </nav>
+    </>
+  }
+}
+
 @react.component
 let make = () => {
   let (state, send, _) = Machine.useMachine(machine, ())
 
   switch state.name {
   | Start => <Start send />
-  | Listen => <Start send />
+  | Listen => <Listen send />
   | GoAway => <Start send />
   | Run => <Start send />
   }
