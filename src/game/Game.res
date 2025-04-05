@@ -49,10 +49,7 @@ module Listen = {
       content={<p>
         {React.string("You are listening to a recording of a person who is being tortured.")}
       </p>}
-      options={[
-        (React.string("Go back"), _ => send(GoAway)),
-        (React.string("Run"), _ => send(Run)),
-      ]}
+      options={[(React.string("Go back"), _ => send(GoAway))]}
     />
   }
 }

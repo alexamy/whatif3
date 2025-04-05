@@ -70,20 +70,12 @@ function Game$Listen(props) {
               content: JsxRuntime.jsx("p", {
                     children: "You are listening to a recording of a person who is being tortured."
                   }),
-              options: [
-                [
+              options: [[
                   "Go back",
                   (function () {
                       send("GoAway");
                     })
-                ],
-                [
-                  "Run",
-                  (function () {
-                      send("Run");
-                    })
-                ]
-              ]
+                ]]
             });
 }
 
