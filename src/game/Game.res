@@ -42,7 +42,7 @@ type context = {}
 
 module Start = {
   @react.component
-  let make = (~send: event) => {
+  let make = (~send: Machine.send) => {
     <>
       <article>
         <p> {React.string("You were chosen to participate in a secret experiment.")} </p>
@@ -51,13 +51,13 @@ module Start = {
       <nav>
         <ul>
           <li>
-            <a href="#"> {React.string("Listen")} </a>
+            <a href="#" onClick={_ => send(Listen)}> {React.string("Listen")} </a>
           </li>
           <li>
-            <a href="#"> {React.string("Go away")} </a>
+            <a href="#" onClick={_ => send(GoAway)}> {React.string("Go away")} </a>
           </li>
           <li>
-            <a href="#"> {React.string("Run")} </a>
+            <a href="#" onClick={_ => send(Run)}> {React.string("Run")} </a>
           </li>
         </ul>
       </nav>
@@ -67,7 +67,12 @@ module Start = {
 
 @react.component
 let make = () => {
-  let (state, send, _) = Robot.useMachine(machine, ({}: context))
+  let (state, send, _) = Machine.useMachine(machine, ())
 
-  <div> {React.string(state.name)} </div>
+  switch state.name {
+  | Start => <Start send />
+  | Listen => <Start send />
+  | GoAway => <Start send />
+  | Run => <Start send />
+  }
 }
