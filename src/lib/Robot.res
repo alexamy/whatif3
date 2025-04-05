@@ -1,53 +1,68 @@
-type state
-type machine
-type service
+module type MachineInfo = {
+  type event
+  type state
 
-type event<'data, 'error> = {
-  name: string,
-  data: 'data,
-  error?: 'error,
+  type initialContext
+  type context
 }
 
-type modifier
-type transition
+module Make = (Info: MachineInfo) => {
+  type state
+  type machine
+  type service
 
-@module("robot3") external action: (('context, event<'data, 'error>) => unit) => modifier = "action"
-@module("robot3") external guard: (('context, event<'data, 'error>) => bool) => modifier = "guard"
-@module("robot3")
-external reduce: (('context, event<'data, 'error>) => 'context) => modifier = "reduce"
+  type event<'data, 'error> = {
+    name: Info.event,
+    data: 'data,
+    error?: 'error,
+  }
 
-@module("robot3") @variadic
-external immediate: (~target: string, ~modifiers: array<modifier>) => transition = "immediate"
+  type modifier
+  type transition
 
-@module("robot3") @variadic
-external transition: (~event: string, ~target: string, ~modifiers: array<modifier>) => transition =
-  "transition"
+  @module("robot3")
+  external action: ((Info.context, event<'data, 'error>) => unit) => modifier = "action"
+  @module("robot3")
+  external guard: ((Info.context, event<'data, 'error>) => bool) => modifier = "guard"
+  @module("robot3")
+  external reduce: ((Info.context, event<'data, 'error>) => Info.context) => modifier = "reduce"
 
-@module("robot3") @variadic
-external state: array<transition> => state = "state"
+  @module("robot3") @variadic
+  external immediate: (~target: Info.state, ~modifiers: array<modifier>) => transition = "immediate"
 
-@module("robot3") @variadic
-external invoke: ('context => promise<'data>, array<transition>) => state = "invoke"
+  @module("robot3") @variadic
+  external transition: (
+    ~event: Info.event,
+    ~target: Info.state,
+    ~modifiers: array<modifier>,
+  ) => transition = "transition"
 
-@module("robot3")
-external createMachine: (
-  ~initial: string,
-  ~states: dict<state>,
-  ~context: 'initialContext => 'context,
-) => machine = "createMachine"
+  @module("robot3") @variadic
+  external state: array<transition> => state = "state"
 
-@module("robot3")
-external interpret: (
-  ~machine: machine,
-  ~onChange: service => unit,
-  ~initialContext: 'initialContext,
-) => service = "interpret"
+  @module("robot3") @variadic
+  external invoke: (Info.context => promise<'data>, array<transition>) => state = "invoke"
 
-type current<'context> = {
-  name: string,
-  context: 'context,
+  @module("robot3")
+  external createMachine: (
+    ~initial: Info.state,
+    ~states: dict<state>,
+    ~context: Info.initialContext => Info.context,
+  ) => machine = "createMachine"
+
+  @module("robot3")
+  external interpret: (
+    ~machine: machine,
+    ~onChange: service => unit,
+    ~initialContext: Info.initialContext,
+  ) => service = "interpret"
+
+  type send = Info.event => unit
+  type current = {
+    name: Info.state,
+    context: Info.context,
+  }
+
+  @module("react-robot")
+  external useMachine: (machine, Info.initialContext) => (current, send, service) = "useMachine"
 }
-
-@module("react-robot")
-external useMachine: (machine, 'initialContext) => (current<'context>, 'event => unit, service) =
-  "useMachine"

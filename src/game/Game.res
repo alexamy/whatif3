@@ -1,39 +1,38 @@
-@unboxed
-type screen =
-  | Start
-  | Listen
-  | GoAway
-  | Run
+module Info = {
+  @unboxed
+  type state =
+    | Start
+    | Listen
+    | GoAway
+    | Run
 
-type event = screen
+  type event = state
 
-let machine = Robot.createMachine(
-  ~initial=(Start :> string),
+  type initialContext = unit
+  type context = unit
+}
+
+module Machine = Robot.Make(Info)
+
+let machine = Machine.createMachine(
+  ~initial=Info.Start,
   ~context=initialContext => initialContext,
   ~states=Dict.fromArray([
     (
-      (Start :> string),
-      Robot.state([
-        Robot.transition(~event=(Listen :> string), ~target=(Listen :> string), ~modifiers=[]),
-      ]),
+      (Info.Start :> string),
+      Machine.state([Machine.transition(~event=Info.Listen, ~target=Info.Listen, ~modifiers=[])]),
     ),
     (
-      (Listen :> string),
-      Robot.state([
-        Robot.transition(~event=(GoAway :> string), ~target=(GoAway :> string), ~modifiers=[]),
-      ]),
+      (Info.Listen :> string),
+      Machine.state([Machine.transition(~event=Info.GoAway, ~target=Info.GoAway, ~modifiers=[])]),
     ),
     (
-      (GoAway :> string),
-      Robot.state([
-        Robot.transition(~event=(Run :> string), ~target=(Run :> string), ~modifiers=[]),
-      ]),
+      (Info.GoAway :> string),
+      Machine.state([Machine.transition(~event=Info.Run, ~target=Info.Run, ~modifiers=[])]),
     ),
     (
-      (Run :> string),
-      Robot.state([
-        Robot.transition(~event=(Start :> string), ~target=(Start :> string), ~modifiers=[]),
-      ]),
+      (Info.Run :> string),
+      Machine.state([Machine.transition(~event=Info.Start, ~target=Info.Start, ~modifiers=[])]),
     ),
   ]),
 )
