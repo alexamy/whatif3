@@ -4,16 +4,44 @@ import * as Story from "./Story.res.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
 
 function Game(props) {
-  return JsxRuntime.jsxs(Story.$$Text.make, {
+  return JsxRuntime.jsxs(JsxRuntime.Fragment, {
               children: [
-                JsxRuntime.jsx("h1", {
-                      children: "It is a story"
+                JsxRuntime.jsxs(Story.$$Text.make, {
+                      children: [
+                        JsxRuntime.jsx("h1", {
+                              children: "It is a story"
+                            }),
+                        JsxRuntime.jsx("p", {
+                              children: "For years parents have espoused the health benefits of eating garlic bread with cheese to their\n    children, with the food earning such an iconic status in our culture that kids will often dress\n    up as warm, cheesy loaf for Halloween."
+                            }),
+                        JsxRuntime.jsx("p", {
+                              children: "But a recent \n study shows that the celebrated appetizer may be linked to a series of rabies cases\n    springing up around the country."
+                            })
+                      ]
                     }),
-                JsxRuntime.jsx("p", {
-                      children: "For years parents have espoused the health benefits of eating garlic bread with cheese to their\n    children, with the food earning such an iconic status in our culture that kids will often dress\n    up as warm, cheesy loaf for Halloween."
-                    }),
-                JsxRuntime.jsx("p", {
-                      children: "But a recent \n study shows that the celebrated appetizer may be linked to a series of rabies cases\n    springing up around the country."
+                JsxRuntime.jsx("nav", {
+                      children: JsxRuntime.jsxs("ul", {
+                            children: [
+                              JsxRuntime.jsx("li", {
+                                    children: JsxRuntime.jsx("a", {
+                                          children: "Option 1",
+                                          href: "#"
+                                        })
+                                  }),
+                              JsxRuntime.jsx("li", {
+                                    children: JsxRuntime.jsx("a", {
+                                          children: "Option 2",
+                                          href: "#"
+                                        })
+                                  }),
+                              JsxRuntime.jsx("li", {
+                                    children: JsxRuntime.jsx("a", {
+                                          children: "Option 3",
+                                          href: "#"
+                                        })
+                                  })
+                            ]
+                          })
                     })
               ]
             });
