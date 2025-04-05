@@ -2,14 +2,13 @@
 
 import * as JsxRuntime from "react/jsx-runtime";
 
-function App(props) {
+function Game(props) {
   return JsxRuntime.jsx("div", {
-              children: "Hello!",
-              className: "w-full h-full min-h-screen m-0 p-2 bg-gray-900 text-gray-100"
+              children: "Hello!"
             });
 }
 
-var make = App;
+var make = Game;
 
 export {
   make ,
