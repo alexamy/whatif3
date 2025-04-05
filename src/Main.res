@@ -1,9 +1,7 @@
 module App = {
   @react.component
   let make = (~children: React.element) => {
-    <div className="w-full h-full min-h-screen m-0 p-2 bg-gray-900 text-gray-100">
-      <article className="prose prose-slate dark:prose-invert"> {children} </article>
-    </div>
+    <div className="w-full h-full min-h-screen m-0 p-2 bg-gray-900 text-gray-100"> {children} </div>
   }
 }
 

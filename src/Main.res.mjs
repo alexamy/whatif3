@@ -7,10 +7,7 @@ import * as JsxRuntime from "react/jsx-runtime";
 
 function Main$App(props) {
   return JsxRuntime.jsx("div", {
-              children: JsxRuntime.jsx("article", {
-                    children: props.children,
-                    className: "prose prose-slate dark:prose-invert"
-                  }),
+              children: props.children,
               className: "w-full h-full min-h-screen m-0 p-2 bg-gray-900 text-gray-100"
             });
 }
