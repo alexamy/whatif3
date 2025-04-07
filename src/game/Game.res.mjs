@@ -24,9 +24,14 @@ function useTick(ms) {
 
 function Game$Terminal(props) {
   var tick = useTick(400);
-  var input = tick ? ">" : ">|";
+  var match = React.useState(function () {
+        return "333";
+      });
+  var output = "> " + match[0] + (
+    tick ? "█" : ""
+  );
   return JsxRuntime.jsx("div", {
-              children: input,
+              children: output,
               className: "font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end"
             });
 }

@@ -17,10 +17,12 @@ module Terminal = {
   @react.component
   let make = () => {
     let tick = useTick(400)
-    let input = tick ? ">" : ">|"
+
+    let (message, setMessage) = React.useState(_ => "333")
+    let output = `> ${message}${tick ? "█" : ""}`
 
     <div className="font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end">
-      {React.string(input)}
+      {React.string(output)}
     </div>
   }
 }
