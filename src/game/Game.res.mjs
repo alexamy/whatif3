@@ -9,21 +9,36 @@ function Game(props) {
         return false;
       });
   var setShown = match[1];
-  return JsxRuntime.jsx("div", {
-              children: JsxRuntime.jsx($$Screen.make, {
-                    content: JsxRuntime.jsx("p", {
-                          children: "You are hearing strange letters: B Y M N."
-                        }),
-                    options: [[
-                        "Go back",
-                        (function () {
-                            setShown(function (prev) {
-                                  return !prev;
-                                });
-                          })
-                      ]]
-                  }),
-              className: "flex border-2"
+  return JsxRuntime.jsxs("div", {
+              children: [
+                JsxRuntime.jsx($$Screen.make, {
+                      content: JsxRuntime.jsx("p", {
+                            children: "You are hearing strange letters: B Y M N."
+                          }),
+                      options: [[
+                          "Go back",
+                          (function () {
+                              setShown(function (prev) {
+                                    return !prev;
+                                  });
+                            })
+                        ]]
+                    }),
+                JsxRuntime.jsx($$Screen.make, {
+                      content: JsxRuntime.jsx("p", {
+                            children: "You are hearing strange letters: B Y M N."
+                          }),
+                      options: [[
+                          "Go back",
+                          (function () {
+                              setShown(function (prev) {
+                                    return !prev;
+                                  });
+                            })
+                        ]]
+                    })
+              ],
+              className: "flex"
             });
 }
 

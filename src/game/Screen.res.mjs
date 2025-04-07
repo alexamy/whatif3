@@ -36,7 +36,8 @@ function $$Screen(props) {
                                   }))
                           })
                     })
-              ]
+              ],
+              className: "prosy w-full"
             });
 }
 

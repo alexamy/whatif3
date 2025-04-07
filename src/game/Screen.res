@@ -9,7 +9,7 @@ type nav = (React.element, unit => unit)
 
 @react.component
 let make = (~content: React.element, ~options: array<nav>) => {
-  <div>
+  <div className="prosy w-full">
     <article> {content} </article>
     <nav>
       <ul>
