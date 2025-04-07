@@ -4,27 +4,29 @@ import * as React from "react";
 import * as $$Screen from "./Screen.res.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
 
-function Game$Terminal(props) {
+function useTick(ms) {
   var match = React.useState(function () {
-        return ">";
+        return true;
       });
-  var setInput = match[1];
+  var setTick = match[1];
   React.useEffect((function () {
           var intervalId = setInterval((function () {
-                  setInput(function (input) {
-                        if (input.length === 1) {
-                          return ">|";
-                        } else {
-                          return ">";
-                        }
+                  setTick(function (prev) {
+                        return !prev;
                       });
-                }), 400);
+                }), ms);
           return (function () {
                     clearInterval(intervalId);
                   });
         }), []);
+  return match[0];
+}
+
+function Game$Terminal(props) {
+  var tick = useTick(400);
+  var input = tick ? ">" : ">|";
   return JsxRuntime.jsx("div", {
-              children: match[0],
+              children: input,
               className: "font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end"
             });
 }
@@ -62,6 +64,7 @@ function Game(props) {
 var make = Game;
 
 export {
+  useTick ,
   Terminal ,
   make ,
 }

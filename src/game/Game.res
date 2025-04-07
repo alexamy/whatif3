@@ -1,15 +1,23 @@
+/**Returns a boolean that toggles every ms milliseconds */
+let useTick = ms => {
+  let (tick, setTick) = React.useState(_ => true)
+
+  React.useEffect(() => {
+    let intervalId = Js.Global.setInterval(() => {
+      setTick(prev => !prev)
+    }, ms)
+
+    Some(_ => Js.Global.clearInterval(intervalId))
+  }, [])
+
+  tick
+}
+
 module Terminal = {
   @react.component
   let make = () => {
-    let (input, setInput) = React.useState(_ => ">")
-
-    React.useEffect(() => {
-      let intervalId = Js.Global.setInterval(() => {
-        setInput(input => String.length(input) === 1 ? ">|" : ">")
-      }, 400)
-
-      Some(_ => Js.Global.clearInterval(intervalId))
-    }, [])
+    let tick = useTick(400)
+    let input = tick ? ">" : ">|"
 
     <div className="font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end">
       {React.string(input)}
