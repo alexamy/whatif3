@@ -78,11 +78,10 @@ module Terminal = {
     })
 
     let onKeyDown = e => {
-      let key = JsxEvent.Keyboard.key(e)
-      switch key {
+      switch JsxEvent.Keyboard.key(e) {
       | "Enter" => String.length(message) > 0 ? addLine(message) : ()
       | "Backspace" => removeChar()
-      | _ if String.length(key) === 1 => addChar(key)
+      | key if String.length(key) === 1 => addChar(key)
       | _ => ()
       }
     }
