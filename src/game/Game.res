@@ -1,3 +1,10 @@
+let useLog = msg => {
+  React.useEffect(() => {
+    Console.log(msg)
+    None
+  }, [])
+}
+
 module Terminal = {
   // Returns a boolean that toggles every ms milliseconds
   let useTick = ms => {
@@ -28,7 +35,7 @@ module Terminal = {
       Array.slice(lines, ~offset, ~len=size.height)
     }, [lines])
 
-    let addLine = line => setLines(newLine => [line, ...newLine])
+    let addLine = newLine => setLines(lines => [...lines, newLine])
 
     {display, addLine}
   }

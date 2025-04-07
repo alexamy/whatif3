@@ -5,6 +5,12 @@ import * as $$Screen from "./Screen.res.mjs";
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as JsxRuntime from "react/jsx-runtime";
 
+function useLog(msg) {
+  React.useEffect((function () {
+          console.log(msg);
+        }), []);
+}
+
 function useTick(ms) {
   var match = React.useState(function () {
         return true;
@@ -34,11 +40,11 @@ function useTerminal(size) {
           var offset = start > 0 ? start : 0;
           return Belt_Array.slice(lines, offset, size.height);
         }), [lines]);
-  var addLine = function (line) {
-    setLines(function (newLine) {
+  var addLine = function (newLine) {
+    setLines(function (lines) {
           return Belt_Array.concatMany([
-                      [line],
-                      newLine
+                      lines,
+                      [newLine]
                     ]);
         });
   };
@@ -158,6 +164,7 @@ function Game(props) {
 var make = Game;
 
 export {
+  useLog ,
   Terminal ,
   make ,
 }
