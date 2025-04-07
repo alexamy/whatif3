@@ -16,19 +16,31 @@ module Terminal = {
 
   // 36x14
   type size = {width: int, height: int}
+  type useTerminal = {display: array<string>, addLine: string => unit}
 
   let useTerminal = size => {
-    size.width->ignore
+    let (lines, setLines) = React.useState(_ => [])
+
+    let display = React.useMemo(() => {
+      let start = Array.length(lines) - size.height
+      let offset = start > 0 ? start : 0
+
+      Array.slice(lines, ~offset, ~len=size.height)
+    }, [lines])
+
+    let addLine = line => setLines(newLine => [line, ...newLine])
+
+    {display, addLine}
   }
 
   let getAllButLast = str => String.slice(str, ~start=0, ~end=String.length(str) - 1)
 
   @react.component
   let make = () => {
+    let (focused, setFocused) = React.useState(_ => false)
     let tick = useTick(400)
 
-    let (focused, setFocused) = React.useState(_ => false)
-
+    let {display, addLine} = useTerminal({width: 36, height: 14})
     let (message, setMessage) = React.useState(_ => "")
     let input = `> ${message}${tick && focused ? "█" : ""}`
 
@@ -37,6 +49,7 @@ module Terminal = {
 
       switch key {
       | "Backspace" => setMessage(prev => getAllButLast(prev))
+      | "Enter" => addLine(message)
       | _ if String.length(key) === 1 => setMessage(prev => prev ++ key)
       | _ => ()
       }
@@ -49,6 +62,11 @@ module Terminal = {
       onClick={_ => setFocused(_ => true)}
       onFocus={_ => setFocused(_ => true)}
       onBlur={_ => setFocused(_ => false)}>
+      {React.array(
+        display->Array.mapWithIndex((i, line) =>
+          <div key={Int.toString(i)}> {React.string(line)} </div>
+        ),
+      )}
       <div> {React.string(input)} </div>
     </div>
   }

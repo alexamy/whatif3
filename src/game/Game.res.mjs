@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import * as $$Screen from "./Screen.res.mjs";
+import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as JsxRuntime from "react/jsx-runtime";
 
 function useTick(ms) {
@@ -23,7 +24,28 @@ function useTick(ms) {
 }
 
 function useTerminal(size) {
-  
+  var match = React.useState(function () {
+        return [];
+      });
+  var setLines = match[1];
+  var lines = match[0];
+  var display = React.useMemo((function () {
+          var start = lines.length - size.height | 0;
+          var offset = start > 0 ? start : 0;
+          return Belt_Array.slice(lines, offset, size.height);
+        }), [lines]);
+  var addLine = function (line) {
+    setLines(function (newLine) {
+          return Belt_Array.concatMany([
+                      [line],
+                      newLine
+                    ]);
+        });
+  };
+  return {
+          display: display,
+          addLine: addLine
+        };
 }
 
 function getAllButLast(str) {
@@ -31,36 +53,54 @@ function getAllButLast(str) {
 }
 
 function Game$Terminal(props) {
-  var tick = useTick(400);
   var match = React.useState(function () {
         return false;
       });
   var setFocused = match[1];
-  var match$1 = React.useState(function () {
+  var tick = useTick(400);
+  var match$1 = useTerminal({
+        width: 36,
+        height: 14
+      });
+  var addLine = match$1.addLine;
+  var match$2 = React.useState(function () {
         return "";
       });
-  var setMessage = match$1[1];
-  var input = "> " + match$1[0] + (
+  var setMessage = match$2[1];
+  var message = match$2[0];
+  var input = "> " + message + (
     tick && match[0] ? "█" : ""
   );
   var onKeyDown = function (e) {
     var key = e.key;
-    if (key === "Backspace") {
-      return setMessage(function (prev) {
-                  return getAllButLast(prev);
-                });
-    } else if (key.length === 1) {
-      return setMessage(function (prev) {
-                  return prev + key;
-                });
-    } else {
-      return ;
+    switch (key) {
+      case "Backspace" :
+          return setMessage(function (prev) {
+                      return getAllButLast(prev);
+                    });
+      case "Enter" :
+          return addLine(message);
+      default:
+        if (key.length === 1) {
+          return setMessage(function (prev) {
+                      return prev + key;
+                    });
+        } else {
+          return ;
+        }
     }
   };
-  return JsxRuntime.jsx("div", {
-              children: JsxRuntime.jsx("div", {
-                    children: input
-                  }),
+  return JsxRuntime.jsxs("div", {
+              children: [
+                Belt_Array.mapWithIndex(match$1.display, (function (i, line) {
+                        return JsxRuntime.jsx("div", {
+                                    children: line
+                                  }, String(i));
+                      })),
+                JsxRuntime.jsx("div", {
+                      children: input
+                    })
+              ],
               className: "outline-0 whitespace-pre text-nowrap font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end ",
               tabIndex: 0,
               onKeyDown: onKeyDown,
