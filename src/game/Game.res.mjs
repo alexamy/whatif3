@@ -58,39 +58,71 @@ function getAllButLast(str) {
   return str.slice(0, str.length - 1 | 0);
 }
 
-function Game$Terminal(props) {
+function useTerminalInput(options) {
+  var tick = useTick(400);
   var match = React.useState(function () {
         return false;
       });
   var setFocused = match[1];
-  var tick = useTick(400);
-  var match$1 = useTerminal({
-        width: 36,
-        height: 14
-      });
-  var addLine = match$1.addLine;
-  var match$2 = React.useState(function () {
+  var match$1 = React.useState(function () {
         return "";
       });
-  var setMessage = match$2[1];
-  var message = match$2[0];
+  var setMessage = match$1[1];
+  var message = match$1[0];
   var input = "> " + message + (
     tick && match[0] ? "█" : ""
   );
+  var focus = function (state) {
+    setFocused(function (param) {
+          return state;
+        });
+  };
+  var removeLastChar = function () {
+    setMessage(function (prev) {
+          return getAllButLast(prev);
+        });
+  };
+  var addChar = function ($$char) {
+    setMessage(function (prev) {
+          if (prev.length === options.width) {
+            return prev;
+          } else {
+            return prev + $$char;
+          }
+        });
+  };
+  return {
+          message: message,
+          input: input,
+          focus: focus,
+          removeLastChar: removeLastChar,
+          addChar: addChar
+        };
+}
+
+function Game$Terminal(props) {
+  var match = useTerminal({
+        width: 36,
+        height: 14
+      });
+  var addLine = match.addLine;
+  var match$1 = useTerminalInput({
+        width: 36
+      });
+  var addChar = match$1.addChar;
+  var removeLastChar = match$1.removeLastChar;
+  var focus = match$1.focus;
+  var message = match$1.message;
   var onKeyDown = function (e) {
     var key = e.key;
     switch (key) {
       case "Backspace" :
-          return setMessage(function (prev) {
-                      return getAllButLast(prev);
-                    });
+          return removeLastChar();
       case "Enter" :
           return addLine(message);
       default:
         if (key.length === 1) {
-          return setMessage(function (prev) {
-                      return prev + key;
-                    });
+          return addChar(key);
         } else {
           return ;
         }
@@ -98,32 +130,26 @@ function Game$Terminal(props) {
   };
   return JsxRuntime.jsxs("div", {
               children: [
-                Belt_Array.mapWithIndex(match$1.display, (function (i, line) {
+                Belt_Array.mapWithIndex(match.display, (function (i, line) {
                         return JsxRuntime.jsx("div", {
                                     children: line
                                   }, String(i));
                       })),
                 JsxRuntime.jsx("div", {
-                      children: input
+                      children: match$1.input
                     })
               ],
               className: "outline-0 whitespace-pre text-nowrap font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end ",
               tabIndex: 0,
               onKeyDown: onKeyDown,
               onFocus: (function (param) {
-                  setFocused(function (param) {
-                        return true;
-                      });
+                  focus(true);
                 }),
               onBlur: (function (param) {
-                  setFocused(function (param) {
-                        return false;
-                      });
+                  focus(false);
                 }),
               onClick: (function (param) {
-                  setFocused(function (param) {
-                        return true;
-                      });
+                  focus(true);
                 })
             });
 }
@@ -132,6 +158,7 @@ var Terminal = {
   useTick: useTick,
   useTerminal: useTerminal,
   getAllButLast: getAllButLast,
+  useTerminalInput: useTerminalInput,
   make: Game$Terminal
 };
 

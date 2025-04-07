@@ -21,10 +21,10 @@ module Terminal = {
     tick
   }
 
-  // 36x14
-  type size = {width: int, height: int}
+  type size = {width: int, height: int} // 36x14
   type useTerminal = {display: array<string>, addLine: string => unit}
 
+  // Returns a terminal with text lines displayed
   let useTerminal = size => {
     let (lines, setLines) = React.useState(_ => [])
 
@@ -40,24 +40,46 @@ module Terminal = {
     {display, addLine}
   }
 
+  type useTerminalInput = {width: int}
+  type useTerminalInputResult = {
+    message: string,
+    input: string,
+    focus: bool => unit,
+    removeLastChar: unit => unit,
+    addChar: string => unit,
+  }
+
   let getAllButLast = str => String.slice(str, ~start=0, ~end=String.length(str) - 1)
+
+  let useTerminalInput = options => {
+    let tick = useTick(400)
+    let (focused, setFocused) = React.useState(_ => false)
+
+    let (message, setMessage) = React.useState(_ => "")
+    let input = `> ${message}${tick && focused ? "█" : ""}`
+
+    let focus = state => setFocused(_ => state)
+    let removeLastChar = () => setMessage(prev => getAllButLast(prev))
+    let addChar = char =>
+      setMessage(prev => String.length(prev) === options.width ? prev : prev ++ char)
+
+    {message, input, focus, removeLastChar, addChar}
+  }
 
   @react.component
   let make = () => {
-    let (focused, setFocused) = React.useState(_ => false)
-    let tick = useTick(400)
-
     let {display, addLine} = useTerminal({width: 36, height: 14})
-    let (message, setMessage) = React.useState(_ => "")
-    let input = `> ${message}${tick && focused ? "█" : ""}`
+    let {message, input, focus, removeLastChar, addChar} = useTerminalInput({
+      width: 36,
+    })
 
     let onKeyDown = e => {
       let key = JsxEvent.Keyboard.key(e)
 
       switch key {
-      | "Backspace" => setMessage(prev => getAllButLast(prev))
+      | "Backspace" => removeLastChar()
       | "Enter" => addLine(message)
-      | _ if String.length(key) === 1 => setMessage(prev => prev ++ key)
+      | _ if String.length(key) === 1 => addChar(key)
       | _ => ()
       }
     }
@@ -66,9 +88,9 @@ module Terminal = {
       className="outline-0 whitespace-pre text-nowrap font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end "
       tabIndex=0
       onKeyDown
-      onClick={_ => setFocused(_ => true)}
-      onFocus={_ => setFocused(_ => true)}
-      onBlur={_ => setFocused(_ => false)}>
+      onClick={_ => focus(true)}
+      onFocus={_ => focus(true)}
+      onBlur={_ => focus(false)}>
       {React.array(
         display->Array.mapWithIndex((i, line) =>
           <div key={Int.toString(i)}> {React.string(line)} </div>
