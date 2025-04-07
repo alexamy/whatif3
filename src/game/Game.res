@@ -14,6 +14,8 @@ let useTick = ms => {
 }
 
 module Terminal = {
+  let getAllButLast = str => String.slice(str, ~start=0, ~end=String.length(str) - 1)
+
   @react.component
   let make = () => {
     let tick = useTick(400)
@@ -21,8 +23,21 @@ module Terminal = {
     let (message, setMessage) = React.useState(_ => "333")
     let output = `> ${message}${tick ? "█" : ""}`
 
-    <div className="font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end">
-      {React.string(output)}
+    let onKeyDown = e => {
+      let key = JsxEvent.Keyboard.key(e)
+
+      if key === "Backspace" {
+        setMessage(prev => getAllButLast(prev))
+      } else if String.length(key) === 1 {
+        setMessage(prev => prev ++ key)
+      }
+    }
+
+    <div
+      className="font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end text-nowrap"
+      tabIndex=0
+      onKeyDown>
+      <div> {React.string(output)} </div>
     </div>
   }
 }

@@ -22,21 +22,45 @@ function useTick(ms) {
   return match[0];
 }
 
+function getAllButLast(str) {
+  return str.slice(0, str.length - 1 | 0);
+}
+
 function Game$Terminal(props) {
   var tick = useTick(400);
   var match = React.useState(function () {
         return "333";
       });
+  var setMessage = match[1];
   var output = "> " + match[0] + (
     tick ? "█" : ""
   );
+  var onKeyDown = function (e) {
+    var key = e.key;
+    if (key === "Backspace") {
+      return setMessage(function (prev) {
+                  return getAllButLast(prev);
+                });
+    } else if (key.length === 1) {
+      return setMessage(function (prev) {
+                  return prev + key;
+                });
+    } else {
+      return ;
+    }
+  };
   return JsxRuntime.jsx("div", {
-              children: output,
-              className: "font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end"
+              children: JsxRuntime.jsx("div", {
+                    children: output
+                  }),
+              className: "font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end text-nowrap",
+              tabIndex: 0,
+              onKeyDown: onKeyDown
             });
 }
 
 var Terminal = {
+  getAllButLast: getAllButLast,
   make: Game$Terminal
 };
 
