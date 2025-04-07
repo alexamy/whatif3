@@ -20,8 +20,10 @@ module Terminal = {
   let make = () => {
     let tick = useTick(400)
 
+    let (focused, setFocused) = React.useState(_ => false)
+
     let (message, setMessage) = React.useState(_ => "333")
-    let output = `> ${message}${tick ? "█" : ""}`
+    let output = `> ${message}${tick && focused ? "█" : ""}`
 
     let onKeyDown = e => {
       let key = JsxEvent.Keyboard.key(e)
@@ -34,9 +36,12 @@ module Terminal = {
     }
 
     <div
-      className="font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end text-nowrap"
+      className="outline-0 font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end text-nowrap"
       tabIndex=0
-      onKeyDown>
+      onKeyDown
+      onClick={_ => setFocused(_ => true)}
+      onFocus={_ => setFocused(_ => true)}
+      onBlur={_ => setFocused(_ => false)}>
       <div> {React.string(output)} </div>
     </div>
   }

@@ -29,11 +29,15 @@ function getAllButLast(str) {
 function Game$Terminal(props) {
   var tick = useTick(400);
   var match = React.useState(function () {
+        return false;
+      });
+  var setFocused = match[1];
+  var match$1 = React.useState(function () {
         return "333";
       });
-  var setMessage = match[1];
-  var output = "> " + match[0] + (
-    tick ? "█" : ""
+  var setMessage = match$1[1];
+  var output = "> " + match$1[0] + (
+    tick && match[0] ? "█" : ""
   );
   var onKeyDown = function (e) {
     var key = e.key;
@@ -53,9 +57,24 @@ function Game$Terminal(props) {
               children: JsxRuntime.jsx("div", {
                     children: output
                   }),
-              className: "font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end text-nowrap",
+              className: "outline-0 font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end text-nowrap",
               tabIndex: 0,
-              onKeyDown: onKeyDown
+              onKeyDown: onKeyDown,
+              onFocus: (function (param) {
+                  setFocused(function (param) {
+                        return true;
+                      });
+                }),
+              onBlur: (function (param) {
+                  setFocused(function (param) {
+                        return false;
+                      });
+                }),
+              onClick: (function (param) {
+                  setFocused(function (param) {
+                        return true;
+                      });
+                })
             });
 }
 
