@@ -63,8 +63,10 @@ module Terminal = {
 
       let focus = state => setFocused(_ => state)
       let removeChar = () => setMessage(prev => getAllButLast(prev))
-      let addChar = char =>
-        setMessage(prev => String.length(prev) === options.width ? prev : prev ++ char)
+      let addChar = char => {
+        let isAllWidth = String.length(message) === options.width
+        setMessage(prev => isAllWidth ? prev : prev ++ char)
+      }
 
       {message, input, focus, removeChar, addChar}
     }

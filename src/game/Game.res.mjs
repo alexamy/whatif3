@@ -87,8 +87,9 @@ function use$1(options) {
         });
   };
   var addChar = function ($$char) {
+    var isAllWidth = message.length === options.width;
     setMessage(function (prev) {
-          if (prev.length === options.width) {
+          if (isAllWidth) {
             return prev;
           } else {
             return prev + $$char;
