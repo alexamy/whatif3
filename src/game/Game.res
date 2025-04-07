@@ -1,19 +1,20 @@
-/**Returns a boolean that toggles every ms milliseconds */
-let useTick = ms => {
-  let (tick, setTick) = React.useState(_ => true)
-
-  React.useEffect(() => {
-    let intervalId = Js.Global.setInterval(() => {
-      setTick(prev => !prev)
-    }, ms)
-
-    Some(_ => Js.Global.clearInterval(intervalId))
-  }, [])
-
-  tick
-}
-
 module Terminal = {
+  let useTick = ms => {
+    let (tick, setTick) = React.useState(_ => true)
+
+    React.useEffect(() => {
+      let intervalId = Js.Global.setInterval(() => {
+        setTick(prev => !prev)
+      }, ms)
+
+      Some(_ => Js.Global.clearInterval(intervalId))
+    }, [])
+
+    tick
+  }
+
+  let useTerminal = () => {}
+
   let getAllButLast = str => String.slice(str, ~start=0, ~end=String.length(str) - 1)
 
   @react.component
