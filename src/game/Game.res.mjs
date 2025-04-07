@@ -141,13 +141,14 @@ function Game$Terminal(props) {
         }
     }
   };
+  var lines = Belt_Array.mapWithIndex(match.display, (function (i, line) {
+          return JsxRuntime.jsx("div", {
+                      children: line
+                    }, String(i));
+        }));
   return JsxRuntime.jsxs("div", {
               children: [
-                Belt_Array.mapWithIndex(match.display, (function (i, line) {
-                        return JsxRuntime.jsx("div", {
-                                    children: line
-                                  }, String(i));
-                      })),
+                lines,
                 JsxRuntime.jsx("div", {
                       children: match$1.input
                     })

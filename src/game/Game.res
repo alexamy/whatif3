@@ -89,6 +89,12 @@ module Terminal = {
       }
     }
 
+    let lines = React.array(
+      Array.mapWithIndex(display, (i, line) =>
+        <div key={Int.toString(i)}> {React.string(line)} </div>
+      ),
+    )
+
     <div
       className="outline-0 whitespace-pre text-nowrap font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end "
       tabIndex=0
@@ -96,11 +102,7 @@ module Terminal = {
       onClick={_ => focus(true)}
       onFocus={_ => focus(true)}
       onBlur={_ => focus(false)}>
-      {React.array(
-        display->Array.mapWithIndex((i, line) =>
-          <div key={Int.toString(i)}> {React.string(line)} </div>
-        ),
-      )}
+      {lines}
       <div> {React.string(input)} </div>
     </div>
   }
