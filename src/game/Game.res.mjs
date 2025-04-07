@@ -17,6 +17,10 @@ var machine = Robot3.createMachine("Start", M.states([
           ],
           [
             "Listen",
+            Robot3.state(Robot3.transition("GoBack", "Start"), Robot3.transition("ListenToRecording", "ListenToRecording"))
+          ],
+          [
+            "ListenToRecording",
             Robot3.state(Robot3.transition("GoBack", "Start"))
           ]
         ]), (function () {
@@ -50,6 +54,33 @@ function Game$Listen(props) {
               content: JsxRuntime.jsx("p", {
                     children: "You are listening to a recording of a person who is being tortured."
                   }),
+              options: [
+                [
+                  "Listen to the recording",
+                  (function () {
+                      send("ListenToRecording");
+                    })
+                ],
+                [
+                  "Go back",
+                  (function () {
+                      send("GoBack");
+                    })
+                ]
+              ]
+            });
+}
+
+var Listen = {
+  make: Game$Listen
+};
+
+function Game$ListenToRecording(props) {
+  var send = props.send;
+  return JsxRuntime.jsx($$Screen.make, {
+              content: JsxRuntime.jsx("p", {
+                    children: "You are hearing strange letters: B Y M N."
+                  }),
               options: [[
                   "Go back",
                   (function () {
@@ -59,8 +90,8 @@ function Game$Listen(props) {
             });
 }
 
-var Listen = {
-  make: Game$Listen
+var ListenToRecording = {
+  make: Game$ListenToRecording
 };
 
 function Game(props) {
@@ -68,16 +99,23 @@ function Game(props) {
   var send = match[1];
   var state = match[0];
   var match$1 = state.name;
-  if (match$1 === "Start") {
-    return JsxRuntime.jsx(Game$Start, {
-                state: state,
-                send: send
-              });
-  } else {
-    return JsxRuntime.jsx(Game$Listen, {
-                state: state,
-                send: send
-              });
+  switch (match$1) {
+    case "Start" :
+        return JsxRuntime.jsx(Game$Start, {
+                    state: state,
+                    send: send
+                  });
+    case "Listen" :
+        return JsxRuntime.jsx(Game$Listen, {
+                    state: state,
+                    send: send
+                  });
+    case "ListenToRecording" :
+        return JsxRuntime.jsx(Game$ListenToRecording, {
+                    state: state,
+                    send: send
+                  });
+    
   }
 }
 
@@ -89,6 +127,7 @@ export {
   machine ,
   Start ,
   Listen ,
+  ListenToRecording ,
   make ,
 }
 /* M Not a pure module */
