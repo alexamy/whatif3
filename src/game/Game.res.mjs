@@ -4,15 +4,11 @@ import * as React from "react";
 import * as $$Screen from "./Screen.res.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
 
-function Game(props) {
+function Game$Terminal(props) {
   var match = React.useState(function () {
-        return false;
-      });
-  var setShown = match[1];
-  var match$1 = React.useState(function () {
         return ">";
       });
-  var setInput = match$1[1];
+  var setInput = match[1];
   React.useEffect((function () {
           var intervalId = setInterval((function () {
                   setInput(function (input) {
@@ -27,6 +23,21 @@ function Game(props) {
                     clearInterval(intervalId);
                   });
         }), []);
+  return JsxRuntime.jsx("div", {
+              children: match[0],
+              className: "font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end"
+            });
+}
+
+var Terminal = {
+  make: Game$Terminal
+};
+
+function Game(props) {
+  var match = React.useState(function () {
+        return false;
+      });
+  var setShown = match[1];
   return JsxRuntime.jsxs("div", {
               children: [
                 JsxRuntime.jsx($$Screen.make, {
@@ -42,10 +53,7 @@ function Game(props) {
                             })
                         ]]
                     }),
-                JsxRuntime.jsx("div", {
-                      children: match$1[0],
-                      className: "font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end"
-                    })
+                JsxRuntime.jsx(Game$Terminal, {})
               ],
               className: "flex"
             });
@@ -54,6 +62,7 @@ function Game(props) {
 var make = Game;
 
 export {
+  Terminal ,
   make ,
 }
 /* react Not a pure module */
