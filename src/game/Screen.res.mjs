@@ -3,6 +3,21 @@
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as JsxRuntime from "react/jsx-runtime";
 
+function Screen$Link(props) {
+  var onClick = props.onClick;
+  return JsxRuntime.jsx("a", {
+              children: props.children,
+              href: "#",
+              onClick: (function (param) {
+                  onClick();
+                })
+            });
+}
+
+var Link = {
+  make: Screen$Link
+};
+
 function $$Screen(props) {
   return JsxRuntime.jsxs("div", {
               children: [
@@ -12,14 +27,10 @@ function $$Screen(props) {
                 JsxRuntime.jsx("nav", {
                       children: JsxRuntime.jsx("ul", {
                             children: Belt_Array.mapWithIndex(props.options, (function (i, param) {
-                                    var onClick = param[1];
                                     return JsxRuntime.jsx("li", {
-                                                children: JsxRuntime.jsx("a", {
-                                                      children: param[0],
-                                                      href: "#",
-                                                      onClick: (function (param) {
-                                                          onClick();
-                                                        })
+                                                children: JsxRuntime.jsx(Screen$Link, {
+                                                      onClick: param[1],
+                                                      children: param[0]
                                                     })
                                               }, String(i));
                                   }))
@@ -32,6 +43,7 @@ function $$Screen(props) {
 var make = $$Screen;
 
 export {
+  Link ,
   make ,
 }
 /* react/jsx-runtime Not a pure module */

@@ -1,3 +1,10 @@
+module Link = {
+  @react.component
+  let make = (~onClick: unit => unit, ~children: React.element) => {
+    <a href="#" onClick={_ => onClick()}> {children} </a>
+  }
+}
+
 type nav = (React.element, unit => unit)
 
 @react.component
@@ -9,7 +16,7 @@ let make = (~content: React.element, ~options: array<nav>) => {
         {React.array(
           Array.mapWithIndex(options, (i, (element, onClick)) =>
             <li key={Int.toString(i)}>
-              <a href="#" onClick={_ => onClick()}> {element} </a>
+              <Link onClick={onClick}> {element} </Link>
             </li>
           ),
         )}
