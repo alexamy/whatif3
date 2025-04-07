@@ -35,10 +35,10 @@ module Terminal = {
     let onKeyDown = e => {
       let key = JsxEvent.Keyboard.key(e)
 
-      if key === "Backspace" {
-        setMessage(prev => getAllButLast(prev))
-      } else if String.length(key) === 1 {
-        setMessage(prev => prev ++ key)
+      switch key {
+      | "Backspace" => setMessage(prev => getAllButLast(prev))
+      | _ if String.length(key) === 1 => setMessage(prev => prev ++ key)
+      | _ => ()
       }
     }
 
