@@ -22,6 +22,10 @@ function useTick(ms) {
   return match[0];
 }
 
+function useTerminal(size) {
+  
+}
+
 function getAllButLast(str) {
   return str.slice(0, str.length - 1 | 0);
 }
@@ -33,10 +37,10 @@ function Game$Terminal(props) {
       });
   var setFocused = match[1];
   var match$1 = React.useState(function () {
-        return "333";
+        return "";
       });
   var setMessage = match$1[1];
-  var output = "> " + match$1[0] + (
+  var input = "> " + match$1[0] + (
     tick && match[0] ? "█" : ""
   );
   var onKeyDown = function (e) {
@@ -55,9 +59,9 @@ function Game$Terminal(props) {
   };
   return JsxRuntime.jsx("div", {
               children: JsxRuntime.jsx("div", {
-                    children: output
+                    children: input
                   }),
-              className: "outline-0 font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end text-nowrap",
+              className: "outline-0 whitespace-pre text-nowrap font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end ",
               tabIndex: 0,
               onKeyDown: onKeyDown,
               onFocus: (function (param) {
@@ -79,6 +83,8 @@ function Game$Terminal(props) {
 }
 
 var Terminal = {
+  useTick: useTick,
+  useTerminal: useTerminal,
   getAllButLast: getAllButLast,
   make: Game$Terminal
 };
@@ -112,7 +118,6 @@ function Game(props) {
 var make = Game;
 
 export {
-  useTick ,
   Terminal ,
   make ,
 }

@@ -1,4 +1,5 @@
 module Terminal = {
+  // Returns a boolean that toggles every ms milliseconds
   let useTick = ms => {
     let (tick, setTick) = React.useState(_ => true)
 
@@ -13,7 +14,12 @@ module Terminal = {
     tick
   }
 
-  let useTerminal = () => {}
+  // 36x14
+  type size = {width: int, height: int}
+
+  let useTerminal = size => {
+    size.width->ignore
+  }
 
   let getAllButLast = str => String.slice(str, ~start=0, ~end=String.length(str) - 1)
 
@@ -23,8 +29,8 @@ module Terminal = {
 
     let (focused, setFocused) = React.useState(_ => false)
 
-    let (message, setMessage) = React.useState(_ => "333")
-    let output = `> ${message}${tick && focused ? "█" : ""}`
+    let (message, setMessage) = React.useState(_ => "")
+    let input = `> ${message}${tick && focused ? "█" : ""}`
 
     let onKeyDown = e => {
       let key = JsxEvent.Keyboard.key(e)
@@ -37,13 +43,13 @@ module Terminal = {
     }
 
     <div
-      className="outline-0 font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end text-nowrap"
+      className="outline-0 whitespace-pre text-nowrap font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end "
       tabIndex=0
       onKeyDown
       onClick={_ => setFocused(_ => true)}
       onFocus={_ => setFocused(_ => true)}
       onBlur={_ => setFocused(_ => false)}>
-      <div> {React.string(output)} </div>
+      <div> {React.string(input)} </div>
     </div>
   }
 }
