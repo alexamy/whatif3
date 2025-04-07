@@ -8,6 +8,7 @@ function Game(props) {
   var match = React.useState(function () {
         return false;
       });
+  var setShown = match[1];
   return JsxRuntime.jsx($$Screen.make, {
               content: JsxRuntime.jsxs("p", {
                     children: [
@@ -18,7 +19,9 @@ function Game(props) {
               options: [[
                   "Go back",
                   (function () {
-                      
+                      setShown(function (prev) {
+                            return !prev;
+                          });
                     })
                 ]]
             });
