@@ -21,64 +21,67 @@ module Terminal = {
     tick
   }
 
-  type size = {width: int, height: int} // 36x14
-  type useTerminal = {display: array<string>, addLine: string => unit}
+  // Returns a terminal display with text lines displayed
+  module Display = {
+    type options = {width: int, height: int} // 36x14
+    type t = {display: array<string>, addLine: string => unit}
 
-  // Returns a terminal with text lines displayed
-  let useTerminal = size => {
-    let (lines, setLines) = React.useState(_ => [])
+    let use = options => {
+      let (lines, setLines) = React.useState(_ => [])
 
-    let display = React.useMemo(() => {
-      let start = Array.length(lines) - size.height
-      let offset = start > 0 ? start : 0
+      let display = React.useMemo(() => {
+        let start = Array.length(lines) - options.height
+        let offset = start > 0 ? start : 0
 
-      Array.slice(lines, ~offset, ~len=size.height)
-    }, [lines])
+        Array.slice(lines, ~offset, ~len=options.height)
+      }, [lines])
 
-    let addLine = newLine => setLines(lines => [...lines, newLine])
+      let addLine = newLine => setLines(lines => [...lines, newLine])
 
-    {display, addLine}
+      {display, addLine}
+    }
   }
 
-  type useTerminalInput = {width: int}
-  type useTerminalInputResult = {
-    message: string,
-    input: string,
-    focus: bool => unit,
-    removeLastChar: unit => unit,
-    addChar: string => unit,
-  }
+  module Input = {
+    type options = {width: int}
+    type t = {
+      message: string,
+      input: string,
+      focus: bool => unit,
+      removeChar: unit => unit,
+      addChar: string => unit,
+    }
 
-  let getAllButLast = str => String.slice(str, ~start=0, ~end=String.length(str) - 1)
+    let getAllButLast = str => String.slice(str, ~start=0, ~end=String.length(str) - 1)
 
-  let useTerminalInput = options => {
-    let tick = useTick(400)
-    let (focused, setFocused) = React.useState(_ => false)
+    let use = options => {
+      let tick = useTick(400)
+      let (focused, setFocused) = React.useState(_ => false)
 
-    let (message, setMessage) = React.useState(_ => "")
-    let input = `> ${message}${tick && focused ? "█" : ""}`
+      let (message, setMessage) = React.useState(_ => "")
+      let input = `> ${message}${tick && focused ? "█" : ""}`
 
-    let focus = state => setFocused(_ => state)
-    let removeLastChar = () => setMessage(prev => getAllButLast(prev))
-    let addChar = char =>
-      setMessage(prev => String.length(prev) === options.width ? prev : prev ++ char)
+      let focus = state => setFocused(_ => state)
+      let removeChar = () => setMessage(prev => getAllButLast(prev))
+      let addChar = char =>
+        setMessage(prev => String.length(prev) === options.width ? prev : prev ++ char)
 
-    {message, input, focus, removeLastChar, addChar}
+      {message, input, focus, removeChar, addChar}
+    }
   }
 
   @react.component
   let make = () => {
-    let {display, addLine} = useTerminal({width: 36, height: 14})
-    let {message, input, focus, removeLastChar, addChar} = useTerminalInput({
+    let {display, addLine} = Display.use({width: 36, height: 14})
+    let {message, input, focus, removeChar, addChar} = Input.use({
       width: 36,
     })
 
     let onKeyDown = e => {
       let key = JsxEvent.Keyboard.key(e)
-
       switch key {
-      | "Backspace" => removeLastChar()
-      | "Enter" => addLine(message)
+      | "Enter" => String.length(message) > 0 ? addLine(message) : ()
+      | "Backspace" => removeChar()
       | _ if String.length(key) === 1 => addChar(key)
       | _ => ()
       }

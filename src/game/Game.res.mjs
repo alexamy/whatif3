@@ -29,16 +29,16 @@ function useTick(ms) {
   return match[0];
 }
 
-function useTerminal(size) {
+function use(options) {
   var match = React.useState(function () {
         return [];
       });
   var setLines = match[1];
   var lines = match[0];
   var display = React.useMemo((function () {
-          var start = lines.length - size.height | 0;
+          var start = lines.length - options.height | 0;
           var offset = start > 0 ? start : 0;
-          return Belt_Array.slice(lines, offset, size.height);
+          return Belt_Array.slice(lines, offset, options.height);
         }), [lines]);
   var addLine = function (newLine) {
     setLines(function (lines) {
@@ -54,11 +54,15 @@ function useTerminal(size) {
         };
 }
 
+var Display = {
+  use: use
+};
+
 function getAllButLast(str) {
   return str.slice(0, str.length - 1 | 0);
 }
 
-function useTerminalInput(options) {
+function use$1(options) {
   var tick = useTick(400);
   var match = React.useState(function () {
         return false;
@@ -77,7 +81,7 @@ function useTerminalInput(options) {
           return state;
         });
   };
-  var removeLastChar = function () {
+  var removeChar = function () {
     setMessage(function (prev) {
           return getAllButLast(prev);
         });
@@ -95,31 +99,40 @@ function useTerminalInput(options) {
           message: message,
           input: input,
           focus: focus,
-          removeLastChar: removeLastChar,
+          removeChar: removeChar,
           addChar: addChar
         };
 }
 
+var Input = {
+  getAllButLast: getAllButLast,
+  use: use$1
+};
+
 function Game$Terminal(props) {
-  var match = useTerminal({
+  var match = use({
         width: 36,
         height: 14
       });
   var addLine = match.addLine;
-  var match$1 = useTerminalInput({
+  var match$1 = use$1({
         width: 36
       });
   var addChar = match$1.addChar;
-  var removeLastChar = match$1.removeLastChar;
+  var removeChar = match$1.removeChar;
   var focus = match$1.focus;
   var message = match$1.message;
   var onKeyDown = function (e) {
     var key = e.key;
     switch (key) {
       case "Backspace" :
-          return removeLastChar();
+          return removeChar();
       case "Enter" :
-          return addLine(message);
+          if (message.length > 0) {
+            return addLine(message);
+          } else {
+            return ;
+          }
       default:
         if (key.length === 1) {
           return addChar(key);
@@ -156,9 +169,8 @@ function Game$Terminal(props) {
 
 var Terminal = {
   useTick: useTick,
-  useTerminal: useTerminal,
-  getAllButLast: getAllButLast,
-  useTerminalInput: useTerminalInput,
+  Display: Display,
+  Input: Input,
   make: Game$Terminal
 };
 
