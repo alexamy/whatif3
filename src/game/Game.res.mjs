@@ -9,6 +9,24 @@ function Game(props) {
         return false;
       });
   var setShown = match[1];
+  var match$1 = React.useState(function () {
+        return ">";
+      });
+  var setInput = match$1[1];
+  React.useEffect((function () {
+          var intervalId = setInterval((function () {
+                  setInput(function (input) {
+                        if (input.length === 1) {
+                          return ">|";
+                        } else {
+                          return ">";
+                        }
+                      });
+                }), 400);
+          return (function () {
+                    clearInterval(intervalId);
+                  });
+        }), []);
   return JsxRuntime.jsxs("div", {
               children: [
                 JsxRuntime.jsx($$Screen.make, {
@@ -24,18 +42,9 @@ function Game(props) {
                             })
                         ]]
                     }),
-                JsxRuntime.jsx($$Screen.make, {
-                      content: JsxRuntime.jsx("p", {
-                            children: "You are hearing strange letters: B Y M N."
-                          }),
-                      options: [[
-                          "Go back",
-                          (function () {
-                              setShown(function (prev) {
-                                    return !prev;
-                                  });
-                            })
-                        ]]
+                JsxRuntime.jsx("div", {
+                      children: match$1[0],
+                      className: "font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex items-end"
                     })
               ],
               className: "flex"
