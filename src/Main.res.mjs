@@ -9,7 +9,7 @@ function Main$App(props) {
   return JsxRuntime.jsx("div", {
               children: JsxRuntime.jsx("div", {
                     children: props.children,
-                    className: "prose prose-slate dark:prose-invert mx-auto"
+                    className: "mx-auto"
                   }),
               className: "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100"
             });

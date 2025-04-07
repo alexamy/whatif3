@@ -1,2 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+.prosy {
+  @apply prose prose-slate dark:prose-invert;
+}
