@@ -73,9 +73,8 @@ function use$1(options) {
       });
   var setMessage = match$1[1];
   var message = match$1[0];
-  var input = "> " + message + (
-    tick && match[0] ? "█" : ""
-  );
+  var beam = tick && match[0] ? "█" : "";
+  var input = "> " + message + beam;
   var focus = function (state) {
     setFocused(function (param) {
           return state;

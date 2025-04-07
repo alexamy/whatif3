@@ -59,7 +59,8 @@ module Terminal = {
       let (focused, setFocused) = React.useState(_ => false)
 
       let (message, setMessage) = React.useState(_ => "")
-      let input = `> ${message}${tick && focused ? "█" : ""}`
+      let beam = tick && focused ? "█" : ""
+      let input = `> ${message}${beam}`
 
       let focus = state => setFocused(_ => state)
       let removeChar = () => setMessage(prev => getAllButLast(prev))
