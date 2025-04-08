@@ -48,11 +48,11 @@ module Terminal = {
 
       let scroll = direction => {
         switch direction {
-        | Down => setVerticalOffset(prev => Js.Math.max_int(prev - 1, 0))
+        | Down => setVerticalOffset(prev => Math.Int.max(prev - 1, 0))
         | Up => {
             let start = Array.length(lines) - options.height
             let limit = Js.Math.max_int(0, start)
-            setVerticalOffset(prev => Js.Math.min_int(prev + 1, limit))
+            setVerticalOffset(prev => Math.Int.min(prev + 1, limit))
           }
         }
       }
