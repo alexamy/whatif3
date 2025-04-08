@@ -34,28 +34,7 @@ function useTick(ms) {
 
 function useDisplay(options) {
   var match = React.useState(function () {
-        return [
-                "1",
-                "2",
-                "3",
-                "4",
-                "5",
-                "6",
-                "7",
-                "8",
-                "9",
-                "10",
-                "11",
-                "12",
-                "13",
-                "14",
-                "15",
-                "16",
-                "17",
-                "18",
-                "19",
-                "20"
-              ];
+        return [];
       });
   var setLines = match[1];
   var lines = match[0];
@@ -86,17 +65,17 @@ function useDisplay(options) {
           return [];
         });
   };
-  useLog(verticalOffset);
   var scroll = function (direction) {
-    if (direction === "Up") {
-      return setVerticalOffset(function (prev) {
-                  return Math.min(prev + 1 | 0, Math.max(0, lines.length - options.height | 0));
-                });
-    } else {
+    if (direction !== "Up") {
       return setVerticalOffset(function (prev) {
                   return Math.max(prev - 1 | 0, 0);
                 });
     }
+    var start = lines.length - options.height | 0;
+    var limit = Math.max(0, start);
+    setVerticalOffset(function (prev) {
+          return Math.min(prev + 1 | 0, limit);
+        });
   };
   return {
           display: display,

@@ -33,28 +33,7 @@ module Terminal = {
     }
 
     let useDisplay = options => {
-      let (lines, setLines) = React.useState(_ => [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10",
-        "11",
-        "12",
-        "13",
-        "14",
-        "15",
-        "16",
-        "17",
-        "18",
-        "19",
-        "20",
-      ])
+      let (lines, setLines) = React.useState(_ => [])
       let (verticalOffset, setVerticalOffset) = React.useState(_ => 0)
 
       let display = React.useMemo(() => {
@@ -67,15 +46,14 @@ module Terminal = {
       let echo = newLine => setLines(lines => [...lines, newLine])
       let clear = () => setLines(_ => [])
 
-      useLog(verticalOffset)
-
       let scroll = direction => {
         switch direction {
         | Down => setVerticalOffset(prev => Js.Math.max_int(prev - 1, 0))
-        | Up =>
-          setVerticalOffset(prev =>
-            Js.Math.min_int(prev + 1, Js.Math.max_int(0, Array.length(lines) - options.height))
-          )
+        | Up => {
+            let start = Array.length(lines) - options.height
+            let limit = Js.Math.max_int(0, start)
+            setVerticalOffset(prev => Js.Math.min_int(prev + 1, limit))
+          }
         }
       }
 
