@@ -107,12 +107,18 @@ function useInput(options) {
           }
         });
   };
+  var clear = function () {
+    setMessage(function (param) {
+          return "";
+        });
+  };
   return {
           message: message,
           input: input,
           focus: focus,
           removeChar: removeChar,
-          addChar: addChar
+          addChar: addChar,
+          clear: clear
         };
 }
 
@@ -131,24 +137,29 @@ function Game$Terminal(props) {
   var match$1 = useInput({
         width: 36
       });
+  var clearInput = match$1.clear;
   var addChar = match$1.addChar;
   var removeChar = match$1.removeChar;
   var focus = match$1.focus;
   var message = match$1.message;
+  var processMessage = function (text) {
+    var message = text.trim();
+    if (message === "clear") {
+      return clear();
+    } else if (message.length > 0) {
+      return echo(message);
+    } else {
+      return ;
+    }
+  };
   var onKeyDown = function (e) {
     var key = e.key;
     switch (key) {
       case "Backspace" :
           return removeChar();
       case "Enter" :
-          var message$1 = message.trim();
-          if (message$1 === "clear") {
-            return clear();
-          } else if (message$1.length > 0) {
-            return echo(message$1);
-          } else {
-            return ;
-          }
+          processMessage(message);
+          return clearInput();
       default:
         if (key.length === 1) {
           return addChar(key);
@@ -164,10 +175,7 @@ function Game$Terminal(props) {
         }));
   return JsxRuntime.jsxs("div", {
               children: [
-                JsxRuntime.jsx("div", {
-                      children: lines,
-                      className: "overflow-y-auto"
-                    }),
+                lines,
                 JsxRuntime.jsx("div", {
                       children: match$1.input
                     })

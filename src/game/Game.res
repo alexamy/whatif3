@@ -51,6 +51,7 @@ module Terminal = {
       focus: bool => unit,
       removeChar: unit => unit,
       addChar: string => unit,
+      clear: unit => unit,
     }
 
     let getAllButLast = str => String.slice(str, ~start=0, ~end=String.length(str) - 1)
@@ -70,16 +71,21 @@ module Terminal = {
         setMessage(prev => isAllWidth ? prev : prev ++ char)
       }
 
-      {message, input, focus, removeChar, addChar}
+      let clear = () => setMessage(_ => "")
+
+      {message, input, focus, removeChar, addChar, clear}
     }
   }
 
   @react.component
   let make = () => {
     let {display, echo, clear} = Display.useDisplay({width: 36, height: 14})
-    let {message, input, focus, removeChar, addChar} = Input.useInput({
+    let {message, input, focus, removeChar, addChar, clear: clearInput} = Input.useInput({
       width: 36,
     })
+
+    // TODO: scroll by arrow keys
+    // TODO: use just object no destructing for input and terminal
 
     let processMessage = text => {
       switch String.trim(text) {
@@ -91,7 +97,10 @@ module Terminal = {
 
     let onKeyDown = e => {
       switch JsxEvent.Keyboard.key(e) {
-      | "Enter" => processMessage(message)
+      | "Enter" => {
+          processMessage(message)
+          clearInput()
+        }
       | "Backspace" => removeChar()
       | key if String.length(key) === 1 => addChar(key)
       | _ => ()
@@ -111,7 +120,7 @@ module Terminal = {
       onClick={_ => focus(true)}
       onFocus={_ => focus(true)}
       onBlur={_ => focus(false)}>
-      <div className="overflow-y-auto"> {lines} </div>
+      {lines}
       <div> {React.string(input)} </div>
     </div>
   }
