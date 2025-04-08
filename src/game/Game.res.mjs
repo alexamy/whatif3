@@ -96,10 +96,6 @@ var Display = {
   useDisplay: useDisplay
 };
 
-function getAllButLast(str) {
-  return str.slice(0, str.length - 1 | 0);
-}
-
 function useInput(options) {
   var tick = useTick(400);
   var match = React.useState(function () {
@@ -113,43 +109,43 @@ function useInput(options) {
   var message = match$1[0];
   var beam = tick && match[0] ? "█" : "";
   var input = "> " + message + beam;
-  var focus = function (state) {
-    setFocused(function (param) {
-          return state;
-        });
-  };
-  var removeChar = function () {
-    setMessage(function (prev) {
-          return getAllButLast(prev);
-        });
-  };
-  var addChar = function ($$char) {
-    var isAllWidth = message.length === options.width;
-    setMessage(function (prev) {
-          if (isAllWidth) {
-            return prev;
-          } else {
-            return prev + $$char;
-          }
-        });
-  };
-  var clear = function () {
-    setMessage(function (param) {
-          return "";
-        });
+  var run = function (command) {
+    if (typeof command !== "object") {
+      if (command === "Clear") {
+        return setMessage(function (param) {
+                    return "";
+                  });
+      }
+      var allButLast = message.slice(0, message.length - 1 | 0);
+      return setMessage(function (param) {
+                  return allButLast;
+                });
+    } else {
+      if (command.TAG === "Focus") {
+        var state = command._0;
+        return setFocused(function (param) {
+                    return state;
+                  });
+      }
+      var $$char = command._0;
+      var isAllWidth = message.length === options.width;
+      return setMessage(function (prev) {
+                  if (isAllWidth) {
+                    return prev;
+                  } else {
+                    return prev + $$char;
+                  }
+                });
+    }
   };
   return {
           message: message,
           input: input,
-          focus: focus,
-          removeChar: removeChar,
-          addChar: addChar,
-          clear: clear
+          run: run
         };
 }
 
 var Input = {
-  getAllButLast: getAllButLast,
   useInput: useInput
 };
 
@@ -163,10 +159,7 @@ function Game$Terminal(props) {
   var match$1 = useInput({
         width: 36
       });
-  var clearInput = match$1.clear;
-  var addChar = match$1.addChar;
-  var removeChar = match$1.removeChar;
-  var focus = match$1.focus;
+  var run = match$1.run;
   var message = match$1.message;
   var processMessage = function (text) {
     var message = text.trim();
@@ -189,14 +182,17 @@ function Game$Terminal(props) {
       case "ArrowUp" :
           return viewport("Up");
       case "Backspace" :
-          return removeChar();
+          return run("RemoveChar");
       case "Enter" :
           processMessage(message);
           viewport("Reset");
-          return clearInput();
+          return run("Clear");
       default:
         if (key.length === 1) {
-          return addChar(key);
+          return run({
+                      TAG: "AddChar",
+                      _0: key
+                    });
         } else {
           return ;
         }
@@ -218,13 +214,22 @@ function Game$Terminal(props) {
               tabIndex: 0,
               onKeyDown: onKeyDown,
               onFocus: (function (param) {
-                  focus(true);
+                  run({
+                        TAG: "Focus",
+                        _0: true
+                      });
                 }),
               onBlur: (function (param) {
-                  focus(false);
+                  run({
+                        TAG: "Focus",
+                        _0: false
+                      });
                 }),
               onClick: (function (param) {
-                  focus(true);
+                  run({
+                        TAG: "Focus",
+                        _0: true
+                      });
                 })
             });
 }

@@ -71,16 +71,17 @@ module Terminal = {
 
   module Input = {
     type options = {width: int}
+    type command =
+      | Focus(bool)
+      | Clear
+      | RemoveChar
+      | AddChar(string)
+
     type t = {
       message: string,
       input: string,
-      focus: bool => unit,
-      removeChar: unit => unit,
-      addChar: string => unit,
-      clear: unit => unit,
+      run: command => unit,
     }
-
-    let getAllButLast = str => String.slice(str, ~start=0, ~end=String.length(str) - 1)
 
     let useInput = options => {
       let tick = useTick(400)
@@ -90,23 +91,29 @@ module Terminal = {
       let beam = tick && focused ? "█" : ""
       let input = `> ${message}${beam}`
 
-      let focus = state => setFocused(_ => state)
-      let removeChar = () => setMessage(prev => getAllButLast(prev))
-      let addChar = char => {
-        let isAllWidth = String.length(message) === options.width
-        setMessage(prev => isAllWidth ? prev : prev ++ char)
+      let run = command => {
+        switch command {
+        | Focus(state) => setFocused(_ => state)
+        | Clear => setMessage(_ => "")
+        | RemoveChar => {
+            let allButLast = String.slice(message, ~start=0, ~end=String.length(message) - 1)
+            setMessage(_ => allButLast)
+          }
+        | AddChar(char) => {
+            let isAllWidth = String.length(message) === options.width
+            setMessage(prev => isAllWidth ? prev : prev ++ char)
+          }
+        }
       }
 
-      let clear = () => setMessage(_ => "")
-
-      {message, input, focus, removeChar, addChar, clear}
+      {message, input, run}
     }
   }
 
   @react.component
   let make = () => {
     let {display, screen, viewport} = Display.useDisplay({width: 36, height: 14})
-    let {message, input, focus, removeChar, addChar, clear: clearInput} = Input.useInput({
+    let {message, input, run} = Input.useInput({
       width: 36,
     })
 
@@ -123,12 +130,12 @@ module Terminal = {
       | "Enter" => {
           processMessage(message)
           viewport(Reset)
-          clearInput()
+          run(Clear)
         }
-      | "Backspace" => removeChar()
+      | "Backspace" => run(RemoveChar)
       | "ArrowUp" => viewport(Up)
       | "ArrowDown" => viewport(Down)
-      | key if String.length(key) === 1 => addChar(key)
+      | key if String.length(key) === 1 => run(AddChar(key))
       | _ => ()
       }
     }
@@ -143,9 +150,9 @@ module Terminal = {
       className="monospace outline-0 whitespace-pre text-nowrap bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end"
       tabIndex=0
       onKeyDown
-      onClick={_ => focus(true)}
-      onFocus={_ => focus(true)}
-      onBlur={_ => focus(false)}>
+      onClick={_ => run(Focus(true))}
+      onFocus={_ => run(Focus(true))}
+      onBlur={_ => run(Focus(false))}>
       {lines}
       <div> {React.string(input)} </div>
     </div>
