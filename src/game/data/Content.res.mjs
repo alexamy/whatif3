@@ -5,7 +5,7 @@ var screens = [
   {
     place: "Room",
     computer: "Watch",
-    description: "Вы стоите посреди комнаты.",
+    description: "Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок.",
     options: [
       [
         "Подойти к столу",
@@ -24,7 +24,7 @@ var screens = [
   {
     place: "Table",
     computer: "Watch",
-    description: "Вы стоите у стола.",
+    description: "Вы стоите у стола. На столе в беспорядке лежат заметки, ручки, бумажки и прочие предметы.",
     options: [[
         "Вернуться",
         "Room"
@@ -33,7 +33,7 @@ var screens = [
   {
     place: "Window",
     computer: "Watch",
-    description: "Вы стоите у окна.",
+    description: "Вы стоите у окна. За окном - улица, на которой виднеются машины и люди.",
     options: [[
         "Вернуться",
         "Room"
@@ -42,7 +42,7 @@ var screens = [
   {
     place: "Door",
     computer: "Door",
-    description: "Вы стоите у двери.",
+    description: "Вы стоите у двери. На двери надпись: 'Выход', а также электронный код-замок. Дверь заперта.",
     options: [[
         "Вернуться",
         "Room"
