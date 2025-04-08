@@ -41,7 +41,29 @@ function useDisplay(options) {
   var display = React.useMemo((function () {
           var start = lines.length - options.height | 0;
           var offset = start > 0 ? start : 0;
-          return Belt_Array.slice(lines, offset, options.height);
+          Belt_Array.slice(lines, offset, options.height);
+          return [
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a",
+                  "sdsfs asdfas a"
+                ];
         }), [
         lines,
         options.height
@@ -154,12 +176,15 @@ function Game$Terminal(props) {
         }));
   return JsxRuntime.jsxs("div", {
               children: [
-                lines,
+                JsxRuntime.jsx("div", {
+                      children: lines,
+                      className: "overflow-y-scroll"
+                    }),
                 JsxRuntime.jsx("div", {
                       children: match$1.input
                     })
               ],
-              className: "outline-0 whitespace-pre text-nowrap font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end ",
+              className: "outline-0 whitespace-pre text-nowrap font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end",
               tabIndex: 0,
               onKeyDown: onKeyDown,
               onFocus: (function (param) {

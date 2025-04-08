@@ -33,7 +33,29 @@ module Terminal = {
         let start = Array.length(lines) - options.height
         let offset = start > 0 ? start : 0
 
-        Array.slice(lines, ~offset, ~len=options.height)
+        Array.slice(lines, ~offset, ~len=options.height)->ignore
+        [
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+          "sdsfs asdfas a",
+        ]
       }, (lines, options.height))
 
       let addLine = newLine => setLines(lines => [...lines, newLine])
@@ -96,13 +118,13 @@ module Terminal = {
     )
 
     <div
-      className="outline-0 whitespace-pre text-nowrap font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end "
+      className="outline-0 whitespace-pre text-nowrap font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end"
       tabIndex=0
       onKeyDown
       onClick={_ => focus(true)}
       onFocus={_ => focus(true)}
       onBlur={_ => focus(false)}>
-      {lines}
+      <div className="overflow-y-scroll"> {lines} </div>
       <div> {React.string(input)} </div>
     </div>
   }
