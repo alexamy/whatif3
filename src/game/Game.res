@@ -18,8 +18,8 @@ let make = () => {
   ))
 
   let computer = switch data.computer {
-  | Watch => <Terminal />
-  | Door => <Terminal />
+  | Watch => <Terminal color=Blue />
+  | Door => <Terminal color=Red />
   }
 
   <div className="flex gap-4 justify-center">

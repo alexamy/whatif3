@@ -38,7 +38,13 @@ function Game(props) {
                     })
                 ];
         }));
-  var computer = JsxRuntime.jsx(Terminal.make, {});
+  var match$1 = data.computer;
+  var computer;
+  computer = match$1 === "Door" ? JsxRuntime.jsx(Terminal.make, {
+          color: "Red"
+        }) : JsxRuntime.jsx(Terminal.make, {
+          color: "Blue"
+        });
   return JsxRuntime.jsxs("div", {
               children: [
                 JsxRuntime.jsx($$Screen.make, {
