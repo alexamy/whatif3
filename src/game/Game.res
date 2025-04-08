@@ -116,7 +116,8 @@ module Terminal = {
       width: 36,
     })
 
-    let (messageClass, setMessageClass) = React.useState(_ => "bg-emerald-700 text-white")
+    // bg-emerald-700 text-white
+    let (messageClass, _) = React.useState(_ => "")
 
     let processMessage = text => {
       switch String.trim(text) {
@@ -136,10 +137,7 @@ module Terminal = {
       | "Backspace" => run(RemoveChar)
       | "ArrowUp" => viewport(Up)
       | "ArrowDown" => viewport(Down)
-      | key if String.length(key) === 1 => {
-          run(AddChar(key))
-          let msg = `${message}${key}`
-        }
+      | key if String.length(key) === 1 => run(AddChar(key))
       | _ => ()
       }
     }

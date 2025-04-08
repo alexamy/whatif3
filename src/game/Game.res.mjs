@@ -161,7 +161,7 @@ function Game$Terminal(props) {
   var run = match$1.run;
   var message = match$1.message;
   var match$2 = React.useState(function () {
-        return "bg-emerald-700 text-white";
+        return "";
       });
   var processMessage = function (text) {
     var message = text.trim();
@@ -191,11 +191,10 @@ function Game$Terminal(props) {
           return run("Clear");
       default:
         if (key.length === 1) {
-          run({
-                TAG: "AddChar",
-                _0: key
-              });
-          return ;
+          return run({
+                      TAG: "AddChar",
+                      _0: key
+                    });
         } else {
           return ;
         }
