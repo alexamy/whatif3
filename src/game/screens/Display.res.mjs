@@ -7,26 +7,26 @@ function useDisplay(options) {
   var match = React.useState(function () {
         return [];
       });
-  var setLines = match[1];
-  var lines = match[0];
+  var setOutput = match[1];
+  var output = match[0];
   var match$1 = React.useState(function () {
         return 0;
       });
   var setVerticalOffset = match$1[1];
   var verticalOffset = match$1[0];
   var display = React.useMemo((function () {
-          var start = (lines.length - options.height | 0) - verticalOffset | 0;
+          var start = (output.length - options.height | 0) - verticalOffset | 0;
           var offset = start > 0 ? start : 0;
-          return Belt_Array.slice(lines, offset, options.height);
+          return Belt_Array.slice(output, offset, options.height);
         }), [
-        lines,
+        output,
         options.height,
         verticalOffset
       ]);
   var viewport = function (direction) {
     switch (direction) {
       case "Up" :
-          var start = lines.length - options.height | 0;
+          var start = output.length - options.height | 0;
           var limit = Math.max(0, start);
           return setVerticalOffset(function (prev) {
                       return Math.min(prev + 1 | 0, limit);
@@ -44,12 +44,12 @@ function useDisplay(options) {
   };
   var screen = function (command) {
     if (typeof command !== "object") {
-      return setLines(function (param) {
+      return setOutput(function (param) {
                   return [];
                 });
     }
     var line = command._0;
-    setLines(function (lines) {
+    setOutput(function (lines) {
           return Belt_Array.concatMany([
                       lines,
                       [line]
