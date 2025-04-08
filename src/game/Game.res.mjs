@@ -41,29 +41,7 @@ function useDisplay(options) {
   var display = React.useMemo((function () {
           var start = lines.length - options.height | 0;
           var offset = start > 0 ? start : 0;
-          Belt_Array.slice(lines, offset, options.height);
-          return [
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a",
-                  "sdsfs asdfas a"
-                ];
+          return Belt_Array.slice(lines, offset, options.height);
         }), [
         lines,
         options.height
@@ -76,9 +54,15 @@ function useDisplay(options) {
                     ]);
         });
   };
+  var clear = function () {
+    setLines(function (param) {
+          return [];
+        });
+  };
   return {
           display: display,
-          addLine: addLine
+          addLine: addLine,
+          clear: clear
         };
 }
 
@@ -142,6 +126,7 @@ function Game$Terminal(props) {
         width: 36,
         height: 14
       });
+  var clear = match.clear;
   var addLine = match.addLine;
   var match$1 = useInput({
         width: 36
@@ -156,8 +141,11 @@ function Game$Terminal(props) {
       case "Backspace" :
           return removeChar();
       case "Enter" :
-          if (message.length > 0) {
-            return addLine(message);
+          var command = message.trim();
+          if (command === "clear") {
+            return clear();
+          } else if (command.length > 0) {
+            return addLine(command);
           } else {
             return ;
           }
@@ -178,7 +166,7 @@ function Game$Terminal(props) {
               children: [
                 JsxRuntime.jsx("div", {
                       children: lines,
-                      className: "overflow-y-scroll"
+                      className: "overflow-y-auto"
                     }),
                 JsxRuntime.jsx("div", {
                       children: match$1.input

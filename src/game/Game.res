@@ -24,7 +24,7 @@ module Terminal = {
   // Returns a terminal display with text lines displayed
   module Display = {
     type options = {width: int, height: int} // 36x14
-    type t = {display: array<string>, addLine: string => unit}
+    type t = {display: array<string>, addLine: string => unit, clear: unit => unit}
 
     let useDisplay = options => {
       let (lines, setLines) = React.useState(_ => [])
@@ -33,34 +33,13 @@ module Terminal = {
         let start = Array.length(lines) - options.height
         let offset = start > 0 ? start : 0
 
-        Array.slice(lines, ~offset, ~len=options.height)->ignore
-        [
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-          "sdsfs asdfas a",
-        ]
+        Array.slice(lines, ~offset, ~len=options.height)
       }, (lines, options.height))
 
       let addLine = newLine => setLines(lines => [...lines, newLine])
+      let clear = () => setLines(_ => [])
 
-      {display, addLine}
+      {display, addLine, clear}
     }
   }
 
@@ -97,14 +76,22 @@ module Terminal = {
 
   @react.component
   let make = () => {
-    let {display, addLine} = Display.useDisplay({width: 36, height: 14})
+    let {display, addLine, clear} = Display.useDisplay({width: 36, height: 14})
     let {message, input, focus, removeChar, addChar} = Input.useInput({
       width: 36,
     })
 
+    let processMessage = message => {
+      switch String.trim(message) {
+      | "clear" => clear()
+      | command if String.length(command) > 0 => addLine(command)
+      | _ => ()
+      }
+    }
+
     let onKeyDown = e => {
       switch JsxEvent.Keyboard.key(e) {
-      | "Enter" => String.length(message) > 0 ? addLine(message) : ()
+      | "Enter" => processMessage(message)
       | "Backspace" => removeChar()
       | key if String.length(key) === 1 => addChar(key)
       | _ => ()
@@ -124,7 +111,7 @@ module Terminal = {
       onClick={_ => focus(true)}
       onFocus={_ => focus(true)}
       onBlur={_ => focus(false)}>
-      <div className="overflow-y-scroll"> {lines} </div>
+      <div className="overflow-y-auto"> {lines} </div>
       <div> {React.string(input)} </div>
     </div>
   }
