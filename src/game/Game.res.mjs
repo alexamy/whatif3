@@ -108,7 +108,6 @@ function useInput(options) {
   var setMessage = match$1[1];
   var message = match$1[0];
   var beam = tick && match[0] ? "█" : "";
-  var input = "> " + message + beam;
   var run = function (command) {
     if (typeof command !== "object") {
       if (command === "Clear") {
@@ -140,7 +139,7 @@ function useInput(options) {
   };
   return {
           message: message,
-          input: input,
+          beam: beam,
           run: run
         };
 }
@@ -189,10 +188,11 @@ function Game$Terminal(props) {
           return run("Clear");
       default:
         if (key.length === 1) {
-          return run({
-                      TAG: "AddChar",
-                      _0: key
-                    });
+          run({
+                TAG: "AddChar",
+                _0: key
+              });
+          return ;
         } else {
           return ;
         }
@@ -207,7 +207,7 @@ function Game$Terminal(props) {
               children: [
                 lines,
                 JsxRuntime.jsx("div", {
-                      children: match$1.input
+                      children: "> " + message + match$1.beam
                     })
               ],
               className: "monospace outline-0 whitespace-pre text-nowrap bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end",

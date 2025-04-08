@@ -79,7 +79,7 @@ module Terminal = {
 
     type t = {
       message: string,
-      input: string,
+      beam: string,
       run: command => unit,
     }
 
@@ -89,7 +89,6 @@ module Terminal = {
 
       let (message, setMessage) = React.useState(_ => "")
       let beam = tick && focused ? "█" : ""
-      let input = `> ${message}${beam}`
 
       let run = command => {
         switch command {
@@ -106,14 +105,14 @@ module Terminal = {
         }
       }
 
-      {message, input, run}
+      {message, beam, run}
     }
   }
 
   @react.component
   let make = () => {
     let {display, screen, viewport} = Display.useDisplay({width: 36, height: 14})
-    let {message, input, run} = Input.useInput({
+    let {message, beam, run} = Input.useInput({
       width: 36,
     })
 
@@ -135,7 +134,10 @@ module Terminal = {
       | "Backspace" => run(RemoveChar)
       | "ArrowUp" => viewport(Up)
       | "ArrowDown" => viewport(Down)
-      | key if String.length(key) === 1 => run(AddChar(key))
+      | key if String.length(key) === 1 => {
+          run(AddChar(key))
+          let msg = `${message}${key}`
+        }
       | _ => ()
       }
     }
@@ -154,7 +156,7 @@ module Terminal = {
       onFocus={_ => run(Focus(true))}
       onBlur={_ => run(Focus(false))}>
       {lines}
-      <div> {React.string(input)} </div>
+      <div> {React.string("> " ++ message ++ beam)} </div>
     </div>
   }
 }
