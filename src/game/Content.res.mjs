@@ -4,6 +4,7 @@
 var screens = [
   {
     place: "Room",
+    computer: undefined,
     description: "Вы стоите посреди комнаты.",
     options: [
       "Подойти к столу",
@@ -13,6 +14,7 @@ var screens = [
   },
   {
     place: "Table",
+    computer: undefined,
     description: "Вы стоите у стола.",
     options: [
       "Подойти к окну",
@@ -21,6 +23,7 @@ var screens = [
   },
   {
     place: "Window",
+    computer: undefined,
     description: "Вы стоите у окна.",
     options: [
       "Подойти к столу",
@@ -29,6 +32,7 @@ var screens = [
   },
   {
     place: "Door",
+    computer: "Door",
     description: "Вы стоите у двери.",
     options: [
       "Подойти к столу",
