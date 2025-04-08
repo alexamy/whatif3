@@ -4,7 +4,7 @@
 var screens = [
   {
     place: "Room",
-    computer: undefined,
+    computer: "Watch",
     description: "Вы стоите посреди комнаты.",
     options: [
       [
@@ -23,7 +23,7 @@ var screens = [
   },
   {
     place: "Table",
-    computer: undefined,
+    computer: "Watch",
     description: "Вы стоите у стола.",
     options: [[
         "Вернуться",
@@ -32,7 +32,7 @@ var screens = [
   },
   {
     place: "Window",
-    computer: undefined,
+    computer: "Watch",
     description: "Вы стоите у окна.",
     options: [[
         "Вернуться",

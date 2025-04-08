@@ -4,11 +4,11 @@ type place =
   | Window
   | Door
 
-type computer = Door
+type computer = Door | Watch
 
 type screen = {
   place: place,
-  computer: option<computer>,
+  computer: computer,
   description: string,
   options: array<(string, place)>,
 }
@@ -16,7 +16,7 @@ type screen = {
 let screens = [
   {
     place: Room,
-    computer: None,
+    computer: Watch,
     description: "Вы стоите посреди комнаты.",
     options: [
       ("Подойти к столу", Table),
@@ -26,19 +26,19 @@ let screens = [
   },
   {
     place: Table,
-    computer: None,
+    computer: Watch,
     description: "Вы стоите у стола.",
     options: [("Вернуться", Room)],
   },
   {
     place: Window,
-    computer: None,
+    computer: Watch,
     description: "Вы стоите у окна.",
     options: [("Вернуться", Room)],
   },
   {
     place: Door,
-    computer: Some(Door),
+    computer: Door,
     description: "Вы стоите у двери.",
     options: [("Вернуться", Room)],
   },
