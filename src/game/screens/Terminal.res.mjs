@@ -16,6 +16,7 @@ function Terminal(props) {
   var match$1 = Input.useInput({
         width: 36
       });
+  var focus = match$1.focus;
   var input = match$1.input;
   var message = match$1.message;
   var match$2 = React.useState(function () {
@@ -93,22 +94,13 @@ function Terminal(props) {
               tabIndex: 0,
               onKeyDown: onKeyDown,
               onFocus: (function (param) {
-                  input({
-                        TAG: "Focus",
-                        _0: true
-                      });
+                  focus(true);
                 }),
               onBlur: (function (param) {
-                  input({
-                        TAG: "Focus",
-                        _0: false
-                      });
+                  focus(false);
                 }),
               onClick: (function (param) {
-                  input({
-                        TAG: "Focus",
-                        _0: true
-                      });
+                  focus(true);
                 })
             });
 }

@@ -35,6 +35,11 @@ function useInput(options) {
   var setMessage = match$1[1];
   var message = match$1[0];
   var beam = tick && match[0] ? "█" : "";
+  var focus = function (state) {
+    setFocused(function (param) {
+          return state;
+        });
+  };
   var input = function (command) {
     if (typeof command !== "object") {
       if (command === "Clear") {
@@ -47,12 +52,6 @@ function useInput(options) {
                   return allButLast;
                 });
     } else {
-      if (command.TAG === "Focus") {
-        var state = command._0;
-        return setFocused(function (param) {
-                    return state;
-                  });
-      }
       var $$char = command._0;
       var isAllWidth = message.length === options.width;
       return setMessage(function (prev) {
@@ -67,7 +66,8 @@ function useInput(options) {
   return {
           message: message,
           beam: beam,
-          input: input
+          input: input,
+          focus: focus
         };
 }
 
