@@ -23,23 +23,40 @@ module Terminal = {
 
   // Returns a terminal display with text lines displayed
   module Display = {
+    type direction = Up | Down
     type options = {width: int, height: int} // 36x14
-    type t = {display: array<string>, echo: string => unit, clear: unit => unit}
+    type t = {
+      display: array<string>,
+      echo: string => unit,
+      clear: unit => unit,
+      scroll: direction => unit,
+    }
 
     let useDisplay = options => {
       let (lines, setLines) = React.useState(_ => [])
+      let (verticalOffset, setVerticalOffset) = React.useState(_ => 0)
 
       let display = React.useMemo(() => {
-        let start = Array.length(lines) - options.height
+        let start = Array.length(lines) - options.height + verticalOffset
         let offset = start > 0 ? start : 0
 
         Array.slice(lines, ~offset, ~len=options.height)
-      }, (lines, options.height))
+      }, (lines, options.height, verticalOffset))
 
       let echo = newLine => setLines(lines => [...lines, newLine])
       let clear = () => setLines(_ => [])
 
-      {display, echo, clear}
+      useLog(verticalOffset)
+
+      let scroll = direction => {
+        switch direction {
+        | Up => setVerticalOffset(prev => Js.Math.max_int(prev - 1, 0))
+        | Down =>
+          setVerticalOffset(prev => Js.Math.min_int(prev + 1, Array.length(lines) - options.height))
+        }
+      }
+
+      {display, echo, clear, scroll}
     }
   }
 
@@ -79,7 +96,7 @@ module Terminal = {
 
   @react.component
   let make = () => {
-    let {display, echo, clear} = Display.useDisplay({width: 36, height: 14})
+    let {display, echo, clear, scroll} = Display.useDisplay({width: 36, height: 14})
     let {message, input, focus, removeChar, addChar, clear: clearInput} = Input.useInput({
       width: 36,
     })
@@ -102,6 +119,8 @@ module Terminal = {
           clearInput()
         }
       | "Backspace" => removeChar()
+      | "ArrowUp" => scroll(Up)
+      | "ArrowDown" => scroll(Down)
       | key if String.length(key) === 1 => addChar(key)
       | _ => ()
       }

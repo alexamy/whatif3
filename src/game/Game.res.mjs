@@ -38,13 +38,19 @@ function useDisplay(options) {
       });
   var setLines = match[1];
   var lines = match[0];
+  var match$1 = React.useState(function () {
+        return 0;
+      });
+  var setVerticalOffset = match$1[1];
+  var verticalOffset = match$1[0];
   var display = React.useMemo((function () {
-          var start = lines.length - options.height | 0;
+          var start = (lines.length - options.height | 0) + verticalOffset | 0;
           var offset = start > 0 ? start : 0;
           return Belt_Array.slice(lines, offset, options.height);
         }), [
         lines,
-        options.height
+        options.height,
+        verticalOffset
       ]);
   var echo = function (newLine) {
     setLines(function (lines) {
@@ -59,10 +65,23 @@ function useDisplay(options) {
           return [];
         });
   };
+  useLog(verticalOffset);
+  var scroll = function (direction) {
+    if (direction === "Up") {
+      return setVerticalOffset(function (prev) {
+                  return Math.max(prev - 1 | 0, 0);
+                });
+    } else {
+      return setVerticalOffset(function (prev) {
+                  return Math.min(prev + 1 | 0, lines.length - options.height | 0);
+                });
+    }
+  };
   return {
           display: display,
           echo: echo,
-          clear: clear
+          clear: clear,
+          scroll: scroll
         };
 }
 
@@ -132,6 +151,7 @@ function Game$Terminal(props) {
         width: 36,
         height: 14
       });
+  var scroll = match.scroll;
   var clear = match.clear;
   var echo = match.echo;
   var match$1 = useInput({
@@ -155,6 +175,10 @@ function Game$Terminal(props) {
   var onKeyDown = function (e) {
     var key = e.key;
     switch (key) {
+      case "ArrowDown" :
+          return scroll("Down");
+      case "ArrowUp" :
+          return scroll("Up");
       case "Backspace" :
           return removeChar();
       case "Enter" :
