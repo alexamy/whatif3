@@ -38,13 +38,14 @@ function Game(props) {
                     })
                 ];
         }));
+  var computer = JsxRuntime.jsx(Terminal.make, {});
   return JsxRuntime.jsxs("div", {
               children: [
                 JsxRuntime.jsx($$Screen.make, {
                       content: content,
                       options: options
                     }),
-                JsxRuntime.jsx(Terminal.make, {})
+                computer
               ],
               className: "flex gap-4 justify-center"
             });

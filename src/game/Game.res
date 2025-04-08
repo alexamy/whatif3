@@ -17,8 +17,13 @@ let make = () => {
     _ => findNext(place),
   ))
 
+  let computer = switch data.computer {
+  | Watch => <Terminal />
+  | Door => <Terminal />
+  }
+
   <div className="flex gap-4 justify-center">
     <Screen content options />
-    <Terminal />
+    {computer}
   </div>
 }
