@@ -10,7 +10,7 @@ type screen = {
   place: place,
   computer: option<computer>,
   description: string,
-  options: array<string>,
+  options: array<(string, place)>,
 }
 
 let screens = [
@@ -19,27 +19,27 @@ let screens = [
     computer: None,
     description: "Вы стоите посреди комнаты.",
     options: [
-      "Подойти к столу",
-      "Подойти к окну",
-      "Подойти к двери",
+      ("Подойти к столу", Table),
+      ("Подойти к окну", Window),
+      ("Подойти к двери", Door),
     ],
   },
   {
     place: Table,
     computer: None,
     description: "Вы стоите у стола.",
-    options: ["Подойти к окну", "Подойти к двери"],
+    options: [("Подойти к окну", Window), ("Подойти к двери", Door)],
   },
   {
     place: Window,
     computer: None,
     description: "Вы стоите у окна.",
-    options: ["Подойти к столу", "Подойти к двери"],
+    options: [("Подойти к столу", Table), ("Подойти к двери", Door)],
   },
   {
     place: Door,
     computer: Some(Door),
     description: "Вы стоите у двери.",
-    options: ["Подойти к столу", "Подойти к окну"],
+    options: [("Подойти к столу", Table), ("Подойти к окну", Window)],
   },
 ]
