@@ -42,7 +42,10 @@ function useDisplay(options) {
           var start = lines.length - options.height | 0;
           var offset = start > 0 ? start : 0;
           return Belt_Array.slice(lines, offset, options.height);
-        }), [lines]);
+        }), [
+        lines,
+        options.height
+      ]);
   var addLine = function (newLine) {
     setLines(function (lines) {
           return Belt_Array.concatMany([

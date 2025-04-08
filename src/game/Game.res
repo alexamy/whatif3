@@ -34,7 +34,7 @@ module Terminal = {
         let offset = start > 0 ? start : 0
 
         Array.slice(lines, ~offset, ~len=options.height)
-      }, [lines])
+      }, (lines, options.height))
 
       let addLine = newLine => setLines(lines => [...lines, newLine])
 
