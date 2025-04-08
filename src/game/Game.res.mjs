@@ -41,9 +41,11 @@ function Game(props) {
   var match$1 = data.computer;
   var computer;
   computer = match$1 === "Door" ? JsxRuntime.jsx(Terminal.make, {
-          color: "Red"
+          color: "Red",
+          header: "Введите код для открытия двери"
         }) : JsxRuntime.jsx(Terminal.make, {
-          color: "Blue"
+          color: "Blue",
+          header: "Умные часы 3000"
         });
   return JsxRuntime.jsxs("div", {
               children: [

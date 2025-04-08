@@ -6,7 +6,6 @@ import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as JsxRuntime from "react/jsx-runtime";
 
 function Terminal(props) {
-  var color = props.color;
   var match = Display.useDisplay({
         width: 36,
         height: 13
@@ -20,9 +19,7 @@ function Terminal(props) {
   var input = match$1.input;
   var message = match$1.message;
   var colorClass;
-  colorClass = color === "Blue" ? "bg-blue-400" : "bg-red-400";
-  var header;
-  header = color === "Blue" ? "Умные часы 3000" : "Введите код для открытия двери";
+  colorClass = props.color === "Blue" ? "bg-blue-400" : "bg-red-400";
   var processMessage = function (text) {
     var message = text.trim();
     if (message === "очистить") {
@@ -68,7 +65,7 @@ function Terminal(props) {
   return JsxRuntime.jsxs("div", {
               children: [
                 JsxRuntime.jsx("div", {
-                      children: header,
+                      children: props.header,
                       className: "text-center"
                     }),
                 JsxRuntime.jsxs("div", {

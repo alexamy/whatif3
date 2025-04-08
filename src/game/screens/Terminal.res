@@ -1,7 +1,7 @@
 type color = Blue | Red
 
 @react.component
-let make = (~color) => {
+let make = (~color, ~header) => {
   let {display, screen, viewport} = Display.useDisplay({width: 36, height: 13})
   let {message, beam, input, focus} = Input.useInput({
     width: 36,
@@ -11,11 +11,6 @@ let make = (~color) => {
   let colorClass = switch color {
   | Blue => "bg-blue-400"
   | Red => "bg-red-400"
-  }
-
-  let header = switch color {
-  | Blue => "Умные часы 3000"
-  | Red => "Введите код для открытия двери"
   }
 
   let processMessage = text => {
