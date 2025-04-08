@@ -35,7 +35,7 @@ function useInput(options) {
   var setMessage = match$1[1];
   var message = match$1[0];
   var beam = tick && match[0] ? "█" : "";
-  var run = function (command) {
+  var input = function (command) {
     if (typeof command !== "object") {
       if (command === "Clear") {
         return setMessage(function (param) {
@@ -67,7 +67,7 @@ function useInput(options) {
   return {
           message: message,
           beam: beam,
-          run: run
+          input: input
         };
 }
 

@@ -8,7 +8,7 @@ type command =
 type t = {
   message: string,
   beam: string,
-  run: command => unit,
+  input: command => unit,
 }
 
 // Returns a boolean that toggles every ms milliseconds
@@ -33,7 +33,7 @@ let useInput = options => {
   let (message, setMessage) = React.useState(_ => "")
   let beam = tick && focused ? "█" : ""
 
-  let run = command => {
+  let input = command => {
     switch command {
     | Focus(state) => setFocused(_ => state)
     | Clear => setMessage(_ => "")
@@ -48,5 +48,5 @@ let useInput = options => {
     }
   }
 
-  {message, beam, run}
+  {message, beam, input}
 }

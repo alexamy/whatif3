@@ -17,7 +17,7 @@ function Game$Terminal(props) {
   var match$1 = Input.useInput({
         width: 36
       });
-  var run = match$1.run;
+  var input = match$1.input;
   var message = match$1.message;
   var match$2 = React.useState(function () {
         return "";
@@ -43,14 +43,14 @@ function Game$Terminal(props) {
       case "ArrowUp" :
           return viewport("Up");
       case "Backspace" :
-          return run("RemoveChar");
+          return input("RemoveChar");
       case "Enter" :
           processMessage(message);
           viewport("Reset");
-          return run("Clear");
+          return input("Clear");
       default:
         if (key.length === 1) {
-          return run({
+          return input({
                       TAG: "AddChar",
                       _0: key
                     });
@@ -82,19 +82,19 @@ function Game$Terminal(props) {
               tabIndex: 0,
               onKeyDown: onKeyDown,
               onFocus: (function (param) {
-                  run({
+                  input({
                         TAG: "Focus",
                         _0: true
                       });
                 }),
               onBlur: (function (param) {
-                  run({
+                  input({
                         TAG: "Focus",
                         _0: false
                       });
                 }),
               onClick: (function (param) {
-                  run({
+                  input({
                         TAG: "Focus",
                         _0: true
                       });

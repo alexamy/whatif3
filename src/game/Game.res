@@ -2,7 +2,7 @@ module Terminal = {
   @react.component
   let make = () => {
     let {display, screen, viewport} = Display.useDisplay({width: 36, height: 14})
-    let {message, beam, run} = Input.useInput({
+    let {message, beam, input} = Input.useInput({
       width: 36,
     })
 
@@ -22,12 +22,12 @@ module Terminal = {
       | "Enter" => {
           processMessage(message)
           viewport(Reset)
-          run(Clear)
+          input(Clear)
         }
-      | "Backspace" => run(RemoveChar)
+      | "Backspace" => input(RemoveChar)
       | "ArrowUp" => viewport(Up)
       | "ArrowDown" => viewport(Down)
-      | key if String.length(key) === 1 => run(AddChar(key))
+      | key if String.length(key) === 1 => input(AddChar(key))
       | _ => ()
       }
     }
@@ -42,9 +42,9 @@ module Terminal = {
       className="monospace screen-w screen-h outline-0 whitespace-pre text-nowrap bg-blue-400 text-gray-800 p-2 flex flex-col justify-end"
       tabIndex=0
       onKeyDown
-      onClick={_ => run(Focus(true))}
-      onFocus={_ => run(Focus(true))}
-      onBlur={_ => run(Focus(false))}>
+      onClick={_ => input(Focus(true))}
+      onFocus={_ => input(Focus(true))}
+      onBlur={_ => input(Focus(false))}>
       {lines}
       <div>
         {React.string("> ")}
