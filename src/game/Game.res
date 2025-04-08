@@ -2,7 +2,7 @@ let useLog = msg => {
   React.useEffect(() => {
     Console.log(msg)
     None
-  }, [])
+  }, [msg])
 }
 
 module Terminal = {
@@ -16,7 +16,7 @@ module Terminal = {
       }, ms)
 
       Some(_ => Js.Global.clearInterval(intervalId))
-    }, [])
+    }, [ms])
 
     tick
   }
