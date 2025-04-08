@@ -3,8 +3,10 @@
 import * as Input from "./screens/Input.res.mjs";
 import * as React from "react";
 import * as $$Screen from "./Screen.res.mjs";
+import * as Content from "./data/Content.res.mjs";
 import * as Display from "./screens/Display.res.mjs";
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
+import * as Core__Error from "@rescript/core/src/Core__Error.res.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
 
 function Game$Terminal(props) {
@@ -108,23 +110,39 @@ var Terminal = {
 
 function Game(props) {
   var match = React.useState(function () {
-        return false;
+        return 0;
       });
-  var setShown = match[1];
+  var setCurrent = match[1];
+  var current = match[0];
+  var data = React.useMemo((function () {
+          return Belt_Array.get(Content.screens, current);
+        }), [current]);
+  var content = JsxRuntime.jsx("p", {
+        children: data.description
+      });
+  var options = Belt_Array.map(data.options, (function (param) {
+          var place = param[1];
+          return [
+                  param[0],
+                  (function () {
+                      var index = Belt_Array.getIndexBy(Content.screens, (function (screen) {
+                              return screen.place === place;
+                            }));
+                      if (index !== undefined) {
+                        return setCurrent(function (param) {
+                                    return index;
+                                  });
+                      } else {
+                        return Core__Error.panic("No next screen found");
+                      }
+                    })
+                ];
+        }));
   return JsxRuntime.jsxs("div", {
               children: [
                 JsxRuntime.jsx($$Screen.make, {
-                      content: JsxRuntime.jsx("p", {
-                            children: "You are hearing strange letters: B Y M N."
-                          }),
-                      options: [[
-                          "Go back",
-                          (function () {
-                              setShown(function (prev) {
-                                    return !prev;
-                                  });
-                            })
-                        ]]
+                      content: content,
+                      options: options
                     }),
                 JsxRuntime.jsx(Game$Terminal, {})
               ],

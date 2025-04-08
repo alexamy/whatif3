@@ -57,13 +57,25 @@ module Terminal = {
 
 @react.component
 let make = () => {
-  let (_shown, setShown) = React.useState(_ => false)
+  let (current, setCurrent) = React.useState(_ => 0)
+  let data = React.useMemo(() => Content.screens[current]->Option.getUnsafe, [current])
+
+  let findNext = place => {
+    let index = Array.getIndexBy(Content.screens, screen => screen.place === place)
+    switch index {
+    | Some(index) => setCurrent(_ => index)
+    | None => Error.panic("No next screen found")
+    }
+  }
+
+  let content = <p> {React.string(data.description)} </p>
+  let options = Array.map(data.options, ((option, place)) => (
+    React.string(option),
+    _ => findNext(place),
+  ))
 
   <div className="flex gap-4 justify-center">
-    <Screen
-      content={<p> {React.string("You are hearing strange letters: B Y M N.")} </p>}
-      options={[(React.string("Go back"), _ => setShown(prev => !prev))]}
-    />
+    <Screen content options />
     <Terminal />
   </div>
 }
