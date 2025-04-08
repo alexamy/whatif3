@@ -167,7 +167,7 @@ module Terminal = {
 
 @react.component
 let make = () => {
-  let (shown, setShown) = React.useState(_ => false)
+  let (_shown, setShown) = React.useState(_ => false)
 
   <div className="flex gap-4 justify-center">
     <Screen
