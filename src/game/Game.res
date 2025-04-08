@@ -23,13 +23,16 @@ module Terminal = {
 
   // Returns a terminal display with text lines displayed
   module Display = {
-    type direction = Up | Down | Reset
     type options = {width: int, height: int} // 36x14
+    type direction = Up | Down | Reset
+    type command =
+      | Clear
+      | Echo(string)
+
     type t = {
       display: array<string>,
-      echo: string => unit,
-      clear: unit => unit,
-      scroll: direction => unit,
+      screen: command => unit,
+      viewport: direction => unit,
     }
 
     let useDisplay = options => {
@@ -43,10 +46,7 @@ module Terminal = {
         Array.slice(lines, ~offset, ~len=options.height)
       }, (lines, options.height, verticalOffset))
 
-      let echo = newLine => setLines(lines => [...lines, newLine])
-      let clear = () => setLines(_ => [])
-
-      let scroll = direction => {
+      let viewport = direction => {
         switch direction {
         | Reset => setVerticalOffset(_ => 0)
         | Down => setVerticalOffset(prev => Math.Int.max(prev - 1, 0))
@@ -58,7 +58,14 @@ module Terminal = {
         }
       }
 
-      {display, echo, clear, scroll}
+      let screen = command => {
+        switch command {
+        | Clear => setLines(_ => [])
+        | Echo(line) => setLines(lines => [...lines, line])
+        }
+      }
+
+      {display, screen, viewport}
     }
   }
 
@@ -98,18 +105,15 @@ module Terminal = {
 
   @react.component
   let make = () => {
-    let {display, echo, clear, scroll} = Display.useDisplay({width: 36, height: 14})
+    let {display, screen, viewport} = Display.useDisplay({width: 36, height: 14})
     let {message, input, focus, removeChar, addChar, clear: clearInput} = Input.useInput({
       width: 36,
     })
 
-    // TODO: scroll by arrow keys
-    // TODO: use just object no destructing for input and terminal
-
     let processMessage = text => {
       switch String.trim(text) {
-      | "clear" => clear()
-      | message if String.length(message) > 0 => echo(message)
+      | "clear" => screen(Clear)
+      | message if String.length(message) > 0 => screen(Echo(message))
       | _ => ()
       }
     }
@@ -118,12 +122,12 @@ module Terminal = {
       switch JsxEvent.Keyboard.key(e) {
       | "Enter" => {
           processMessage(message)
-          scroll(Reset)
+          viewport(Reset)
           clearInput()
         }
       | "Backspace" => removeChar()
-      | "ArrowUp" => scroll(Up)
-      | "ArrowDown" => scroll(Down)
+      | "ArrowUp" => viewport(Up)
+      | "ArrowDown" => viewport(Down)
       | key if String.length(key) === 1 => addChar(key)
       | _ => ()
       }

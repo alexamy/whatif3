@@ -52,20 +52,7 @@ function useDisplay(options) {
         options.height,
         verticalOffset
       ]);
-  var echo = function (newLine) {
-    setLines(function (lines) {
-          return Belt_Array.concatMany([
-                      lines,
-                      [newLine]
-                    ]);
-        });
-  };
-  var clear = function () {
-    setLines(function (param) {
-          return [];
-        });
-  };
-  var scroll = function (direction) {
+  var viewport = function (direction) {
     switch (direction) {
       case "Up" :
           var start = lines.length - options.height | 0;
@@ -84,11 +71,24 @@ function useDisplay(options) {
       
     }
   };
+  var screen = function (command) {
+    if (typeof command !== "object") {
+      return setLines(function (param) {
+                  return [];
+                });
+    }
+    var line = command._0;
+    setLines(function (lines) {
+          return Belt_Array.concatMany([
+                      lines,
+                      [line]
+                    ]);
+        });
+  };
   return {
           display: display,
-          echo: echo,
-          clear: clear,
-          scroll: scroll
+          screen: screen,
+          viewport: viewport
         };
 }
 
@@ -158,9 +158,8 @@ function Game$Terminal(props) {
         width: 36,
         height: 14
       });
-  var scroll = match.scroll;
-  var clear = match.clear;
-  var echo = match.echo;
+  var viewport = match.viewport;
+  var screen = match.screen;
   var match$1 = useInput({
         width: 36
       });
@@ -172,9 +171,12 @@ function Game$Terminal(props) {
   var processMessage = function (text) {
     var message = text.trim();
     if (message === "clear") {
-      return clear();
+      return screen("Clear");
     } else if (message.length > 0) {
-      return echo(message);
+      return screen({
+                  TAG: "Echo",
+                  _0: message
+                });
     } else {
       return ;
     }
@@ -183,14 +185,14 @@ function Game$Terminal(props) {
     var key = e.key;
     switch (key) {
       case "ArrowDown" :
-          return scroll("Down");
+          return viewport("Down");
       case "ArrowUp" :
-          return scroll("Up");
+          return viewport("Up");
       case "Backspace" :
           return removeChar();
       case "Enter" :
           processMessage(message);
-          scroll("Reset");
+          viewport("Reset");
           return clearInput();
       default:
         if (key.length === 1) {
