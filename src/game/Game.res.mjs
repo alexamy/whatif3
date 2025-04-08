@@ -219,7 +219,7 @@ function Game$Terminal(props) {
                       ]
                     })
               ],
-              className: "monospace outline-0 whitespace-pre text-nowrap bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end",
+              className: "monospace screen-w screen-h outline-0 whitespace-pre text-nowrap bg-blue-400 text-gray-800 p-2 flex flex-col justify-end",
               tabIndex: 0,
               onKeyDown: onKeyDown,
               onFocus: (function (param) {
@@ -272,7 +272,7 @@ function Game(props) {
                     }),
                 JsxRuntime.jsx(Game$Terminal, {})
               ],
-              className: "flex"
+              className: "flex gap-4 justify-center"
             });
 }
 

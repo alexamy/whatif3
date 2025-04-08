@@ -37,7 +37,7 @@ function $$Screen(props) {
                           })
                     })
               ],
-              className: "prosy py-0"
+              className: "prosy screen-w py-0"
             });
 }
 

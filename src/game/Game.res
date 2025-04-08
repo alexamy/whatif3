@@ -149,7 +149,7 @@ module Terminal = {
     )
 
     <div
-      className="monospace outline-0 whitespace-pre text-nowrap bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end"
+      className="monospace screen-w screen-h outline-0 whitespace-pre text-nowrap bg-blue-400 text-gray-800 p-2 flex flex-col justify-end"
       tabIndex=0
       onKeyDown
       onClick={_ => run(Focus(true))}
@@ -169,7 +169,7 @@ module Terminal = {
 let make = () => {
   let (shown, setShown) = React.useState(_ => false)
 
-  <div className="flex">
+  <div className="flex gap-4 justify-center">
     <Screen
       content={<p> {React.string("You are hearing strange letters: B Y M N.")} </p>}
       options={[(React.string("Go back"), _ => setShown(prev => !prev))]}

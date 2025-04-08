@@ -13,3 +13,11 @@
   font-weight: 400;
   font-style: normal;
 }
+
+.screen-w {
+  @apply w-96 min-w-96 max-w-96;
+}
+
+.screen-h {
+  @apply h-96 min-h-96 max-h-96;
+}
