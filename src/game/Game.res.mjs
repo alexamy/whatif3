@@ -46,7 +46,7 @@ function useDisplay(options) {
         lines,
         options.height
       ]);
-  var addLine = function (newLine) {
+  var echo = function (newLine) {
     setLines(function (lines) {
           return Belt_Array.concatMany([
                       lines,
@@ -61,7 +61,7 @@ function useDisplay(options) {
   };
   return {
           display: display,
-          addLine: addLine,
+          echo: echo,
           clear: clear
         };
 }
@@ -127,7 +127,7 @@ function Game$Terminal(props) {
         height: 14
       });
   var clear = match.clear;
-  var addLine = match.addLine;
+  var echo = match.echo;
   var match$1 = useInput({
         width: 36
       });
@@ -141,11 +141,11 @@ function Game$Terminal(props) {
       case "Backspace" :
           return removeChar();
       case "Enter" :
-          var command = message.trim();
-          if (command === "clear") {
+          var message$1 = message.trim();
+          if (message$1 === "clear") {
             return clear();
-          } else if (command.length > 0) {
-            return addLine(command);
+          } else if (message$1.length > 0) {
+            return echo(message$1);
           } else {
             return ;
           }

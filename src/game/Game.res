@@ -24,7 +24,7 @@ module Terminal = {
   // Returns a terminal display with text lines displayed
   module Display = {
     type options = {width: int, height: int} // 36x14
-    type t = {display: array<string>, addLine: string => unit, clear: unit => unit}
+    type t = {display: array<string>, echo: string => unit, clear: unit => unit}
 
     let useDisplay = options => {
       let (lines, setLines) = React.useState(_ => [])
@@ -36,10 +36,10 @@ module Terminal = {
         Array.slice(lines, ~offset, ~len=options.height)
       }, (lines, options.height))
 
-      let addLine = newLine => setLines(lines => [...lines, newLine])
+      let echo = newLine => setLines(lines => [...lines, newLine])
       let clear = () => setLines(_ => [])
 
-      {display, addLine, clear}
+      {display, echo, clear}
     }
   }
 
@@ -76,15 +76,15 @@ module Terminal = {
 
   @react.component
   let make = () => {
-    let {display, addLine, clear} = Display.useDisplay({width: 36, height: 14})
+    let {display, echo, clear} = Display.useDisplay({width: 36, height: 14})
     let {message, input, focus, removeChar, addChar} = Input.useInput({
       width: 36,
     })
 
-    let processMessage = message => {
-      switch String.trim(message) {
+    let processMessage = text => {
+      switch String.trim(text) {
       | "clear" => clear()
-      | command if String.length(command) > 0 => addLine(command)
+      | message if String.length(message) > 0 => echo(message)
       | _ => ()
       }
     }
