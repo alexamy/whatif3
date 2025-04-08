@@ -23,7 +23,7 @@ module Terminal = {
 
   // Returns a terminal display with text lines displayed
   module Display = {
-    type direction = Up | Down
+    type direction = Up | Down | Reset
     type options = {width: int, height: int} // 36x14
     type t = {
       display: array<string>,
@@ -48,6 +48,7 @@ module Terminal = {
 
       let scroll = direction => {
         switch direction {
+        | Reset => setVerticalOffset(_ => 0)
         | Down => setVerticalOffset(prev => Math.Int.max(prev - 1, 0))
         | Up => {
             let start = Array.length(lines) - options.height
@@ -117,6 +118,7 @@ module Terminal = {
       switch JsxEvent.Keyboard.key(e) {
       | "Enter" => {
           processMessage(message)
+          scroll(Reset)
           clearInput()
         }
       | "Backspace" => removeChar()

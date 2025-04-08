@@ -66,16 +66,23 @@ function useDisplay(options) {
         });
   };
   var scroll = function (direction) {
-    if (direction !== "Up") {
-      return setVerticalOffset(function (prev) {
-                  return Math.max(prev - 1 | 0, 0);
-                });
+    switch (direction) {
+      case "Up" :
+          var start = lines.length - options.height | 0;
+          var limit = Math.max(0, start);
+          return setVerticalOffset(function (prev) {
+                      return Math.min(prev + 1 | 0, limit);
+                    });
+      case "Down" :
+          return setVerticalOffset(function (prev) {
+                      return Math.max(prev - 1 | 0, 0);
+                    });
+      case "Reset" :
+          return setVerticalOffset(function (param) {
+                      return 0;
+                    });
+      
     }
-    var start = lines.length - options.height | 0;
-    var limit = Math.max(0, start);
-    setVerticalOffset(function (prev) {
-          return Math.min(prev + 1 | 0, limit);
-        });
   };
   return {
           display: display,
@@ -183,6 +190,7 @@ function Game$Terminal(props) {
           return removeChar();
       case "Enter" :
           processMessage(message);
+          scroll("Reset");
           return clearInput();
       default:
         if (key.length === 1) {
