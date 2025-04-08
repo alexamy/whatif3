@@ -12,7 +12,7 @@ import * as JsxRuntime from "react/jsx-runtime";
 function Game$Terminal(props) {
   var match = Display.useDisplay({
         width: 36,
-        height: 14
+        height: 13
       });
   var viewport = match.viewport;
   var screen = match.screen;
@@ -26,7 +26,7 @@ function Game$Terminal(props) {
       });
   var processMessage = function (text) {
     var message = text.trim();
-    if (message === "clear") {
+    if (message === "очистить") {
       return screen("Clear");
     } else if (message.length > 0) {
       return screen({
@@ -68,19 +68,31 @@ function Game$Terminal(props) {
         }));
   return JsxRuntime.jsxs("div", {
               children: [
-                lines,
+                JsxRuntime.jsx("div", {
+                      children: "Умные часы 3000",
+                      className: "text-center"
+                    }),
                 JsxRuntime.jsxs("div", {
                       children: [
-                        "> ",
-                        JsxRuntime.jsx("span", {
-                              children: message,
-                              className: match$2[0]
+                        JsxRuntime.jsx("div", {
+                              children: lines,
+                              className: "flex flex-col grow"
                             }),
-                        match$1.beam
-                      ]
+                        JsxRuntime.jsxs("div", {
+                              children: [
+                                "> ",
+                                JsxRuntime.jsx("span", {
+                                      children: message,
+                                      className: match$2[0]
+                                    }),
+                                match$1.beam
+                              ]
+                            })
+                      ],
+                      className: "flex flex-col"
                     })
               ],
-              className: "monospace screen-w screen-h outline-0 whitespace-pre text-nowrap bg-blue-400 text-gray-800 p-2 flex flex-col justify-end",
+              className: "monospace screen-w screen-h outline-0 whitespace-pre text-nowrap bg-blue-400 text-gray-800 p-2 flex flex-col justify-between",
               tabIndex: 0,
               onKeyDown: onKeyDown,
               onFocus: (function (param) {
