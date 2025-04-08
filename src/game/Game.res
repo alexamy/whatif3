@@ -116,6 +116,8 @@ module Terminal = {
       width: 36,
     })
 
+    let (messageClass, setMessageClass) = React.useState(_ => "bg-emerald-700 text-white")
+
     let processMessage = text => {
       switch String.trim(text) {
       | "clear" => screen(Clear)
@@ -156,7 +158,11 @@ module Terminal = {
       onFocus={_ => run(Focus(true))}
       onBlur={_ => run(Focus(false))}>
       {lines}
-      <div> {React.string("> " ++ message ++ beam)} </div>
+      <div>
+        {React.string("> ")}
+        <span className={messageClass}> {React.string(message)} </span>
+        {React.string(beam)}
+      </div>
     </div>
   }
 }

@@ -160,6 +160,9 @@ function Game$Terminal(props) {
       });
   var run = match$1.run;
   var message = match$1.message;
+  var match$2 = React.useState(function () {
+        return "bg-emerald-700 text-white";
+      });
   var processMessage = function (text) {
     var message = text.trim();
     if (message === "clear") {
@@ -206,8 +209,15 @@ function Game$Terminal(props) {
   return JsxRuntime.jsxs("div", {
               children: [
                 lines,
-                JsxRuntime.jsx("div", {
-                      children: "> " + message + match$1.beam
+                JsxRuntime.jsxs("div", {
+                      children: [
+                        "> ",
+                        JsxRuntime.jsx("span", {
+                              children: message,
+                              className: match$2[0]
+                            }),
+                        match$1.beam
+                      ]
                     })
               ],
               className: "monospace outline-0 whitespace-pre text-nowrap bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end",
