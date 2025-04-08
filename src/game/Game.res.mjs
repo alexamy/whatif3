@@ -180,7 +180,7 @@ function Game$Terminal(props) {
                       children: match$1.input
                     })
               ],
-              className: "outline-0 whitespace-pre text-nowrap font-mono bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end",
+              className: "monospace outline-0 whitespace-pre text-nowrap bg-blue-400 text-gray-800 w-96 h-96 p-2 mx-2 flex flex-col justify-end",
               tabIndex: 0,
               onKeyDown: onKeyDown,
               onFocus: (function (param) {
