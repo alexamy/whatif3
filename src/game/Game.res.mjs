@@ -8,7 +8,7 @@ import * as JsxRuntime from "react/jsx-runtime";
 function useLog(msg) {
   React.useEffect((function () {
           console.log(msg);
-        }), []);
+        }), [msg]);
 }
 
 function useTick(ms) {
@@ -25,11 +25,14 @@ function useTick(ms) {
           return (function () {
                     clearInterval(intervalId);
                   });
-        }), []);
+        }), [
+        ms,
+        setTick
+      ]);
   return match[0];
 }
 
-function use(options) {
+function useDisplay(options) {
   var match = React.useState(function () {
         return [];
       });
@@ -55,14 +58,14 @@ function use(options) {
 }
 
 var Display = {
-  use: use
+  useDisplay: useDisplay
 };
 
 function getAllButLast(str) {
   return str.slice(0, str.length - 1 | 0);
 }
 
-function use$1(options) {
+function useInput(options) {
   var tick = useTick(400);
   var match = React.useState(function () {
         return false;
@@ -106,16 +109,16 @@ function use$1(options) {
 
 var Input = {
   getAllButLast: getAllButLast,
-  use: use$1
+  useInput: useInput
 };
 
 function Game$Terminal(props) {
-  var match = use({
+  var match = useDisplay({
         width: 36,
         height: 14
       });
   var addLine = match.addLine;
-  var match$1 = use$1({
+  var match$1 = useInput({
         width: 36
       });
   var addChar = match$1.addChar;

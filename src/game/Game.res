@@ -16,7 +16,7 @@ module Terminal = {
       }, ms)
 
       Some(_ => Js.Global.clearInterval(intervalId))
-    }, [ms])
+    }, (ms, setTick))
 
     tick
   }
@@ -26,7 +26,7 @@ module Terminal = {
     type options = {width: int, height: int} // 36x14
     type t = {display: array<string>, addLine: string => unit}
 
-    let use = options => {
+    let useDisplay = options => {
       let (lines, setLines) = React.useState(_ => [])
 
       let display = React.useMemo(() => {
@@ -54,7 +54,7 @@ module Terminal = {
 
     let getAllButLast = str => String.slice(str, ~start=0, ~end=String.length(str) - 1)
 
-    let use = options => {
+    let useInput = options => {
       let tick = useTick(400)
       let (focused, setFocused) = React.useState(_ => false)
 
@@ -75,8 +75,8 @@ module Terminal = {
 
   @react.component
   let make = () => {
-    let {display, addLine} = Display.use({width: 36, height: 14})
-    let {message, input, focus, removeChar, addChar} = Input.use({
+    let {display, addLine} = Display.useDisplay({width: 36, height: 14})
+    let {message, input, focus, removeChar, addChar} = Input.useInput({
       width: 36,
     })
 
