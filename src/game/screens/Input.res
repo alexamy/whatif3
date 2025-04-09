@@ -1,4 +1,5 @@
 type options = {width: int}
+type state = On | Off
 type command =
   | Clear
   | RemoveChar
@@ -8,7 +9,7 @@ type t = {
   message: string,
   beam: string,
   input: command => unit,
-  focus: bool => unit,
+  focus: state => unit,
 }
 
 // Returns a boolean that toggles every ms milliseconds
@@ -33,7 +34,13 @@ let useInput = options => {
   let (message, setMessage) = React.useState(_ => "")
   let beam = tick && focused ? "█" : ""
 
-  let focus = state => setFocused(_ => state)
+  let focus = state => {
+    switch state {
+    | On => setFocused(_ => true)
+    | Off => setFocused(_ => false)
+    }
+  }
+
   let input = command => {
     switch command {
     | Clear => setMessage(_ => "")

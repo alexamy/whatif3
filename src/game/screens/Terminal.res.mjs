@@ -91,13 +91,13 @@ function Terminal(props) {
               tabIndex: 0,
               onKeyDown: onKeyDown,
               onFocus: (function (param) {
-                  focus(true);
+                  focus("On");
                 }),
               onBlur: (function (param) {
-                  focus(false);
+                  focus("Off");
                 }),
               onClick: (function (param) {
-                  focus(true);
+                  focus("On");
                 })
             });
 }

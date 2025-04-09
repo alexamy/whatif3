@@ -36,9 +36,15 @@ function useInput(options) {
   var message = match$1[0];
   var beam = tick && match[0] ? "█" : "";
   var focus = function (state) {
-    setFocused(function (param) {
-          return state;
-        });
+    if (state === "On") {
+      return setFocused(function (param) {
+                  return true;
+                });
+    } else {
+      return setFocused(function (param) {
+                  return false;
+                });
+    }
   };
   var input = function (command) {
     if (typeof command !== "object") {

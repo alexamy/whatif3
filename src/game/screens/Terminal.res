@@ -46,9 +46,9 @@ let make = (~color, ~header) => {
     className={`monospace screen-w screen-h ${colorClass} outline-0 whitespace-pre text-nowrap  text-gray-800 p-2 flex flex-col justify-between`}
     tabIndex=0
     onKeyDown
-    onClick={_ => focus(true)}
-    onFocus={_ => focus(true)}
-    onBlur={_ => focus(false)}>
+    onClick={_ => focus(On)}
+    onFocus={_ => focus(On)}
+    onBlur={_ => focus(Off)}>
     <div className="text-center"> {React.string(header)} </div>
     <div className="flex flex-col">
       <div className="flex flex-col grow"> {lines} </div>
