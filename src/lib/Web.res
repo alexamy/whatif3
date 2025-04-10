@@ -13,15 +13,18 @@ module ClassList = {
   @send external toggleClass: (t, string, bool) => unit = "toggle"
 
   let add = (classList, classes) => {
-    classList->addClass(String.split(classes, " "))
+    let classes = String.split(classes, " ")
+    classList->addClass(classes)
   }
 
   let remove = (classList, classes) => {
-    classList->removeClass(String.split(classes, " "))
+    let classes = String.split(classes, " ")
+    classList->removeClass(classes)
   }
 
   let toggle = (classList, classes, value) => {
-    String.split(classes, " ")->Array.forEach(class => classList->toggleClass(class, value))
+    let classes = String.split(classes, " ")
+    Array.forEach(classes, class => classList->toggleClass(class, value))
   }
 }
 

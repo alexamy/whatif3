@@ -6,15 +6,18 @@ import * as Caml_splice_call from "rescript/lib/es6/caml_splice_call.js";
 var $$Node = {};
 
 function add(classList, classes) {
-  Caml_splice_call.spliceObjApply(classList, "add", [classes.split(" ")]);
+  var classes$1 = classes.split(" ");
+  Caml_splice_call.spliceObjApply(classList, "add", [classes$1]);
 }
 
 function remove(classList, classes) {
-  Caml_splice_call.spliceObjApply(classList, "remove", [classes.split(" ")]);
+  var classes$1 = classes.split(" ");
+  Caml_splice_call.spliceObjApply(classList, "remove", [classes$1]);
 }
 
 function toggle(classList, classes, value) {
-  Belt_Array.forEach(classes.split(" "), (function ($$class) {
+  var classes$1 = classes.split(" ");
+  Belt_Array.forEach(classes$1, (function ($$class) {
           classList.toggle($$class, value);
         }));
 }
