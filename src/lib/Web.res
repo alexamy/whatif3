@@ -8,9 +8,9 @@ module Node = {
 module ClassList = {
   type t
   @get external classList: Node.t => t = "classList"
-  @send @variadic external addClass: (t, array<string>) => unit = "add"
-  @send @variadic external removeClass: (t, array<string>) => unit = "remove"
-  @send external toggleClass: (t, string, bool) => unit = "toggle"
+  @send @variadic external add: (t, array<string>) => unit = "add"
+  @send @variadic external remove: (t, array<string>) => unit = "remove"
+  @send external toggle: (t, string, bool) => unit = "toggle"
 }
 
 module Document = {
@@ -48,19 +48,19 @@ module Jq = {
   // classes
   let addClass = (t, classes) => {
     let classes = String.split(classes, " ")
-    t->ClassList.classList->ClassList.addClass(classes)
+    t->ClassList.classList->ClassList.add(classes)
     t
   }
 
   let removeClass = (t, classes) => {
     let classes = String.split(classes, " ")
-    t->ClassList.classList->ClassList.removeClass(classes)
+    t->ClassList.classList->ClassList.remove(classes)
     t
   }
 
   let toggleClass = (t, classes, value) => {
     let classes = String.split(classes, " ")
-    Array.forEach(classes, class => t->ClassList.classList->ClassList.toggleClass(class, value))
+    Array.forEach(classes, class => t->ClassList.classList->ClassList.toggle(class, value))
     t
   }
 }
