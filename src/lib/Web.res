@@ -11,6 +11,18 @@ module ClassList = {
   @send @variadic external addClass: (t, array<string>) => unit = "add"
   @send @variadic external removeClass: (t, array<string>) => unit = "remove"
   @send external toggleClass: (t, string, bool) => unit = "toggle"
+
+  let add = (classList, classes) => {
+    classList->addClass(String.split(classes, " "))
+  }
+
+  let remove = (classList, classes) => {
+    classList->removeClass(String.split(classes, " "))
+  }
+
+  let toggle = (classList, classes, value) => {
+    String.split(classes, " ")->Array.forEach(class => classList->toggleClass(class, value))
+  }
 }
 
 module Document = {

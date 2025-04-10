@@ -11,7 +11,7 @@ open Web
 
 let render = rootElement => {
   let element = Document.document->Document.createElement(#div)
-  element->ClassList.classList->ClassList.addClass(["bg-red-500"])
+  element->ClassList.classList->ClassList.add("bg-red-500 text-blue-600")
   element->Node.textContent("Hello2")
 
   rootElement->Node.appendChild(element)
