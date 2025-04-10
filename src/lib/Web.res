@@ -11,21 +11,6 @@ module ClassList = {
   @send @variadic external addClass: (t, array<string>) => unit = "add"
   @send @variadic external removeClass: (t, array<string>) => unit = "remove"
   @send external toggleClass: (t, string, bool) => unit = "toggle"
-
-  let add = (classList, classes) => {
-    let classes = String.split(classes, " ")
-    classList->addClass(classes)
-  }
-
-  let remove = (classList, classes) => {
-    let classes = String.split(classes, " ")
-    classList->removeClass(classes)
-  }
-
-  let toggle = (classList, classes, value) => {
-    let classes = String.split(classes, " ")
-    Array.forEach(classes, class => classList->toggleClass(class, value))
-  }
 }
 
 module Document = {
@@ -33,4 +18,49 @@ module Document = {
   @val external document: t = "document"
   @send external querySelector: (t, string) => option<Node.t> = "querySelector"
   @send external createElement: (t, [#div | #span | #p]) => Node.t = "createElement"
+}
+
+module Jq = {
+  type t = Node.t
+
+  // creation
+  let make = (tag: [#div | #span | #p]) => {
+    let t = Document.createElement(Document.document, tag)
+    t
+  }
+
+  // manipulation
+  let append = (t, node) => {
+    t->Node.appendChild(node)
+    t
+  }
+
+  let appendTo = (t, node) => {
+    node->Node.appendChild(t)
+    t
+  }
+
+  let text = (t, text) => {
+    t->Node.textContent(text)
+    t
+  }
+
+  // classes
+  let addClass = (t, classes) => {
+    let classes = String.split(classes, " ")
+    t->ClassList.classList->ClassList.addClass(classes)
+    t
+  }
+
+  let removeClass = (t, classes) => {
+    let classes = String.split(classes, " ")
+    t->ClassList.classList->ClassList.removeClass(classes)
+    t
+  }
+
+  let toggleClass = (t, classes, value) => {
+    let classes = String.split(classes, " ")
+    Array.forEach(classes, class => t->ClassList.classList->ClassList.toggleClass(class, value))
+    t
+  }
 }

@@ -5,34 +5,63 @@ import * as Caml_splice_call from "rescript/lib/es6/caml_splice_call.js";
 
 var $$Node = {};
 
-function add(classList, classes) {
-  var classes$1 = classes.split(" ");
-  Caml_splice_call.spliceObjApply(classList, "add", [classes$1]);
-}
-
-function remove(classList, classes) {
-  var classes$1 = classes.split(" ");
-  Caml_splice_call.spliceObjApply(classList, "remove", [classes$1]);
-}
-
-function toggle(classList, classes, value) {
-  var classes$1 = classes.split(" ");
-  Belt_Array.forEach(classes$1, (function ($$class) {
-          classList.toggle($$class, value);
-        }));
-}
-
-var ClassList = {
-  add: add,
-  remove: remove,
-  toggle: toggle
-};
+var ClassList = {};
 
 var $$Document = {};
+
+function make(tag) {
+  return document.createElement(tag);
+}
+
+function append(t, node) {
+  t.appendChild(node);
+  return t;
+}
+
+function appendTo(t, node) {
+  node.appendChild(t);
+  return t;
+}
+
+function text(t, text$1) {
+  t.textContent = text$1;
+  return t;
+}
+
+function addClass(t, classes) {
+  var classes$1 = classes.split(" ");
+  Caml_splice_call.spliceObjApply(t.classList, "add", [classes$1]);
+  return t;
+}
+
+function removeClass(t, classes) {
+  var classes$1 = classes.split(" ");
+  Caml_splice_call.spliceObjApply(t.classList, "remove", [classes$1]);
+  return t;
+}
+
+function toggleClass(t, classes, value) {
+  var classes$1 = classes.split(" ");
+  Belt_Array.forEach(classes$1, (function ($$class) {
+          t.classList.toggle($$class, value);
+        }));
+  return t;
+}
+
+var Jq = {
+  make: make,
+  append: append,
+  appendTo: appendTo,
+  text: text,
+  addClass: addClass,
+  removeClass: removeClass,
+  toggleClass: toggleClass
+};
 
 export {
   $$Node ,
   ClassList ,
   $$Document ,
+  Jq ,
 }
 /* No side effect */
