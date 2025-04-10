@@ -48,10 +48,6 @@ function toggleClass(t, classes, value) {
   return t;
 }
 
-function create(tag, classes) {
-  return addClass(document.createElement(tag), classes);
-}
-
 var Jq = {
   make: make,
   append: append,
@@ -59,8 +55,7 @@ var Jq = {
   text: text,
   addClass: addClass,
   removeClass: removeClass,
-  toggleClass: toggleClass,
-  create: create
+  toggleClass: toggleClass
 };
 
 export {

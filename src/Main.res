@@ -10,7 +10,8 @@ module App = {
 open Web
 
 let render = rootElement => {
-  let element = Jq.create(#div, "bg-red-500 text-blue-600")
+  let element = Jq.make(#div)
+  ->Jq.addClass("bg-red-500 text-blue-600")
   ->Jq.text("Hello")
   ->Jq.appendTo(rootElement)
 }

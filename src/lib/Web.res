@@ -64,9 +64,8 @@ module Jq = {
     Array.forEach(classes, class => t->ClassList.classList->ClassList.toggle(class, value))
     t
   }
-
-  // helpers
-  let create = (tag, classes) => {
-    make(tag)->addClass(classes)
-  }
 }
+
+// "tailwindCSS.experimental.classRegex": [
+//     "addClass\\(\"(.+?)\"\\)"
+// ]
