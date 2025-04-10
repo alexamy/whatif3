@@ -1,17 +1,21 @@
-type document
-type node
-type classList
+module Node = {
+  type t
+  @send external appendChild: (t, t) => unit = "appendChild"
+  @send external insertBefore: (t, t, ~reference: t) => unit = "insertBefore"
+  @set external textContent: (t, string) => unit = "textContent"
+}
 
-@val external document: document = "document"
-@send external querySelector: (document, string) => option<node> = "querySelector"
-@send external createElement: (document, [#div | #span | #p]) => node = "createElement"
+module ClassList = {
+  type t
+  @get external classList: Node.t => t = "classList"
+  @send @variadic external addClass: (t, array<string>) => unit = "add"
+  @send @variadic external removeClass: (t, array<string>) => unit = "remove"
+  @send external toggleClass: (t, string, bool) => unit = "toggle"
+}
 
-@send external appendChild: (node, node) => unit = "appendChild"
-@send external insertBefore: (node, node, ~reference: node) => unit = "insertBefore"
-
-@get external classList: node => classList = "classList"
-@send @variadic external addClass: (classList, array<string>) => unit = "add"
-@send @variadic external removeClass: (classList, array<string>) => unit = "remove"
-@send external toggleClass: (classList, string, bool) => unit = "toggle"
-
-@set external textContent: (node, string) => unit = "textContent"
+module Document = {
+  type t
+  @val external document: t = "document"
+  @send external querySelector: (t, string) => option<Node.t> = "querySelector"
+  @send external createElement: (t, [#div | #span | #p]) => Node.t = "createElement"
+}
