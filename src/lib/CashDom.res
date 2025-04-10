@@ -1,7 +1,7 @@
 type t
 
 @module("cash-dom")
-external createElement: @string [@as("<div>") #Div] => t = "$"
+external createElement: @string [@as("<div>") #div] => t = "$"
 
 @send external dom: t => Dom.element = "get"
 @send external addClass: (t, string) => t = "addClass"
@@ -9,4 +9,20 @@ external createElement: @string [@as("<div>") #Div] => t = "$"
 @send external hide: t => t = "hide"
 @send external show: t => t = "show"
 @send external append: (t, t) => t = "append"
-@send external on: (t, @string [@as("click") #Click]) => t = "on"
+
+type eventHandler
+
+type keydownEvent = {
+  preventDefault: unit => unit,
+  stopPropagation: unit => unit,
+  target: Dom.element,
+  key: string,
+}
+
+@send external on: (t, [#keydown], eventHandler) => t = "on"
+
+external dangerousToEventHandler: ('a => unit) => eventHandler = "%identity"
+
+let onKeyDown = (t, handler: keydownEvent => unit) => {
+  t->on(#keydown, dangerousToEventHandler(handler))
+}

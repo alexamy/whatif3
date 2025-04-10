@@ -20,5 +20,5 @@ switch ReactDOM.querySelector("#root") {
 | None => Error.panic("No root element found!")
 }
 
-let element = CashDom.createElement(#Div)
+let element = CashDom.createElement(#div)
 element->CashDom.addClass("bg-red-500")->ignore
