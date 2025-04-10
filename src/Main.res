@@ -16,6 +16,6 @@ let render = rootElement => {
 }
 
 switch Web.document->Web.querySelector("#root") {
-| Some(rootElement) => render(rootElement)->ignore
+| Some(rootElement) => render(rootElement)
 | None => Error.panic("No root element found!")
 }
