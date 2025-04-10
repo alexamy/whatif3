@@ -17,14 +17,15 @@ module Document = {
   type t
   @val external document: t = "document"
   @send external querySelector: (t, string) => option<Node.t> = "querySelector"
-  @send external createElement: (t, [#div | #span | #p]) => Node.t = "createElement"
+  @send external createElement: (t, string) => Node.t = "createElement"
 }
 
 module Jq = {
   type t = Node.t
+  type tag = [#div | #span | #p]
 
   // creation
-  let make = (tag: [#div | #span | #p]) => {
+  let make = (tag) => {
     let t = Document.createElement(Document.document, tag)
     t
   }
@@ -62,5 +63,10 @@ module Jq = {
     let classes = String.split(classes, " ")
     Array.forEach(classes, class => t->ClassList.classList->ClassList.toggle(class, value))
     t
+  }
+
+  // helpers
+  let create = (tag, classes) => {
+    make(tag)->addClass(classes)
   }
 }
