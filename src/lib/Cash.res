@@ -1,14 +1,18 @@
 type t
 
 @module("cash-dom")
-external createElement: @string [@as("<div>") #div] => t = "$"
+external createElement: @string [@as("<div>") #div] => t = "default"
 
-@send external dom: t => Dom.element = "get"
+@module("cash-dom")
+external wrapElement: Dom.element => t = "default"
+
+@send external text: (t, string) => t = "text"
 @send external addClass: (t, string) => t = "addClass"
 @send external removeClass: (t, string) => t = "removeClass"
 @send external hide: t => t = "hide"
 @send external show: t => t = "show"
 @send external append: (t, t) => t = "append"
+@send external appendTo: (t, t) => t = "appendTo"
 
 type eventHandler
 

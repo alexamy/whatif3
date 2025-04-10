@@ -7,18 +7,14 @@ module App = {
   }
 }
 
-switch ReactDOM.querySelector("#root") {
-| Some(rootElement) => {
-    let root = ReactDOM.Client.createRoot(rootElement)
-    ReactDOM.Client.Root.render(
-      root,
-      <App>
-        <Game />
-      </App>,
-    )
-  }
-| None => Error.panic("No root element found!")
+let render = domElement => {
+  let element = Cash.createElement(#div)->Cash.addClass("bg-red-500")->Cash.text("Hello")
+
+  let root = Cash.wrapElement(domElement)
+  root->Cash.append(element)
 }
 
-let element = CashDom.createElement(#div)
-element->CashDom.addClass("bg-red-500")->ignore
+switch Document.document->Document.querySelector("#root") {
+| Some(rootElement) => render(rootElement)->ignore
+| None => Error.panic("No root element found!")
+}
