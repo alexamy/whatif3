@@ -20,10 +20,7 @@ var App = {
 };
 
 function render(rootElement) {
-  var element = document.createElement("div");
-  Web.ClassList.add(element.classList, "bg-red-500 text-blue-600");
-  element.textContent = "Hello2";
-  rootElement.appendChild(element);
+  Web.Jq.appendTo(Web.Jq.text(Web.Jq.addClass(Web.Jq.make("div"), "bg-red-500 text-blue-600"), "Hello"), rootElement);
 }
 
 var rootElement = document.querySelector("#root");
