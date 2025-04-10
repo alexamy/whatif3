@@ -25,8 +25,8 @@ module Jq = {
   type tag = [#div | #span | #p]
 
   // creation
-  let make = (tag) => {
-    let t = Document.createElement(Document.document, tag)
+  let make = (tag: tag) => {
+    let t = Document.createElement(Document.document, tag:>string)
     t
   }
 
