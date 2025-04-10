@@ -7,14 +7,15 @@ module App = {
   }
 }
 
-let render = domElement => {
-  let element = Cash.createElement(#div)->Cash.addClass("bg-red-500")->Cash.text("Hello")
+let render = rootElement => {
+  let element = Web.document->Web.createElement(#div)
+  element->Web.classList->Web.addClass(["bg-red-500"])
+  element->Web.textContent("Hello2")
 
-  let root = Cash.wrapElement(domElement)
-  root->Cash.append(element)
+  rootElement->Web.appendChild(element)
 }
 
-switch Document.document->Document.querySelector("#root") {
+switch Web.document->Web.querySelector("#root") {
 | Some(rootElement) => render(rootElement)->ignore
 | None => Error.panic("No root element found!")
 }
