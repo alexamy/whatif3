@@ -110,6 +110,13 @@ function onClick(node, handler, options) {
   Web.$$Event.addClickListener(node, handler, options$1);
 }
 
+function strings(strings$1) {
+  var text = Belt_Array.joinWith(strings$1, " ", (function (x) {
+          return x;
+        }));
+  return document.createTextNode(text);
+}
+
 function tree(tag, children, $$class, classes) {
   var element = document.createElement(tag);
   append(element, children);
@@ -154,6 +161,7 @@ export {
   show ,
   hide ,
   onClick ,
+  strings ,
   tree ,
   Dom ,
 }

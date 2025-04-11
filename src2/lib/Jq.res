@@ -100,6 +100,10 @@ let onClick = (Jq(node), handler, ~options: option<Event.options>=?) => {
 }
 
 // helpers
+let strings = strings => {
+  strings->Array.joinWith(" ", x => x)->string
+}
+
 let tree = (tag, children, ~class=?, ~classes=?) => {
   let element = make(tag)
   append(element, children)
