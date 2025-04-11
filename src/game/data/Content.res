@@ -43,7 +43,7 @@ module Switch = {
     content: React.element => React.element,
   }
 
-  let useSwitch = initial => {
+  let useSwitch = (~initial=SwitchBase.Unvisited) => {
     let base = SwitchBase.useSwitch(initial)
     let isVisited = base.state === Visited
 
@@ -72,7 +72,7 @@ module Room = {
 
   @react.component
   let make = (~goTo) => {
-    let note1 = Switch.useSwitch(Unvisited)
+    let note1 = Switch.useSwitch()
 
     let options = Array.map(paths, ((option, place)) => (React.string(option), _ => goTo(place)))
     let content =

@@ -34,7 +34,8 @@ var SwitchBase = {
   useSwitch: useSwitch
 };
 
-function useSwitch$1(initial) {
+function useSwitch$1(initialOpt) {
+  var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
   var base = useSwitch(initial);
   var isVisited = base.state === "Visited";
   var link = function (children) {
@@ -83,7 +84,7 @@ var paths = [
 
 function Content$Room(props) {
   var goTo = props.goTo;
-  var note1 = useSwitch$1("Unvisited");
+  var note1 = useSwitch$1(undefined);
   var options = Belt_Array.map(paths, (function (param) {
           var place = param[1];
           return [
