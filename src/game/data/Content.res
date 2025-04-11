@@ -22,6 +22,8 @@ module Room = {
     ("Подойти к двери", Door),
   ]
 
+  let space = React.string(" ")
+
   @react.component
   let make = (~goTo) => {
     let note1 = Switch.Toggle.useSwitch()
@@ -32,11 +34,9 @@ module Room = {
         {React.string(
           "Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок.",
         )}
+        {space}
         {note1.link(React.string("Читать заметку."))}
-        <br />
-        {note1.content(
-          <p> {React.string("Вы читаете заметку: \"Привет, мир!\"")} </p>,
-        )}
+        {note1.content(<p> {React.string("\"Привет, мир!\"")} </p>)}
       </>
 
     <Screen content options />

@@ -20,6 +20,8 @@ var paths = [
   ]
 ];
 
+var space = " ";
+
 function Content$Room(props) {
   var goTo = props.goTo;
   var note1 = Switch.Toggle.useSwitch(undefined);
@@ -35,10 +37,10 @@ function Content$Room(props) {
   var content = JsxRuntime.jsxs(JsxRuntime.Fragment, {
         children: [
           "Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок.",
+          space,
           note1.link("Читать заметку."),
-          JsxRuntime.jsx("br", {}),
           note1.content(JsxRuntime.jsx("p", {
-                    children: "Вы читаете заметку: \"Привет, мир!\""
+                    children: "\"Привет, мир!\""
                   }))
         ]
       });
@@ -51,6 +53,7 @@ function Content$Room(props) {
 var Room = {
   computer: "Watch",
   paths: paths,
+  space: space,
   make: Content$Room
 };
 
