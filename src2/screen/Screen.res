@@ -6,42 +6,12 @@ type place =
 
 type computer = Door | Watch
 
-module Switch = {
-  type state = Visited | Unvisited
-  type t = {toggle: state => unit}
-
-  let replaceWithText = link => {
-    let text = Jq.getText(link)
-    Jq.replaceWith(link, Jq.string(text))
-  }
-
-  let useSwitch = (~link: Jq.t, ~content: Jq.t, ~initial=Unvisited) => {
-    let state = ref(initial)
-
-    let update = newState => {
-      state := newState
-      switch newState {
-      | Visited => {
-          replaceWithText(link)
-          Jq.show(content)
-        }
-      // add click listener
-      | Unvisited => Jq.hide(content)
-      }
-    }
-
-    update(initial)
-
-    {toggle: update}
-  }
-}
-
 module Room = {
   module Note1 = {
     let link = Jq.tree(#span, [Jq.string("Читать заметку.")])
     let content = Jq.tree(#span, [Jq.string("\"Привет, мир!\"")])
 
-    let note = Switch.useSwitch(~link, ~content)
+    let note = Switch.Toggle.useSwitch(~link, ~content)
     link->Jq.onClick(_ => note.toggle(Visited), ~options={once: true})
   }
 
