@@ -1,4 +1,9 @@
 module App = {
+  let mount = (root: Web.Node.t, children: Jq.t) => {
+    let root = Jq.fromNode(root)
+    Jq.append(root, [children])
+  }
+
   let render = (children: Jq.t) => {
     Jq.tree(
       #div,
@@ -8,14 +13,7 @@ module App = {
   }
 }
 
-open Web
-
-let mount = (root: Node.t, children: Jq.t) => {
-  let root = Jq.fromNode(root)
-  Jq.append(root, [children])
-}
-
-switch Document.document->Document.querySelector("#root") {
-| Some(rootElement) => mount(rootElement, App.render(Screen.Room.render()))
+switch Web.Document.document->Web.Document.querySelector("#root") {
+| Some(rootElement) => App.mount(rootElement, App.render(Screen.Room.render()))
 | None => Error.panic("No root element found!")
 }
