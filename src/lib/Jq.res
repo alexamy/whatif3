@@ -99,15 +99,12 @@ let onClick = (t, handler) => {
 }
 
 // helpers
-let tree = (tag, children, ~class, ~classes=?) => {
+let tree = (tag, children, ~class=?, ~classes=?) => {
   let element = make(tag)
   append(element, children)
 
-  addClass(element, class)
-  switch classes {
-  | Some(classes) => toggleClasses(element, classes)
-  | None => ()
-  }
+  class->Option.map(class => addClass(element, class))->ignore
+  classes->Option.map(classes => toggleClasses(element, classes))->ignore
 
   element
 }

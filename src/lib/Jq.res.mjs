@@ -3,6 +3,7 @@
 import * as Js_exn from "rescript/lib/es6/js_exn.js";
 import * as Js_dict from "rescript/lib/es6/js_dict.js";
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
+import * as Belt_Option from "rescript/lib/es6/belt_Option.js";
 import * as Caml_splice_call from "rescript/lib/es6/caml_splice_call.js";
 
 function normalize(classes) {
@@ -109,10 +110,12 @@ function onClick(t, handler) {
 function tree(tag, children, $$class, classes) {
   var element = document.createElement(tag);
   append(element, children);
-  addClass(element, $$class);
-  if (classes !== undefined) {
-    toggleClasses(element, classes);
-  }
+  Belt_Option.map($$class, (function ($$class) {
+          addClass(element, $$class);
+        }));
+  Belt_Option.map(classes, (function (classes) {
+          toggleClasses(element, classes);
+        }));
   return element;
 }
 
