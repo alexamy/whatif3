@@ -71,8 +71,6 @@ let toggleClass = (t, classes, value) => {
 
 let toggleClasses = (t, classes) => {
   let entries = Js.Dict.entries(classes)
-  Array.forEach(entries, ((class, isEnabled)) =>
-    t->ClassList.classList->ClassList.toggle(class, isEnabled)
-  )
+  Array.forEach(entries, ((class, isEnabled)) => toggleClass(t, class, isEnabled)->ignore)
   t
 }

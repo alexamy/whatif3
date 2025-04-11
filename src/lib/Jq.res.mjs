@@ -83,7 +83,7 @@ function toggleClass(t, classes, value) {
 function toggleClasses(t, classes) {
   var entries = Js_dict.entries(classes);
   Belt_Array.forEach(entries, (function (param) {
-          t.classList.toggle(param[0], param[1]);
+          toggleClass(t, param[0], param[1]);
         }));
   return t;
 }
