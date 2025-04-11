@@ -100,6 +100,21 @@ let toggleClasses = (t, classes) => {
   t
 }
 
+// display
+let show = t => {
+  let Jq(node) = t
+  let style = node->Style.style
+  style["display"] = #block
+  t
+}
+
+let hide = t => {
+  let Jq(node) = t
+  let style = node->Style.style
+  style["display"] = #none
+  t
+}
+
 // primitives
 module Dom = {
   let space = () => string(" ")

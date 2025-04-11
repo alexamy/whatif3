@@ -100,6 +100,18 @@ function toggleClasses(t, classes) {
   return t;
 }
 
+function show(t) {
+  var style = t.style;
+  style.display = "block";
+  return t;
+}
+
+function hide(t) {
+  var style = t.style;
+  style.display = "none";
+  return t;
+}
+
 function space() {
   return document.createTextNode(" ");
 }
@@ -129,6 +141,8 @@ export {
   removeClass ,
   toggleClass ,
   toggleClasses ,
+  show ,
+  hide ,
   Dom ,
 }
 /* No side effect */

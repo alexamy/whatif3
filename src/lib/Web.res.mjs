@@ -3,12 +3,15 @@
 
 var $$Node = {};
 
+var Style = {};
+
 var ClassList = {};
 
 var $$Document = {};
 
 export {
   $$Node ,
+  Style ,
   ClassList ,
   $$Document ,
 }

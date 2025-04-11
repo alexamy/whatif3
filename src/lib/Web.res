@@ -9,6 +9,11 @@ module Node = {
   @send external removeChild: (t, t) => unit = "removeChild"
 }
 
+module Style = {
+  type t = {@set "display": [#inline | #block | #none]}
+  @get external style: Node.t => t = "style"
+}
+
 module ClassList = {
   type t
   @get external classList: Node.t => t = "classList"

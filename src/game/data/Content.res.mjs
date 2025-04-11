@@ -65,12 +65,13 @@ function useSwitch(link, content, initialOpt) {
   };
   var update = function (newState) {
     state.contents = newState;
-    if (newState !== "Visited") {
+    if (newState === "Visited") {
+      var text = Jq.getText(content);
+      Jq.replaceWith(link, Jq.string(text));
+      Jq.show(content);
       return ;
     }
-    var text = Jq.getText(content);
-    Jq.replaceWith(link, Jq.string(text));
-    Jq.remove(content);
+    Jq.hide(content);
   };
   update(initial);
   return {
