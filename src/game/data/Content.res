@@ -79,9 +79,8 @@ module RoomD = {
     let content = Jq.tree(#span, [Jq.string("\"Привет, мир!\"")])
 
     let note = SwitchD.useSwitch(~link, ~content)
+    link->Jq.onClick(_ => note.toggle(Visited), ~options={once: true})
   }
-
-  setTimeout(() => Note1.note.toggle(Visited), 2000)->ignore
 
   let render = () => {
     Jq.tree(

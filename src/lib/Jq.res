@@ -94,8 +94,9 @@ let hide = (Jq(node)) => {
 }
 
 // events
-let onClick = (t, handler) => {
-  %todo("node->Node.addEventListener(\"click\", handler)")
+let onClick = (Jq(node), handler, ~options: option<Event.options>=?) => {
+  let options = Option.getWithDefault(options, {once: false})
+  Event.addClickListener(node, handler, ~options)
 }
 
 // helpers

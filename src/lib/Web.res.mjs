@@ -3,7 +3,13 @@
 
 var $$Node = {};
 
-var $$Event = {};
+function addClickListener(node, handler, options) {
+  node.addEventListener("click", handler, options);
+}
+
+var $$Event = {
+  addClickListener: addClickListener
+};
 
 var Style = {};
 

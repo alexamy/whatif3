@@ -9,7 +9,30 @@ module Node = {
   @send external removeChild: (t, t) => unit = "removeChild"
 }
 
-module Event = {}
+module Event = {
+  type t
+
+  type options = {once: bool}
+
+  // TODO: preventDefault
+  type click = {
+    clientX: int,
+    clientY: int,
+    pageX: int,
+    pageY: int,
+    screenX: int,
+    screenY: int,
+    button: int,
+  }
+
+  external toGenericHandler: ('a => unit) => t = "%identity"
+
+  @send external addEventListener: (Node.t, string, t, options) => unit = "addEventListener"
+
+  let addClickListener = (node, handler: click => unit, ~options) => {
+    addEventListener(node, "click", toGenericHandler(handler), options)
+  }
+}
 
 module Style = {
   type t = {@set "display": [#initial | #inline | #block | #none]}
