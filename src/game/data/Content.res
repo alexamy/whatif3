@@ -43,6 +43,24 @@ module Room = {
   }
 }
 
+module RoomD = {
+  open Web
+
+  let space = Jq.string(" ")
+
+  let render = () => {
+    let view =
+      Jq.make(#div)->Jq.append([
+        Jq.string(
+          "Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок.",
+        ),
+        space,
+        Jq.string("Читать заметку."),
+        Jq.string("\"Привет, мир!\""),
+      ])
+  }
+}
+
 let screens = [
   {
     place: Table,

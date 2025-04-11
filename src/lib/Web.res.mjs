@@ -13,8 +13,14 @@ function make(tag) {
   return document.createElement(tag);
 }
 
-function append(t, node) {
-  t.appendChild(node);
+function string(text) {
+  return document.createTextNode(text);
+}
+
+function append(t, nodes) {
+  Belt_Array.forEach(nodes, (function (node) {
+          t.appendChild(node);
+        }));
   return t;
 }
 
@@ -50,6 +56,7 @@ function toggleClass(t, classes, value) {
 
 var Jq = {
   make: make,
+  string: string,
   append: append,
   appendTo: appendTo,
   text: text,

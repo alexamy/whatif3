@@ -18,6 +18,7 @@ module Document = {
   @val external document: t = "document"
   @send external querySelector: (t, string) => option<Node.t> = "querySelector"
   @send external createElement: (t, string) => Node.t = "createElement"
+  @send external createTextNode: (t, string) => Node.t = "createTextNode"
 }
 
 module Jq = {
@@ -30,9 +31,14 @@ module Jq = {
     t
   }
 
+  let string = text => {
+    let t = Document.createTextNode(Document.document, text)
+    t
+  }
+
   // manipulation
-  let append = (t, node) => {
-    t->Node.appendChild(node)
+  let append = (t, nodes) => {
+    Array.forEach(nodes, node => t->Node.appendChild(node))
     t
   }
 
