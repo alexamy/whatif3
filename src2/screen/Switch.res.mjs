@@ -10,7 +10,8 @@ function make(initialOpt) {
   var content = {
     contents: Jq.Dom.$$null()
   };
-  var update = function (newState) {
+  var update = function (newStateOpt) {
+    var newState = newStateOpt !== undefined ? newStateOpt : initial;
     state.contents = newState;
     if (newState === "Visited") {
       return Jq.show(content.contents);

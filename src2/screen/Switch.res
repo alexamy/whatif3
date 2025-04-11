@@ -1,13 +1,13 @@
 type state = Visited | Unvisited
 
 module Base = {
-  type t = {content: ref<Jq.t>, update: state => unit}
+  type t = {content: ref<Jq.t>, update: (~newState: state=?) => unit}
 
   let make = (~initial=Unvisited) => {
     let state = ref(initial)
     let content = ref(Jq.Dom.null())
 
-    let update = newState => {
+    let update = (~newState=initial) => {
       state := newState
       switch newState {
       | Visited => Jq.show(content.contents)
@@ -32,7 +32,7 @@ module Toggle = {
     let link = ref(Jq.Dom.null())
 
     let rec update = (~newState=initial) => {
-      base.update(newState)
+      base.update(~newState)
       switch newState {
       | Visited => replaceWithText(link.contents)
       | Unvisited =>
