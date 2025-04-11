@@ -13,17 +13,32 @@ type screen = {
   options: array<(string, place)>,
 }
 
+module Switch = {}
+
+module Room = {
+  let computer = Watch
+
+  let paths = [
+    ("Подойти к столу", Table),
+    ("Подойти к окну", Window),
+    ("Подойти к двери", Door),
+  ]
+
+  @react.component
+  let make = (~goTo) => {
+    let options = Array.map(paths, ((option, place)) => (React.string(option), _ => goTo(place)))
+    let content =
+      <>
+        {React.string(
+          "Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок.",
+        )}
+      </>
+
+    <Screen content options />
+  }
+}
+
 let screens = [
-  {
-    place: Room,
-    computer: Watch,
-    description: "Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок.",
-    options: [
-      ("Подойти к столу", Table),
-      ("Подойти к окну", Window),
-      ("Подойти к двери", Door),
-    ],
-  },
   {
     place: Table,
     computer: Watch,
