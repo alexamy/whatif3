@@ -117,7 +117,7 @@ function strings(strings$1) {
   return document.createTextNode(text);
 }
 
-function tree(tag, children, ref, $$class, classes, after) {
+function tree(tag, children, ref, $$class, classes, dependencies) {
   var element = document.createElement(tag);
   append(element, children);
   Belt_Option.map(ref, (function (ref) {
@@ -129,8 +129,8 @@ function tree(tag, children, ref, $$class, classes, after) {
   Belt_Option.map(classes, (function (classes) {
           toggleClasses(element, classes);
         }));
-  Belt_Option.map(after, (function (after) {
-          return after();
+  Belt_Option.map(dependencies, (function (dependencies) {
+          return dependencies();
         }));
   return element;
 }

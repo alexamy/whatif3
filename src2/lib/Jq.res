@@ -104,14 +104,14 @@ let strings = strings => {
   strings->Array.joinWith(" ", x => x)->string
 }
 
-let tree = (tag, children, ~ref=?, ~class=?, ~classes=?, ~after=?) => {
+let tree = (tag, children, ~ref=?, ~class=?, ~classes=?, ~dependencies=?) => {
   let element = make(tag)
   append(element, children)
 
   ref->Option.map(ref => ref := element)->ignore
   class->Option.map(class => addClass(element, class))->ignore
   classes->Option.map(classes => toggleClasses(element, classes))->ignore
-  after->Option.map(after => after())->ignore
+  dependencies->Option.map(dependencies => dependencies())->ignore
 
   element
 }
