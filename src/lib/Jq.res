@@ -99,10 +99,16 @@ let onClick = (t, handler) => {
 }
 
 // helpers
-let tree = (tag, children, ~class) => {
+let tree = (tag, children, ~class, ~classes=?) => {
   let element = make(tag)
-  addClass(element, class)
   append(element, children)
+
+  addClass(element, class)
+  switch classes {
+  | Some(classes) => toggleClasses(element, classes)
+  | None => ()
+  }
+
   element
 }
 
