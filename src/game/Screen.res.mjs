@@ -7,7 +7,7 @@ function Screen$Link(props) {
   var onClick = props.onClick;
   return JsxRuntime.jsx("a", {
               children: props.children,
-              className: "not-prose hover:font-bold",
+              className: "not-prose  text-blue-300 hover:text-blue-400 visited:text-base",
               href: "#",
               onClick: (function (param) {
                   onClick();
