@@ -25,12 +25,13 @@ module Event = {
     button: int,
   }
 
-  external toGenericHandler: ('a => unit) => t = "%identity"
+  external dangerousToGenericHandler: ('a => unit) => t = "%identity"
 
   @send external addEventListener: (Node.t, string, t, options) => unit = "addEventListener"
 
   let addClickListener = (node, handler: click => unit, ~options) => {
-    addEventListener(node, "click", toGenericHandler(handler), options)
+    let handler = dangerousToGenericHandler(handler)
+    addEventListener(node, "click", handler, options)
   }
 }
 
