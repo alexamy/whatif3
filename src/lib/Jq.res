@@ -115,6 +115,11 @@ let hide = t => {
   t
 }
 
+// events
+let onClick = (t, handler) => {
+  %todo("node->Node.addEventListener(\"click\", handler)")
+}
+
 // primitives
 module Dom = {
   let space = () => string(" ")

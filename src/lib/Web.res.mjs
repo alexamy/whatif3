@@ -3,6 +3,8 @@
 
 var $$Node = {};
 
+var $$Event = {};
+
 var Style = {};
 
 var ClassList = {};
@@ -11,6 +13,7 @@ var $$Document = {};
 
 export {
   $$Node ,
+  $$Event ,
   Style ,
   ClassList ,
   $$Document ,

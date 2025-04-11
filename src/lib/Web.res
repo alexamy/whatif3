@@ -9,6 +9,8 @@ module Node = {
   @send external removeChild: (t, t) => unit = "removeChild"
 }
 
+module Event = {}
+
 module Style = {
   type t = {@set "display": [#initial | #inline | #block | #none]}
   @get external style: Node.t => t = "style"
