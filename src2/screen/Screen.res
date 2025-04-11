@@ -22,7 +22,7 @@ module Room = {
         Jq.Dom.newline(),
         Jq.tree(#span, ~ref=note1.content, [Jq.string("\"Привет, мир!\"")]),
       ],
-      ~dependencies=_ => {note1.update()},
+      ~dependencies=_ => {note1.setup()},
     )
   }
 }

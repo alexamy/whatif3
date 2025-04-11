@@ -10,8 +10,7 @@ function make(initialOpt) {
   var content = {
     contents: Jq.Dom.$$null()
   };
-  var update = function (newStateOpt) {
-    var newState = newStateOpt !== undefined ? newStateOpt : initial;
+  var update = function (newState) {
     state.contents = newState;
     if (newState === "Visited") {
       return Jq.show(content.contents);
@@ -19,9 +18,13 @@ function make(initialOpt) {
       return Jq.hide(content.contents);
     }
   };
+  var setup = function () {
+    update(initial);
+  };
   return {
           content: content,
-          update: update
+          update: update,
+          setup: setup
         };
 }
 
@@ -36,12 +39,11 @@ function replaceWithText(link) {
 
 function make$1(initialOpt) {
   var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
-  var base = make(undefined);
+  var base = make(initial);
   var link = {
     contents: Jq.Dom.$$null()
   };
-  var update = function (newStateOpt) {
-    var newState = newStateOpt !== undefined ? newStateOpt : initial;
+  var update = function (newState) {
     base.update(newState);
     if (newState === "Visited") {
       return replaceWithText(link.contents);
@@ -56,7 +58,8 @@ function make$1(initialOpt) {
   return {
           content: base.content,
           link: link,
-          update: update
+          update: update,
+          setup: base.setup
         };
 }
 

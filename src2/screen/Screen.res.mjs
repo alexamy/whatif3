@@ -15,7 +15,7 @@ function render() {
               Jq.Dom.newline(),
               Jq.tree("span", [Jq.string("\"Привет, мир!\"")], note1.content, undefined, undefined, undefined)
             ], undefined, undefined, undefined, (function () {
-                note1.update(undefined);
+                note1.setup();
               }));
 }
 
