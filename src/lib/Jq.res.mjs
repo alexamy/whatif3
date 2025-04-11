@@ -26,64 +26,77 @@ var Cn = {
 };
 
 function make(tag) {
-  return document.createElement(tag);
+  return {
+          TAG: "Jq",
+          _0: document.createElement(tag)
+        };
 }
 
 function string(text) {
-  return document.createTextNode(text);
+  return {
+          TAG: "Jq",
+          _0: document.createTextNode(text)
+        };
 }
 
 function fromElement(element) {
-  return element;
+  return {
+          TAG: "Jq",
+          _0: element
+        };
 }
 
-function toElement(t) {
-  return t;
+function toElement(element) {
+  return element._0;
 }
 
 function append(t, nodes) {
+  var element = t._0;
   Belt_Array.forEach(nodes, (function (node) {
-          t.appendChild(node);
+          element.appendChild(node);
         }));
   return t;
 }
 
 function appendTo(t, node) {
-  node.appendChild(t);
+  node.appendChild(t._0);
   return t;
 }
 
 function replaceWith(t, node) {
-  t.parentNode.replaceChild(t, node);
+  var element = t._0;
+  element.parentNode.replaceChild(element, node);
   return t;
 }
 
 function remove(t) {
-  t.parentNode.removeChild(t);
+  var element = t._0;
+  element.parentNode.removeChild(element);
   return t;
 }
 
 function text(t, text$1) {
-  t.textContent = text$1;
+  t._0.textContent = text$1;
   return t;
 }
 
 function addClass(t, classes) {
   var classes$1 = classes.split(" ");
-  Caml_splice_call.spliceObjApply(t.classList, "add", [classes$1]);
+  Caml_splice_call.spliceObjApply(t._0.classList, "add", [classes$1]);
   return t;
 }
 
 function removeClass(t, classes) {
   var classes$1 = classes.split(" ");
-  Caml_splice_call.spliceObjApply(t.classList, "remove", [classes$1]);
+  Caml_splice_call.spliceObjApply(t._0.classList, "remove", [classes$1]);
   return t;
 }
 
 function toggleClass(t, classes, value) {
+  var element = t._0;
   var classes$1 = classes.split(" ");
   Belt_Array.forEach(classes$1, (function ($$class) {
-          t.classList.toggle($$class, value);
+          element.classList.toggle($$class, value);
         }));
   return t;
 }

@@ -1,6 +1,6 @@
 open Web
 
-type t = Node.t
+type t = Jq(Node.t)
 type tag = [#div | #span | #p | #a]
 
 module Cn = {
@@ -16,64 +16,72 @@ module Cn = {
 }
 // creation
 let make = (tag: tag) => {
-  Document.createElement(Document.document, (tag :> string))
+  Jq(Document.createElement(Document.document, (tag :> string)))
 }
 
 let string = text => {
-  Document.createTextNode(Document.document, text)
+  Jq(Document.createTextNode(Document.document, text))
 }
 
 let fromElement = element => {
-  element
+  Jq(element)
 }
 
-let toElement = t => {
-  t
+let toElement = (Jq(element)) => {
+  element
 }
 
 // manipulation
 let append = (t, nodes) => {
-  Array.forEach(nodes, node => t->Node.appendChild(node))
+  let Jq(element) = t
+  Array.forEach(nodes, node => element->Node.appendChild(node))
   t
 }
 
 let appendTo = (t, node) => {
-  node->Node.appendChild(t)
+  let Jq(element) = t
+  node->Node.appendChild(element)
   t
 }
 
 let replaceWith = (t, node) => {
-  t->Node.parentNode->Node.replaceChild(t, node)
+  let Jq(element) = t
+  element->Node.parentNode->Node.replaceChild(element, node)
   t
 }
 
 let remove = t => {
-  t->Node.parentNode->Node.removeChild(t)
+  let Jq(element) = t
+  element->Node.parentNode->Node.removeChild(element)
   t
 }
 
 // content
 let text = (t, text) => {
-  t->Node.textContent(text)
+  let Jq(element) = t
+  element->Node.textContent(text)
   t
 }
 
 // classes
 let addClass = (t, classes) => {
+  let Jq(element) = t
   let classes = Cn.normalize(classes)
-  t->ClassList.classList->ClassList.add(classes)
+  element->ClassList.classList->ClassList.add(classes)
   t
 }
 
 let removeClass = (t, classes) => {
+  let Jq(element) = t
   let classes = Cn.normalize(classes)
-  t->ClassList.classList->ClassList.remove(classes)
+  element->ClassList.classList->ClassList.remove(classes)
   t
 }
 
 let toggleClass = (t, classes, value) => {
+  let Jq(element) = t
   let classes = Cn.normalize(classes)
-  Array.forEach(classes, class => t->ClassList.classList->ClassList.toggle(class, value))
+  Array.forEach(classes, class => element->ClassList.classList->ClassList.toggle(class, value))
   t
 }
 
