@@ -5,7 +5,7 @@ module Base = {
 
   let make = (~initial=Unvisited) => {
     let state = ref(initial)
-    let content = ref(Jq.Dom.null())
+    let content = ref(Jq.Dom.placeholder)
 
     let update = newState => {
       state := newState
@@ -31,7 +31,7 @@ module Toggle = {
 
   let make = (~initial=Unvisited) => {
     let base = Base.make(~initial)
-    let link = ref(Jq.Dom.placeholder())
+    let link = ref(Jq.Dom.placeholder)
 
     let rec update = newState => {
       base.update(newState)

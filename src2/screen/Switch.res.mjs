@@ -8,7 +8,7 @@ function make(initialOpt) {
     contents: initial
   };
   var content = {
-    contents: Jq.Dom.$$null()
+    contents: Jq.Dom.placeholder
   };
   var update = function (newState) {
     state.contents = newState;
@@ -41,7 +41,7 @@ function make$1(initialOpt) {
   var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
   var base = make(initial);
   var link = {
-    contents: Jq.Dom.placeholder()
+    contents: Jq.Dom.placeholder
   };
   var update = function (newState) {
     base.update(newState);
@@ -75,4 +75,4 @@ export {
   Base ,
   Toggle ,
 }
-/* No side effect */
+/* Jq Not a pure module */

@@ -147,13 +147,11 @@ function newline() {
   return document.createElement("br");
 }
 
-var placeholder = (function() {
-    return new Proxy({}, {
-      get(target, prop) {
-        throw new Error("Assign ref first!")
-      }
-    })
-  });
+var placeholder = (new Proxy({}, {
+    get(target, prop) {
+      throw new Error("Assign ref first!")
+    }
+  }));
 
 var Dom = {
   $$null: $$null,
@@ -185,4 +183,4 @@ export {
   tree ,
   Dom ,
 }
-/* No side effect */
+/* placeholder Not a pure module */

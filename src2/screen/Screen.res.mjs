@@ -26,4 +26,4 @@ var Room = {
 export {
   Room ,
 }
-/* No side effect */
+/* Jq Not a pure module */
