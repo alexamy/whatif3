@@ -58,6 +58,11 @@ var Room = {
   make: Content$Room
 };
 
+function replaceWithText(link) {
+  var text = Jq.getText(link);
+  Jq.replaceWith(link, Jq.string(text));
+}
+
 function useSwitch(link, content, initialOpt) {
   var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
   var state = {
@@ -65,44 +70,57 @@ function useSwitch(link, content, initialOpt) {
   };
   var update = function (newState) {
     state.contents = newState;
-    if (newState === "Visited") {
-      var text = Jq.getText(link);
-      Jq.replaceWith(link, Jq.string(text));
-      Jq.show(content);
-      return ;
+    if (newState !== "Visited") {
+      return Jq.hide(content);
     }
-    Jq.hide(content);
+    replaceWithText(link);
+    Jq.show(content);
   };
   update(initial);
   return {
-          link: link,
-          content: content,
           toggle: update
         };
 }
 
 var SwitchD = {
+  replaceWithText: replaceWithText,
   useSwitch: useSwitch
 };
 
-var note1 = useSwitch(Jq.append(Jq.make("span"), [Jq.string("Читать заметку.")]), Jq.append(Jq.make("span"), [Jq.string("\"Привет, мир!\"")]), undefined);
+var link = Jq.make("span");
+
+Jq.append(link, [Jq.string("Читать заметку.")]);
+
+var content = Jq.make("span");
+
+Jq.append(content, [Jq.string("\"Привет, мир!\"")]);
+
+var note = useSwitch(link, content, undefined);
+
+var Note1 = {
+  link: link,
+  content: content,
+  note: note
+};
 
 setTimeout((function () {
-        note1.toggle("Visited");
+        note.toggle("Visited");
       }), 2000);
 
 function render() {
-  return Jq.append(Jq.make("div"), [
-              Jq.string("Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок."),
-              Jq.Dom.space(),
-              note1.link,
-              Jq.Dom.newline(),
-              note1.content
-            ]);
+  var root = Jq.make("div");
+  Jq.append(root, [
+        Jq.string("Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок."),
+        Jq.Dom.space(),
+        link,
+        Jq.Dom.newline(),
+        content
+      ]);
+  return root;
 }
 
 var RoomD = {
-  note1: note1,
+  Note1: Note1,
   render: render
 };
 
@@ -142,4 +160,4 @@ export {
   RoomD ,
   screens ,
 }
-/* note1 Not a pure module */
+/* link Not a pure module */

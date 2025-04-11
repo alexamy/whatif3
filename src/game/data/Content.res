@@ -45,11 +45,11 @@ module Room = {
 
 module SwitchD = {
   type state = Visited | Unvisited
-  type t = {link: Jq.t, content: Jq.t, toggle: state => unit}
+  type t = {toggle: state => unit}
 
   let replaceWithText = link => {
     let text = Jq.getText(link)
-    link->Jq.replaceWith(Jq.string(text))->ignore
+    link->Jq.replaceWith(Jq.string(text))
   }
 
   let useSwitch = (~link: Jq.t, ~content: Jq.t, ~initial=Unvisited) => {
@@ -60,40 +60,45 @@ module SwitchD = {
       switch newState {
       | Visited => {
           replaceWithText(link)
-          content->Jq.show->ignore
+          Jq.show(content)
         }
-      | Unvisited => {
-          content->Jq.hide->ignore
-          // add click listener
-          ()
-        }
+      // add click listener
+      | Unvisited => Jq.hide(content)
       }
     }
 
     update(initial)
 
-    {link, content, toggle: update}
+    {toggle: update}
   }
 }
 
 module RoomD = {
-  let note1 = SwitchD.useSwitch(
-    ~link=Jq.make(#span)->Jq.append([Jq.string("Читать заметку.")]),
-    ~content=Jq.make(#span)->Jq.append([Jq.string("\"Привет, мир!\"")]),
-  )
+  module Note1 = {
+    let link = Jq.make(#span)
+    Jq.append(link, [Jq.string("Читать заметку.")])
 
-  setTimeout(() => note1.toggle(Visited), 2000)->ignore
+    let content = Jq.make(#span)
+    Jq.append(content, [Jq.string("\"Привет, мир!\"")])
+
+    let note = SwitchD.useSwitch(~link, ~content)
+  }
+
+  setTimeout(() => Note1.note.toggle(Visited), 2000)->ignore
 
   let render = () => {
-    Jq.make(#div)->Jq.append([
+    let root = Jq.make(#div)
+    root->Jq.append([
       Jq.string(
         "Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок.",
       ),
       Jq.Dom.space(),
-      note1.link,
+      Note1.link,
       Jq.Dom.newline(),
-      note1.content,
+      Note1.content,
     ])
+
+    root
   }
 }
 

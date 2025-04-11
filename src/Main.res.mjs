@@ -6,7 +6,13 @@ import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as Core__Error from "@rescript/core/src/Core__Error.res.mjs";
 
 function render(children) {
-  return Jq.append(Jq.addClass(Jq.make("div"), "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100"), [Jq.append(Jq.addClass(Jq.make("div"), "mx-auto min-w-xl max-w-5xl"), [children])]);
+  var container = Jq.make("div");
+  Jq.addClass(container, "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100");
+  var center = Jq.make("div");
+  Jq.addClass(center, "mx-auto min-w-xl max-w-5xl");
+  Jq.append(container, [center]);
+  Jq.append(center, [children]);
+  return container;
 }
 
 var App = {
@@ -14,7 +20,8 @@ var App = {
 };
 
 function mount(root, children) {
-  Jq.append(Jq.fromNode(root), [children]);
+  var root$1 = Jq.fromNode(root);
+  Jq.append(root$1, [children]);
 }
 
 var rootElement = document.querySelector("#root");
