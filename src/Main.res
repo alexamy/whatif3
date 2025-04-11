@@ -9,15 +9,7 @@ module App = {
 
 open Web
 
-let render = rootElement => {
-  let element =
-    Jq.make(#div)
-    ->Jq.addClass("bg-red-500 text-blue-600")
-    ->Jq.text("Hello")
-    ->Jq.appendTo(rootElement)
-}
-
 switch Document.document->Document.querySelector("#root") {
-| Some(rootElement) => render(rootElement)
+| Some(rootElement) => rootElement->Jq.append([Content.RoomD.render()])->ignore
 | None => Error.panic("No root element found!")
 }

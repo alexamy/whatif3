@@ -61,12 +61,12 @@ var Room = {
 var space$1 = Web.Jq.string(" ");
 
 function render() {
-  Web.Jq.append(Web.Jq.make("div"), [
-        Web.Jq.string("Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок."),
-        space$1,
-        Web.Jq.string("Читать заметку."),
-        Web.Jq.string("\"Привет, мир!\"")
-      ]);
+  return Web.Jq.append(Web.Jq.make("div"), [
+              Web.Jq.string("Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок."),
+              space$1,
+              Web.Jq.string("Читать заметку."),
+              Web.Jq.string("\"Привет, мир!\"")
+            ]);
 }
 
 var RoomD = {
