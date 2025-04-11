@@ -49,7 +49,7 @@ module SwitchD = {
 
   let replaceWithText = link => {
     let text = Jq.getText(link)
-    link->Jq.replaceWith(Jq.string(text))
+    Jq.replaceWith(link, Jq.string(text))
   }
 
   let useSwitch = (~link: Jq.t, ~content: Jq.t, ~initial=Unvisited) => {
@@ -75,11 +75,8 @@ module SwitchD = {
 
 module RoomD = {
   module Note1 = {
-    let link = Jq.make(#span)
-    link->Jq.append([Jq.string("Читать заметку.")])
-
-    let content = Jq.make(#span)
-    content->Jq.append([Jq.string("\"Привет, мир!\"")])
+    let link = Jq.tree(#span, [Jq.string("Читать заметку.")])
+    let content = Jq.tree(#span, [Jq.string("\"Привет, мир!\"")])
 
     let note = SwitchD.useSwitch(~link, ~content)
   }
@@ -87,18 +84,18 @@ module RoomD = {
   setTimeout(() => Note1.note.toggle(Visited), 2000)->ignore
 
   let render = () => {
-    let root = Jq.make(#div)
-    root->Jq.append([
-      Jq.string(
-        "Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок.",
-      ),
-      Jq.Dom.space(),
-      Note1.link,
-      Jq.Dom.newline(),
-      Note1.content,
-    ])
-
-    root
+    Jq.tree(
+      #div,
+      [
+        Jq.string(
+          "Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок.",
+        ),
+        Jq.Dom.space(),
+        Note1.link,
+        Jq.Dom.newline(),
+        Note1.content,
+      ],
+    )
   }
 }
 

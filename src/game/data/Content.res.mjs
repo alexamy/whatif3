@@ -87,13 +87,9 @@ var SwitchD = {
   useSwitch: useSwitch
 };
 
-var link = Jq.make("span");
+var link = Jq.tree("span", [Jq.string("Читать заметку.")], undefined, undefined);
 
-Jq.append(link, [Jq.string("Читать заметку.")]);
-
-var content = Jq.make("span");
-
-Jq.append(content, [Jq.string("\"Привет, мир!\"")]);
+var content = Jq.tree("span", [Jq.string("\"Привет, мир!\"")], undefined, undefined);
 
 var note = useSwitch(link, content, undefined);
 
@@ -108,15 +104,13 @@ setTimeout((function () {
       }), 2000);
 
 function render() {
-  var root = Jq.make("div");
-  Jq.append(root, [
-        Jq.string("Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок."),
-        Jq.Dom.space(),
-        link,
-        Jq.Dom.newline(),
-        content
-      ]);
-  return root;
+  return Jq.tree("div", [
+              Jq.string("Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок."),
+              Jq.Dom.space(),
+              link,
+              Jq.Dom.newline(),
+              content
+            ], undefined, undefined);
 }
 
 var RoomD = {
