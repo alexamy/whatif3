@@ -121,7 +121,7 @@ function tree(tag, children, ref, $$class, classes) {
   var element = document.createElement(tag);
   append(element, children);
   Belt_Option.map(ref, (function (ref) {
-          ref.contents = element;
+          return ref(element);
         }));
   Belt_Option.map($$class, (function ($$class) {
           addClass(element, $$class);

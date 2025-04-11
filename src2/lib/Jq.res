@@ -108,7 +108,7 @@ let tree = (tag, children, ~ref=?, ~class=?, ~classes=?) => {
   let element = make(tag)
   append(element, children)
 
-  ref->Option.map(ref => ref := element)->ignore
+  ref->Option.map(ref => ref(element))->ignore
   class->Option.map(class => addClass(element, class))->ignore
   classes->Option.map(classes => toggleClasses(element, classes))->ignore
 
