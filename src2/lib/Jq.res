@@ -111,7 +111,9 @@ let tree = (tag, children, ~ref=?, ~class=?, ~classes=?, ~dependencies=?) => {
   ref->Option.map(ref => ref := element)->ignore
   class->Option.map(class => addClass(element, class))->ignore
   classes->Option.map(classes => toggleClasses(element, classes))->ignore
-  dependencies->Option.map(dependencies => dependencies())->ignore
+  dependencies
+  ->Option.map(dependencies => Array.forEach(dependencies, dependency => dependency()))
+  ->ignore
 
   element
 }

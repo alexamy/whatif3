@@ -130,7 +130,9 @@ function tree(tag, children, ref, $$class, classes, dependencies) {
           toggleClasses(element, classes);
         }));
   Belt_Option.map(dependencies, (function (dependencies) {
-          return dependencies();
+          Belt_Array.forEach(dependencies, (function (dependency) {
+                  dependency();
+                }));
         }));
   return element;
 }

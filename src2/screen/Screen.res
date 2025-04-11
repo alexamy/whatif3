@@ -10,9 +10,7 @@ module Room = {
   let render = () => {
     let note1 = Switch.Toggle.make()
 
-    let dependencies = () => {
-      note1.setup()
-    }
+    let dependencies = [note1.setup]
 
     Jq.tree(
       #div,

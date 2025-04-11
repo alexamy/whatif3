@@ -5,9 +5,7 @@ import * as Switch from "./Switch.res.mjs";
 
 function render() {
   var note1 = Switch.Toggle.make(undefined);
-  var dependencies = function () {
-    note1.setup();
-  };
+  var dependencies = [note1.setup];
   return Jq.tree("div", [
               Jq.strings([
                     "Вы стоите посреди комнаты. На вашей руке - умные часы.",
