@@ -1,6 +1,23 @@
 type state = Visited | Unvisited
 
-module Base = {}
+module Base = {
+  type t = {toggle: state => unit}
+
+  let create = (~content: Jq.t, ~initial=Unvisited) => {
+    let state = ref(initial)
+
+    let rec update = newState => {
+      state := newState
+      switch newState {
+      | Visited => Jq.show(content)
+      | Unvisited => Jq.hide(content)
+      }
+    }
+
+    update(initial)
+    {toggle: update}
+  }
+}
 
 module Toggle = {
   type t = {toggle: state => unit}

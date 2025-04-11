@@ -2,7 +2,28 @@
 
 import * as Jq from "../lib/Jq.res.mjs";
 
-var Base = {};
+function create(content, initialOpt) {
+  var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
+  var state = {
+    contents: initial
+  };
+  var update = function (newState) {
+    state.contents = newState;
+    if (newState === "Visited") {
+      return Jq.show(content);
+    } else {
+      return Jq.hide(content);
+    }
+  };
+  update(initial);
+  return {
+          toggle: update
+        };
+}
+
+var Base = {
+  create: create
+};
 
 function replaceWithText(link) {
   var text = Jq.getText(link);
