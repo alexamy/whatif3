@@ -47,6 +47,11 @@ module SwitchD = {
   type state = Visited | Unvisited
   type t = {link: Jq.t, content: Jq.t, toggle: state => unit}
 
+  let replaceWithText = link => {
+    let text = Jq.getText(link)
+    link->Jq.replaceWith(Jq.string(text))->ignore
+  }
+
   let useSwitch = (~link: Jq.t, ~content: Jq.t, ~initial=Unvisited) => {
     let state = ref(initial)
 
@@ -54,8 +59,7 @@ module SwitchD = {
       state := newState
       switch newState {
       | Visited => {
-          let text = Jq.getText(link)
-          link->Jq.replaceWith(Jq.string(text))->ignore
+          replaceWithText(link)
           content->Jq.show->ignore
         }
       | Unvisited => {
