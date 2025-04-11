@@ -24,68 +24,68 @@ let string = text => {
   Jq(Document.createTextNode(Document.document, text))
 }
 
-let fromElement = element => {
-  Jq(element)
+let fromNode = node => {
+  Jq(node)
 }
 
-let toElement = t => {
-  let Jq(element) = t
-  element
+let toNode = t => {
+  let Jq(node) = t
+  node
 }
 
 // manipulation
 let append = (t, nodes) => {
-  let Jq(element) = t
-  Array.forEach(nodes, (Jq(node)) => {
-    element->Node.appendChild(node)
+  let Jq(node) = t
+  Array.forEach(nodes, (Jq(other)) => {
+    node->Node.appendChild(other)
   })
   t
 }
 
-let appendTo = (t, node) => {
-  let Jq(element) = t
-  node->Node.appendChild(element)
+let appendTo = (t, other) => {
+  let Jq(node) = t
+  other->Node.appendChild(node)
   t
 }
 
-let replaceWith = (t, node) => {
-  let Jq(element) = t
-  element->Node.parentNode->Node.replaceChild(element, node)
+let replaceWith = (t, other) => {
+  let Jq(node) = t
+  node->Node.parentNode->Node.replaceChild(node, other)
   t
 }
 
 let remove = t => {
-  let Jq(element) = t
-  element->Node.parentNode->Node.removeChild(element)
+  let Jq(node) = t
+  node->Node.parentNode->Node.removeChild(node)
   t
 }
 
 // content
 let text = (t, text) => {
-  let Jq(element) = t
-  element->Node.textContent(text)
+  let Jq(node) = t
+  node->Node.textContent(text)
   t
 }
 
 // classes
 let addClass = (t, classes) => {
-  let Jq(element) = t
+  let Jq(node) = t
   let classes = Cn.normalize(classes)
-  element->ClassList.classList->ClassList.add(classes)
+  node->ClassList.classList->ClassList.add(classes)
   t
 }
 
 let removeClass = (t, classes) => {
-  let Jq(element) = t
+  let Jq(node) = t
   let classes = Cn.normalize(classes)
-  element->ClassList.classList->ClassList.remove(classes)
+  node->ClassList.classList->ClassList.remove(classes)
   t
 }
 
 let toggleClass = (t, classes, value) => {
-  let Jq(element) = t
+  let Jq(node) = t
   let classes = Cn.normalize(classes)
-  Array.forEach(classes, class => element->ClassList.classList->ClassList.toggle(class, value))
+  Array.forEach(classes, class => node->ClassList.classList->ClassList.toggle(class, value))
   t
 }
 

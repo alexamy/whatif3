@@ -33,28 +33,28 @@ function string(text) {
   return document.createTextNode(text);
 }
 
-function fromElement(element) {
-  return element;
+function fromNode(node) {
+  return node;
 }
 
-function toElement(t) {
+function toNode(t) {
   return t;
 }
 
 function append(t, nodes) {
-  Belt_Array.forEach(nodes, (function (node) {
-          t.appendChild(node);
+  Belt_Array.forEach(nodes, (function (other) {
+          t.appendChild(other);
         }));
   return t;
 }
 
-function appendTo(t, node) {
-  node.appendChild(t);
+function appendTo(t, other) {
+  other.appendChild(t);
   return t;
 }
 
-function replaceWith(t, node) {
-  t.parentNode.replaceChild(t, node);
+function replaceWith(t, other) {
+  t.parentNode.replaceChild(t, other);
   return t;
 }
 
@@ -113,8 +113,8 @@ export {
   Cn ,
   make ,
   string ,
-  fromElement ,
-  toElement ,
+  fromNode ,
+  toNode ,
   append ,
   appendTo ,
   replaceWith ,

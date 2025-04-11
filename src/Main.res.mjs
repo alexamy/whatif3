@@ -14,7 +14,7 @@ var App = {
 };
 
 function mount(root, children) {
-  Jq.append(Jq.fromElement(root), [children]);
+  Jq.append(Jq.fromNode(root), [children]);
 }
 
 var rootElement = document.querySelector("#root");
