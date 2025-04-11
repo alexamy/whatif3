@@ -6,9 +6,6 @@ module App = {
     let center = Jq.make(#div)
     Jq.addClass(center, "mx-auto min-w-xl max-w-5xl")
 
-    container->Jq.append([center])
-    center->Jq.append([children])
-
     Jq.Tree.build(container, [And(center, [Last(children)])])
 
     container

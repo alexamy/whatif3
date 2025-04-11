@@ -10,8 +10,6 @@ function render(children) {
   Jq.addClass(container, "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100");
   var center = Jq.make("div");
   Jq.addClass(center, "mx-auto min-w-xl max-w-5xl");
-  Jq.append(container, [center]);
-  Jq.append(center, [children]);
   Jq.Tree.build(container, [{
           TAG: "And",
           _0: center,
