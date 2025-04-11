@@ -34,7 +34,9 @@ let toElement = (Jq(element)) => {
 // manipulation
 let append = (t, nodes) => {
   let Jq(element) = t
-  Array.forEach(nodes, node => element->Node.appendChild(node))
+  Array.forEach(nodes, (Jq(node)) => {
+    element->Node.appendChild(node)
+  })
   t
 }
 

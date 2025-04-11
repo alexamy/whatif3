@@ -53,7 +53,7 @@ function toElement(element) {
 function append(t, nodes) {
   var element = t._0;
   Belt_Array.forEach(nodes, (function (node) {
-          element.appendChild(node);
+          element.appendChild(node._0);
         }));
   return t;
 }
