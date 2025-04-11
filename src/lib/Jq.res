@@ -1,17 +1,15 @@
 open Web
 
 type t = Node.t
-type tag = [#div | #span | #p]
+type tag = [#div | #span | #p | #a]
 
 // creation
 let make = (tag: tag) => {
-  let t = Document.createElement(Document.document, (tag :> string))
-  t
+  Document.createElement(Document.document, (tag :> string))
 }
 
 let string = text => {
-  let t = Document.createTextNode(Document.document, text)
-  t
+  Document.createTextNode(Document.document, text)
 }
 
 // manipulation
