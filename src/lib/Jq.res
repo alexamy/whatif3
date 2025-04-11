@@ -1,5 +1,6 @@
 open Web
 
+@unboxed
 type t = Jq(Node.t)
 type tag = [#div | #span | #p | #a]
 
@@ -27,7 +28,8 @@ let fromElement = element => {
   Jq(element)
 }
 
-let toElement = (Jq(element)) => {
+let toElement = t => {
+  let Jq(element) = t
   element
 }
 
