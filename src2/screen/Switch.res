@@ -3,7 +3,7 @@ type state = Visited | Unvisited
 module Base = {
   type t = {toggle: state => unit}
 
-  let create = (~content: Jq.t, ~initial=Unvisited) => {
+  let make = (~content: Jq.t, ~initial=Unvisited) => {
     let state = ref(initial)
 
     let rec update = newState => {
@@ -27,7 +27,7 @@ module Toggle = {
     Jq.replaceWith(link, Jq.string(text))
   }
 
-  let createSwitch = (~link: Jq.t, ~content: Jq.t, ~initial=Unvisited) => {
+  let make = (~link: Jq.t, ~content: Jq.t, ~initial=Unvisited) => {
     let state = ref(initial)
 
     let rec update = newState => {

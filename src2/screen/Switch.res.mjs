@@ -2,7 +2,7 @@
 
 import * as Jq from "../lib/Jq.res.mjs";
 
-function create(content, initialOpt) {
+function make(content, initialOpt) {
   var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
   var state = {
     contents: initial
@@ -22,7 +22,7 @@ function create(content, initialOpt) {
 }
 
 var Base = {
-  create: create
+  make: make
 };
 
 function replaceWithText(link) {
@@ -30,7 +30,7 @@ function replaceWithText(link) {
   Jq.replaceWith(link, Jq.string(text));
 }
 
-function createSwitch(link, content, initialOpt) {
+function make$1(link, content, initialOpt) {
   var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
   var state = {
     contents: initial
@@ -56,7 +56,7 @@ function createSwitch(link, content, initialOpt) {
 
 var Toggle = {
   replaceWithText: replaceWithText,
-  createSwitch: createSwitch
+  make: make$1
 };
 
 export {

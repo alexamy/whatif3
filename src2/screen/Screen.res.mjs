@@ -7,7 +7,7 @@ var link = Jq.tree("span", [Jq.string("Читать заметку.")], undefine
 
 var content = Jq.tree("span", [Jq.string("\"Привет, мир!\"")], undefined, undefined);
 
-var note = Switch.Toggle.createSwitch(link, content, undefined);
+var note = Switch.Toggle.make(link, content, undefined);
 
 var Note1 = {
   link: link,
