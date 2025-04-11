@@ -126,7 +126,7 @@ module Dom = {
 
   let placeholder: t = %raw(`new Proxy({}, {
     get(target, prop) {
-      throw new Error("Assign ref first!")
+      throw new Error("Placeholder access is not allowed! Assign ref first.")
     }
   })`)
 }
