@@ -4,31 +4,30 @@ import * as Jq from "./lib/Jq.res.mjs";
 import * as Content from "./game/data/Content.res.mjs";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as Core__Error from "@rescript/core/src/Core__Error.res.mjs";
-import * as JsxRuntime from "react/jsx-runtime";
 
-function Main$App(props) {
-  return JsxRuntime.jsx("div", {
-              children: JsxRuntime.jsx("div", {
-                    children: props.children,
-                    className: "mx-auto min-w-xl max-w-5xl"
-                  }),
-              className: "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100"
-            });
+function render(children) {
+  return Jq.append(Jq.addClass(Jq.make("div"), "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100"), [Jq.append(Jq.addClass(Jq.make("div"), "mx-auto min-w-xl max-w-5xl"), [children])]);
 }
 
 var App = {
-  make: Main$App
+  render: render
 };
+
+function mount(root, children) {
+  root.appendChild(children);
+}
 
 var rootElement = document.querySelector("#root");
 
 if (rootElement !== undefined) {
-  Jq.append(Caml_option.valFromOption(rootElement), [Content.RoomD.render()]);
+  var children = render(Content.RoomD.render());
+  Caml_option.valFromOption(rootElement).appendChild(children);
 } else {
   Core__Error.panic("No root element found!");
 }
 
 export {
   App ,
+  mount ,
 }
 /* rootElement Not a pure module */

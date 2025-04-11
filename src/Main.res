@@ -1,13 +1,22 @@
 module App = {
-  @react.component
-  let make = (~children: React.element) => {
-    <div className="w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100">
-      <div className="mx-auto min-w-xl max-w-5xl"> {children} </div>
-    </div>
+  let render = (children: Jq.t) => {
+    Jq.make(#div)
+    ->Jq.addClass("w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100")
+    ->Jq.append([
+      Jq.make(#div)
+      ->Jq.addClass("mx-auto min-w-xl max-w-5xl")
+      ->Jq.append([children]),
+    ])
   }
 }
 
-switch Web.Document.document->Web.Document.querySelector("#root") {
-| Some(rootElement) => rootElement->Jq.append([Content.RoomD.render()])->ignore
+open Web
+
+let mount = (root: Node.t, children: Jq.t) => {
+  Node.appendChild(root, children)
+}
+
+switch Document.document->Document.querySelector("#root") {
+| Some(rootElement) => mount(rootElement, App.render(Content.RoomD.render()))
 | None => Error.panic("No root element found!")
 }
