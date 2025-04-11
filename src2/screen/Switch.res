@@ -43,6 +43,6 @@ module Toggle = {
 
     let setup = () => update(initial)
 
-    {update, link, content: base.content, setup}
+    {update, setup, link, content: base.content}
   }
 }
