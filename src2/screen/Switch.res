@@ -1,7 +1,7 @@
 type state = Visited | Unvisited
 
 module Base = {
-  type t = {state: ref<state>, update: state => unit}
+  type t = {update: state => unit}
 
   let make = (~content: Jq.t, ~initial=Unvisited) => {
     let state = ref(initial)
@@ -15,7 +15,7 @@ module Base = {
     }
 
     update(initial)
-    {state, update}
+    {update: update}
   }
 }
 

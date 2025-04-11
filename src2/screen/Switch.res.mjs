@@ -17,7 +17,6 @@ function make(content, initialOpt) {
   };
   update(initial);
   return {
-          state: state,
           update: update
         };
 }
