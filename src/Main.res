@@ -9,7 +9,7 @@ module App = {
     container->Jq.append([center])
     center->Jq.append([children])
 
-    Jq.Dom.build(container, Node(center, Leaf(children)))
+    Jq.Tree.build(container, And(center, [Last(children)]))
 
     container
   }

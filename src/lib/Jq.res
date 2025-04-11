@@ -100,19 +100,21 @@ let onClick = (t, handler) => {
 
 // primitives
 module Dom = {
-  type rec tree =
-    | Node(t, tree)
-    | Leaf(t)
-
   let space = () => string(" ")
   let newline = () => make(#br)
+}
+
+module Tree = {
+  type rec tree =
+    | And(t, array<tree>)
+    | Last(t)
 
   let rec build = (root, tree) =>
     switch tree {
-    | Leaf(t) => append(root, [t])
-    | Node(t, children) => {
+    | Last(t) => append(root, [t])
+    | And(t, trees) => {
         append(root, [t])
-        build(t, children)
+        Array.forEach(trees, children => build(t, children))
       }
     }
 }

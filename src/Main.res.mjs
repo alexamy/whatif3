@@ -12,13 +12,13 @@ function render(children) {
   Jq.addClass(center, "mx-auto min-w-xl max-w-5xl");
   Jq.append(container, [center]);
   Jq.append(center, [children]);
-  Jq.Dom.build(container, {
-        TAG: "Node",
+  Jq.Tree.build(container, {
+        TAG: "And",
         _0: center,
-        _1: {
-          TAG: "Leaf",
-          _0: children
-        }
+        _1: [{
+            TAG: "Last",
+            _0: children
+          }]
       });
   return container;
 }

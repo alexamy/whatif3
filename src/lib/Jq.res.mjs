@@ -114,24 +114,23 @@ function newline() {
   return document.createElement("br");
 }
 
-function build(_root, _tree) {
-  while(true) {
-    var tree = _tree;
-    var root = _root;
-    if (tree.TAG !== "Node") {
-      return append(root, [tree._0]);
-    }
-    var t = tree._0;
-    append(root, [t]);
-    _tree = tree._1;
-    _root = t;
-    continue ;
-  };
-}
-
 var Dom = {
   space: space,
-  newline: newline,
+  newline: newline
+};
+
+function build(root, tree) {
+  if (tree.TAG !== "And") {
+    return append(root, [tree._0]);
+  }
+  var t = tree._0;
+  append(root, [t]);
+  Belt_Array.forEach(tree._1, (function (children) {
+          build(t, children);
+        }));
+}
+
+var Tree = {
   build: build
 };
 
@@ -155,5 +154,6 @@ export {
   hide ,
   onClick ,
   Dom ,
+  Tree ,
 }
 /* No side effect */
