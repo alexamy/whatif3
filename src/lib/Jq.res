@@ -2,7 +2,7 @@ open Web
 
 @unboxed
 type t = Jq(Node.t)
-type tag = [#div | #span | #p | #a]
+type tag = [#div | #span | #p | #a | #br]
 
 module Cn = {
   let normalize = classes => {
@@ -93,4 +93,10 @@ let toggleClasses = (t, classes) => {
   let entries = Js.Dict.entries(classes)
   Array.forEach(entries, ((class, isEnabled)) => toggleClass(t, class, isEnabled)->ignore)
   t
+}
+
+// primitives
+module Dom = {
+  let space = () => string(" ")
+  let newline = () => make(#br)
 }

@@ -96,6 +96,19 @@ function toggleClasses(t, classes) {
   return t;
 }
 
+function space() {
+  return document.createTextNode(" ");
+}
+
+function newline() {
+  return document.createElement("br");
+}
+
+var Dom = {
+  space: space,
+  newline: newline
+};
+
 export {
   Cn ,
   make ,
@@ -111,5 +124,6 @@ export {
   removeClass ,
   toggleClass ,
   toggleClasses ,
+  Dom ,
 }
 /* No side effect */

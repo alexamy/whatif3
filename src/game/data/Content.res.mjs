@@ -58,19 +58,16 @@ var Room = {
   make: Content$Room
 };
 
-var space$1 = Jq.string(" ");
-
 function render() {
   return Jq.append(Jq.make("div"), [
               Jq.string("Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок."),
-              space$1,
+              Jq.Dom.space(),
               Jq.string("Читать заметку."),
               Jq.string("\"Привет, мир!\"")
             ]);
 }
 
 var RoomD = {
-  space: space$1,
   render: render
 };
 
@@ -109,4 +106,4 @@ export {
   RoomD ,
   screens ,
 }
-/* space Not a pure module */
+/* Screen Not a pure module */
