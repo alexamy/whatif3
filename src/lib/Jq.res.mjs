@@ -106,9 +106,9 @@ function onClick(t, handler) {
   return Js_exn.raiseError("/home/alex/hobby/whatif3/src/lib/Jq.res:98:2048-2053 - Todo: node->Node.addEventListener(\\\"click\\\", handler)");
 }
 
-function tree(tag, classes, nodes) {
+function tree(tag, $$class, nodes) {
   var element = document.createElement(tag);
-  addClass(element, classes);
+  addClass(element, $$class);
   append(element, nodes);
   return element;
 }

@@ -99,9 +99,9 @@ let onClick = (t, handler) => {
 }
 
 // helpers
-let tree = (tag, classes, nodes) => {
+let tree = (tag, ~class, nodes) => {
   let element = make(tag)
-  addClass(element, classes)
+  addClass(element, class)
   append(element, nodes)
   element
 }
