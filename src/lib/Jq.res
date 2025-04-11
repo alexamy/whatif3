@@ -109,12 +109,16 @@ module Tree = {
     | And(t, array<tree>)
     | Last(t)
 
-  let rec build = (root, tree) =>
+  let rec construct = (root, tree) =>
     switch tree {
     | Last(t) => append(root, [t])
     | And(t, trees) => {
         append(root, [t])
-        Array.forEach(trees, children => build(t, children))
+        Array.forEach(trees, children => construct(t, children))
       }
     }
+
+  let build = (root, trees) => {
+    Array.forEach(trees, children => construct(root, children))
+  }
 }

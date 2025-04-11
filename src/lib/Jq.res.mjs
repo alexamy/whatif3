@@ -119,18 +119,25 @@ var Dom = {
   newline: newline
 };
 
-function build(root, tree) {
+function construct(root, tree) {
   if (tree.TAG !== "And") {
     return append(root, [tree._0]);
   }
   var t = tree._0;
   append(root, [t]);
   Belt_Array.forEach(tree._1, (function (children) {
-          build(t, children);
+          construct(t, children);
+        }));
+}
+
+function build(root, trees) {
+  Belt_Array.forEach(trees, (function (children) {
+          construct(root, children);
         }));
 }
 
 var Tree = {
+  construct: construct,
   build: build
 };
 
