@@ -24,7 +24,7 @@ module Toggle = {
 
   let replaceWithText = link => {
     let text = Jq.getText(link)
-    Jq.replaceWith(link, Jq.string(text))
+    link->Jq.replaceWith(Jq.string(text))
   }
 
   let make = (~link: Jq.t, ~content: Jq.t, ~initial=Unvisited) => {
