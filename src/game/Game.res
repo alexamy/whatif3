@@ -23,7 +23,6 @@ let make = () => {
   }
 
   <div className="flex gap-4 justify-center">
-    <Screen content options />
-    {computer}
+    <Content.Room goTo={findNext} />
   </div>
 }

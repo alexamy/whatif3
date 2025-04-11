@@ -1,7 +1,12 @@
 module Link = {
   @react.component
   let make = (~onClick: unit => unit, ~children: React.element) => {
-    <a href="#" onClick={_ => onClick()}> {children} </a>
+    <a
+      href="#"
+      className="not-prose  text-blue-300 hover:text-blue-400 visited:text-base"
+      onClick={_ => onClick()}>
+      {children}
+    </a>
   }
 }
 
