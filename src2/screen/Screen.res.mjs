@@ -4,8 +4,8 @@ import * as Jq from "../lib/Jq.res.mjs";
 import * as Switch from "./Switch.res.mjs";
 
 function render() {
-  var link = Jq.tree("span", [Jq.string("Читать заметку.")], undefined, undefined);
-  var content = Jq.tree("span", [Jq.string("\"Привет, мир!\"")], undefined, undefined);
+  var link = Jq.tree("span", [Jq.string("Читать заметку.")], undefined, undefined, undefined);
+  var content = Jq.tree("span", [Jq.string("\"Привет, мир!\"")], undefined, undefined, undefined);
   Switch.Toggle.make(link, content, undefined);
   return Jq.tree("div", [
               Jq.strings([
@@ -16,7 +16,7 @@ function render() {
               link,
               Jq.Dom.newline(),
               content
-            ], undefined, undefined);
+            ], undefined, undefined, undefined);
 }
 
 var Room = {

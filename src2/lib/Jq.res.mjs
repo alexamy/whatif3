@@ -117,9 +117,12 @@ function strings(strings$1) {
   return document.createTextNode(text);
 }
 
-function tree(tag, children, $$class, classes) {
+function tree(tag, children, ref, $$class, classes) {
   var element = document.createElement(tag);
   append(element, children);
+  Belt_Option.map(ref, (function (ref) {
+          ref.contents = element;
+        }));
   Belt_Option.map($$class, (function ($$class) {
           addClass(element, $$class);
         }));
