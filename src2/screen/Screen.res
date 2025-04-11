@@ -10,8 +10,13 @@ module Room = {
   let render = () => {
     let note1 = Switch.Toggle.make()
 
+    let dependencies = () => {
+      note1.setup()
+    }
+
     Jq.tree(
       #div,
+      ~dependencies,
       [
         Jq.strings([
           "Вы стоите посреди комнаты. На вашей руке - умные часы.",
@@ -22,7 +27,6 @@ module Room = {
         Jq.Dom.newline(),
         Jq.tree(#span, ~ref=note1.content, [Jq.string("\"Привет, мир!\"")]),
       ],
-      ~dependencies=_ => {note1.setup()},
     )
   }
 }
