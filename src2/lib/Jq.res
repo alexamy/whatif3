@@ -116,6 +116,7 @@ let tree = (tag, children, ~class=?, ~classes=?) => {
 
 // primitives
 module Dom = {
+  let null = () => string("")
   let space = () => string(" ")
   let newline = () => make(#br)
 }

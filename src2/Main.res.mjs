@@ -5,18 +5,19 @@ import * as $$Screen from "./screen/Screen.res.mjs";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as Core__Error from "@rescript/core/src/Core__Error.res.mjs";
 
+function mount(root, children) {
+  var root$1 = Jq.fromNode(root);
+  Jq.append(root$1, [children]);
+}
+
 function render(children) {
   return Jq.tree("div", [Jq.tree("div", [children], "mx-auto min-w-xl max-w-5xl", undefined)], "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100", undefined);
 }
 
 var App = {
+  mount: mount,
   render: render
 };
-
-function mount(root, children) {
-  var root$1 = Jq.fromNode(root);
-  Jq.append(root$1, [children]);
-}
 
 var rootElement = document.querySelector("#root");
 
@@ -28,6 +29,5 @@ if (rootElement !== undefined) {
 
 export {
   App ,
-  mount ,
 }
 /* rootElement Not a pure module */

@@ -129,6 +129,10 @@ function tree(tag, children, $$class, classes) {
   return element;
 }
 
+function $$null() {
+  return document.createTextNode("");
+}
+
 function space() {
   return document.createTextNode(" ");
 }
@@ -138,6 +142,7 @@ function newline() {
 }
 
 var Dom = {
+  $$null: $$null,
   space: space,
   newline: newline
 };
