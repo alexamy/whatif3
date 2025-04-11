@@ -64,16 +64,14 @@ let removeClass = (t, classes) => {
 }
 
 let toggleClass = (t, classes, value) => {
-  classes
-  ->Cn.normalize
-  ->Array.forEach(class => t->ClassList.classList->ClassList.toggle(class, value))
+  let classes = Cn.normalize(classes)
+  Array.forEach(classes, class => t->ClassList.classList->ClassList.toggle(class, value))
   t
 }
 
 let toggleClasses = (t, classes) => {
-  classes
-  ->Js.Dict.entries
-  ->Array.forEach(((class, isEnabled)) =>
+  let entries = Js.Dict.entries(classes)
+  Array.forEach(entries, ((class, isEnabled)) =>
     t->ClassList.classList->ClassList.toggle(class, isEnabled)
   )
   t

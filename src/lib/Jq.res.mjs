@@ -73,14 +73,16 @@ function removeClass(t, classes) {
 }
 
 function toggleClass(t, classes, value) {
-  Belt_Array.forEach(classes.split(" "), (function ($$class) {
+  var classes$1 = classes.split(" ");
+  Belt_Array.forEach(classes$1, (function ($$class) {
           t.classList.toggle($$class, value);
         }));
   return t;
 }
 
 function toggleClasses(t, classes) {
-  Belt_Array.forEach(Js_dict.entries(classes), (function (param) {
+  var entries = Js_dict.entries(classes);
+  Belt_Array.forEach(entries, (function (param) {
           t.classList.toggle(param[0], param[1]);
         }));
   return t;
