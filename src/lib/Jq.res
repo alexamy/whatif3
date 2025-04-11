@@ -3,6 +3,12 @@ open Web
 type t = Node.t
 type tag = [#div | #span | #p | #a]
 
+module Cn = {
+  let normalize = classes => {
+    String.split(classes, " ")
+  }
+}
+
 // creation
 let make = (tag: tag) => {
   Document.createElement(Document.document, (tag :> string))
@@ -41,19 +47,20 @@ let text = (t, text) => {
 
 // classes
 let addClass = (t, classes) => {
-  let classes = String.split(classes, " ")
+  let classes = Cn.normalize(classes)
   t->ClassList.classList->ClassList.add(classes)
   t
 }
 
 let removeClass = (t, classes) => {
-  let classes = String.split(classes, " ")
+  let classes = Cn.normalize(classes)
   t->ClassList.classList->ClassList.remove(classes)
   t
 }
 
 let toggleClass = (t, classes, value) => {
-  let classes = String.split(classes, " ")
-  Array.forEach(classes, class => t->ClassList.classList->ClassList.toggle(class, value))
+  classes
+  ->Cn.normalize
+  ->Array.forEach(class => t->ClassList.classList->ClassList.toggle(class, value))
   t
 }

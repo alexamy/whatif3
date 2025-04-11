@@ -3,6 +3,14 @@
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as Caml_splice_call from "rescript/lib/es6/caml_splice_call.js";
 
+function normalize(classes) {
+  return classes.split(" ");
+}
+
+var Cn = {
+  normalize: normalize
+};
+
 function make(tag) {
   return document.createElement(tag);
 }
@@ -51,14 +59,14 @@ function removeClass(t, classes) {
 }
 
 function toggleClass(t, classes, value) {
-  var classes$1 = classes.split(" ");
-  Belt_Array.forEach(classes$1, (function ($$class) {
+  Belt_Array.forEach(classes.split(" "), (function ($$class) {
           t.classList.toggle($$class, value);
         }));
   return t;
 }
 
 export {
+  Cn ,
   make ,
   string ,
   append ,
