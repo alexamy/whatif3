@@ -26,7 +26,7 @@ module Jq = {
 
   // creation
   let make = (tag: tag) => {
-    let t = Document.createElement(Document.document, tag:>string)
+    let t = Document.createElement(Document.document, (tag :> string))
     t
   }
 
@@ -65,7 +65,3 @@ module Jq = {
     t
   }
 }
-
-// "tailwindCSS.experimental.classRegex": [
-//     "addClass\\(\"(.+?)\"\\)"
-// ]
