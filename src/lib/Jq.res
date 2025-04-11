@@ -23,6 +23,14 @@ let string = text => {
   Document.createTextNode(Document.document, text)
 }
 
+let fromElement = element => {
+  element
+}
+
+let toElement = t => {
+  t
+}
+
 // manipulation
 let append = (t, nodes) => {
   Array.forEach(nodes, node => t->Node.appendChild(node))

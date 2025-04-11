@@ -14,14 +14,13 @@ var App = {
 };
 
 function mount(root, children) {
-  root.appendChild(children);
+  Jq.append(Jq.toElement(root), [children]);
 }
 
 var rootElement = document.querySelector("#root");
 
 if (rootElement !== undefined) {
-  var children = render(Content.RoomD.render());
-  Caml_option.valFromOption(rootElement).appendChild(children);
+  mount(Caml_option.valFromOption(rootElement), render(Content.RoomD.render()));
 } else {
   Core__Error.panic("No root element found!");
 }

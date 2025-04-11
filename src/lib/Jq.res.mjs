@@ -33,6 +33,14 @@ function string(text) {
   return document.createTextNode(text);
 }
 
+function fromElement(element) {
+  return element;
+}
+
+function toElement(t) {
+  return t;
+}
+
 function append(t, nodes) {
   Belt_Array.forEach(nodes, (function (node) {
           t.appendChild(node);
@@ -92,6 +100,8 @@ export {
   Cn ,
   make ,
   string ,
+  fromElement ,
+  toElement ,
   append ,
   appendTo ,
   replaceWith ,

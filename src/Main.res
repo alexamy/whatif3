@@ -13,7 +13,7 @@ module App = {
 open Web
 
 let mount = (root: Node.t, children: Jq.t) => {
-  Node.appendChild(root, children)
+  root->Jq.toElement->Jq.append([children])->ignore
 }
 
 switch Document.document->Document.querySelector("#root") {
