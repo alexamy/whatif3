@@ -6,7 +6,7 @@ module Base = {
   let make = (~content: Jq.t, ~initial=Unvisited) => {
     let state = ref(initial)
 
-    let rec update = newState => {
+    let update = newState => {
       state := newState
       switch newState {
       | Visited => Jq.show(content)
