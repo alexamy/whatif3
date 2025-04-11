@@ -50,7 +50,7 @@ let appendTo = (t, Jq(other)) => {
 
 let replaceWith = (t, Jq(other)) => {
   let Jq(node) = t
-  node->Node.parentNode->Node.replaceChild(node, other)
+  node->Node.parentNode->Node.replaceChild(~new=other, ~old=node)
   t
 }
 

@@ -45,7 +45,7 @@ module Room = {
 
 module SwitchD = {
   type state = Visited | Unvisited
-  type t = {toggle: state => unit}
+  type t = {link: Jq.t, content: Jq.t, toggle: state => unit}
 
   let useSwitch = (~link: Jq.t, ~content: Jq.t, ~initial=Unvisited) => {
     let state = ref(initial)
@@ -56,7 +56,7 @@ module SwitchD = {
       state := newState
       switch newState {
       | Visited => {
-          let text = Jq.getText(content)
+          let text = Jq.getText(link)
           link->Jq.replaceWith(Jq.string(text))->ignore
           content->Jq.show->ignore
         }
@@ -66,19 +66,27 @@ module SwitchD = {
 
     update(initial)
 
-    {toggle: update}
+    {link, content, toggle: update}
   }
 }
 
 module RoomD = {
+  let note1 = SwitchD.useSwitch(
+    ~link=Jq.make(#span)->Jq.append([Jq.string("Читать заметку.")]),
+    ~content=Jq.make(#span)->Jq.append([Jq.string("\"Привет, мир!\"")]),
+  )
+
+  setTimeout(() => note1.toggle(Visited), 2000)->ignore
+
   let render = () => {
     Jq.make(#div)->Jq.append([
       Jq.string(
         "Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок.",
       ),
       Jq.Dom.space(),
-      Jq.string("Читать заметку."),
-      Jq.string("\"Привет, мир!\""),
+      note1.link,
+      Jq.Dom.newline(),
+      note1.content,
     ])
   }
 }

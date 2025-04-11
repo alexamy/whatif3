@@ -66,7 +66,7 @@ function useSwitch(link, content, initialOpt) {
   var update = function (newState) {
     state.contents = newState;
     if (newState === "Visited") {
-      var text = Jq.getText(content);
+      var text = Jq.getText(link);
       Jq.replaceWith(link, Jq.string(text));
       Jq.show(content);
       return ;
@@ -75,6 +75,8 @@ function useSwitch(link, content, initialOpt) {
   };
   update(initial);
   return {
+          link: link,
+          content: content,
           toggle: update
         };
 }
@@ -83,16 +85,24 @@ var SwitchD = {
   useSwitch: useSwitch
 };
 
+var note1 = useSwitch(Jq.append(Jq.make("span"), [Jq.string("Читать заметку.")]), Jq.append(Jq.make("span"), [Jq.string("\"Привет, мир!\"")]), undefined);
+
+setTimeout((function () {
+        note1.toggle("Visited");
+      }), 2000);
+
 function render() {
   return Jq.append(Jq.make("div"), [
               Jq.string("Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок."),
               Jq.Dom.space(),
-              Jq.string("Читать заметку."),
-              Jq.string("\"Привет, мир!\"")
+              note1.link,
+              Jq.Dom.newline(),
+              note1.content
             ]);
 }
 
 var RoomD = {
+  note1: note1,
   render: render
 };
 
@@ -132,4 +142,4 @@ export {
   RoomD ,
   screens ,
 }
-/* Screen Not a pure module */
+/* note1 Not a pure module */

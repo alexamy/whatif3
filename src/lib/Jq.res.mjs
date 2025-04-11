@@ -54,7 +54,7 @@ function appendTo(t, other) {
 }
 
 function replaceWith(t, other) {
-  t.parentNode.replaceChild(t, other);
+  t.parentNode.replaceChild(other, t);
   return t;
 }
 

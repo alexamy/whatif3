@@ -5,7 +5,7 @@ module Node = {
   @set external setTextContent: (t, string) => unit = "textContent"
   @get external getTextContent: t => string = "textContent"
   @get external parentNode: t => t = "parentNode"
-  @send external replaceChild: (t, t, t) => unit = "replaceChild"
+  @send external replaceChild: (t, ~new: t, ~old: t) => unit = "replaceChild"
   @send external removeChild: (t, t) => unit = "removeChild"
 }
 
