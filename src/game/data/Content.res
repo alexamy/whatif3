@@ -50,8 +50,6 @@ module SwitchD = {
   let useSwitch = (~link: Jq.t, ~content: Jq.t, ~initial=Unvisited) => {
     let state = ref(initial)
 
-    // TODO: add click listener
-
     let update = newState => {
       state := newState
       switch newState {
@@ -60,7 +58,11 @@ module SwitchD = {
           link->Jq.replaceWith(Jq.string(text))->ignore
           content->Jq.show->ignore
         }
-      | Unvisited => content->Jq.hide->ignore
+      | Unvisited => {
+          content->Jq.hide->ignore
+          // add click listener
+          ()
+        }
       }
     }
 
