@@ -106,6 +106,12 @@ function onClick(t, handler) {
   return Js_exn.raiseError("/home/alex/hobby/whatif3/src/lib/Jq.res:98:2048-2053 - Todo: node->Node.addEventListener(\\\"click\\\", handler)");
 }
 
+function makeClass(tag, classes) {
+  var element = document.createElement(tag);
+  addClass(element, classes);
+  return element;
+}
+
 function space() {
   return document.createTextNode(" ");
 }
@@ -134,6 +140,7 @@ function build(root, trees) {
   Belt_Array.forEach(trees, (function (children) {
           construct(root, children);
         }));
+  return root;
 }
 
 var Tree = {
@@ -160,6 +167,7 @@ export {
   show ,
   hide ,
   onClick ,
+  makeClass ,
   Dom ,
   Tree ,
 }

@@ -1,14 +1,9 @@
 module App = {
   let render = (children: Jq.t) => {
-    let container = Jq.make(#div)
-    Jq.addClass(container, "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100")
-
-    let center = Jq.make(#div)
-    Jq.addClass(center, "mx-auto min-w-xl max-w-5xl")
-
-    Jq.Tree.build(container, [And(center, [Last(children)])])
-
-    container
+    Jq.Tree.build(
+      Jq.makeClass(#div, "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100"),
+      [And(Jq.makeClass(#div, "mx-auto min-w-xl max-w-5xl"), [Last(children)])],
+    )
   }
 }
 

@@ -6,19 +6,14 @@ import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as Core__Error from "@rescript/core/src/Core__Error.res.mjs";
 
 function render(children) {
-  var container = Jq.make("div");
-  Jq.addClass(container, "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100");
-  var center = Jq.make("div");
-  Jq.addClass(center, "mx-auto min-w-xl max-w-5xl");
-  Jq.Tree.build(container, [{
-          TAG: "And",
-          _0: center,
-          _1: [{
-              TAG: "Last",
-              _0: children
-            }]
-        }]);
-  return container;
+  return Jq.Tree.build(Jq.makeClass("div", "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100"), [{
+                TAG: "And",
+                _0: Jq.makeClass("div", "mx-auto min-w-xl max-w-5xl"),
+                _1: [{
+                    TAG: "Last",
+                    _0: children
+                  }]
+              }]);
 }
 
 var App = {

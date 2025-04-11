@@ -98,6 +98,13 @@ let onClick = (t, handler) => {
   %todo("node->Node.addEventListener(\"click\", handler)")
 }
 
+// helpers
+let makeClass = (tag: tag, classes: string) => {
+  let element = make(tag)
+  addClass(element, classes)
+  element
+}
+
 // primitives
 module Dom = {
   let space = () => string(" ")
@@ -120,5 +127,6 @@ module Tree = {
 
   let build = (root, trees) => {
     Array.forEach(trees, children => construct(root, children))
+    root
   }
 }
