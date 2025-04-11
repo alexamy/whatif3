@@ -3,6 +3,9 @@ module Node = {
   @send external appendChild: (t, t) => unit = "appendChild"
   @send external insertBefore: (t, t, ~reference: t) => unit = "insertBefore"
   @set external textContent: (t, string) => unit = "textContent"
+  @get external parentNode: t => t = "parentNode"
+  @send external replaceChild: (t, t, t) => unit = "replaceChild"
+  @send external removeChild: (t, t) => unit = "removeChild"
 }
 
 module ClassList = {
@@ -47,6 +50,17 @@ module Jq = {
     t
   }
 
+  let replaceWith = (t, node) => {
+    t->Node.parentNode->Node.replaceChild(t, node)
+    t
+  }
+
+  let remove = t => {
+    t->Node.parentNode->Node.removeChild(t)
+    t
+  }
+
+  // content
   let text = (t, text) => {
     t->Node.textContent(text)
     t

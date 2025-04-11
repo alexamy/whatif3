@@ -29,6 +29,16 @@ function appendTo(t, node) {
   return t;
 }
 
+function replaceWith(t, node) {
+  t.parentNode.replaceChild(t, node);
+  return t;
+}
+
+function remove(t) {
+  t.parentNode.removeChild(t);
+  return t;
+}
+
 function text(t, text$1) {
   t.textContent = text$1;
   return t;
@@ -59,6 +69,8 @@ var Jq = {
   string: string,
   append: append,
   appendTo: appendTo,
+  replaceWith: replaceWith,
+  remove: remove,
   text: text,
   addClass: addClass,
   removeClass: removeClass,
