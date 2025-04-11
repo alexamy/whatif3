@@ -35,8 +35,11 @@ function Content$Room(props) {
   var content = JsxRuntime.jsxs(JsxRuntime.Fragment, {
         children: [
           "Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок.",
-          note1.link("Читать заметку"),
-          note1.content("Вы читаете заметку: \"Привет, мир!\"")
+          note1.link("Читать заметку."),
+          JsxRuntime.jsx("br", {}),
+          note1.content(JsxRuntime.jsx("p", {
+                    children: "Вы читаете заметку: \"Привет, мир!\""
+                  }))
         ]
       });
   return JsxRuntime.jsx($$Screen.make, {
