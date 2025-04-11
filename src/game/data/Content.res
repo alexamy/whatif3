@@ -13,54 +13,6 @@ type screen = {
   options: array<(string, place)>,
 }
 
-module SwitchBase = {
-  type state = Visited | Unvisited
-
-  type t = {
-    state: state,
-    content: React.element => React.element,
-    toggle: state => unit,
-  }
-
-  let useSwitch = initial => {
-    let (state, setState) = React.useState(_ => initial)
-
-    let toggle = state => {
-      setState(_ => state)
-    }
-
-    let content = children => {
-      state === Visited ? children : React.null
-    }
-
-    {state, content, toggle}
-  }
-}
-
-module Switch = {
-  type t = {
-    link: React.element => React.element,
-    content: React.element => React.element,
-  }
-
-  let useSwitch = (~initial=SwitchBase.Unvisited) => {
-    let base = SwitchBase.useSwitch(initial)
-    let isVisited = base.state === Visited
-
-    let link = children => {
-      isVisited
-        ? children
-        : <Screen.Link onClick={_ => base.toggle(Visited)}> {children} </Screen.Link>
-    }
-
-    let content = children => {
-      isVisited ? children : React.null
-    }
-
-    {link, content}
-  }
-}
-
 module Room = {
   let computer = Watch
 
@@ -72,7 +24,7 @@ module Room = {
 
   @react.component
   let make = (~goTo) => {
-    let note1 = Switch.useSwitch()
+    let note1 = Switch.Toggle.useSwitch()
 
     let options = Array.map(paths, ((option, place)) => (React.string(option), _ => goTo(place)))
     let content =
