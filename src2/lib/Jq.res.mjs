@@ -147,10 +147,19 @@ function newline() {
   return document.createElement("br");
 }
 
+var placeholder = (function() {
+    return new Proxy({}, {
+      get(target, prop) {
+        throw new Error("Assign ref first!")
+      }
+    })
+  });
+
 var Dom = {
   $$null: $$null,
   space: space,
-  newline: newline
+  newline: newline,
+  placeholder: placeholder
 };
 
 export {

@@ -41,7 +41,7 @@ function make$1(initialOpt) {
   var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
   var base = make(initial);
   var link = {
-    contents: Jq.Dom.$$null()
+    contents: Jq.Dom.placeholder()
   };
   var update = function (newState) {
     base.update(newState);
@@ -55,11 +55,14 @@ function make$1(initialOpt) {
                 });
     }
   };
+  var setup = function () {
+    update(initial);
+  };
   return {
           content: base.content,
           link: link,
           update: update,
-          setup: base.setup
+          setup: setup
         };
 }
 

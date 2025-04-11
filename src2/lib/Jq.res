@@ -121,4 +121,12 @@ module Dom = {
   let null = () => string("")
   let space = () => string(" ")
   let newline = () => make(#br)
+
+  let placeholder: unit => t = %raw(`function() {
+    return new Proxy({}, {
+      get(target, prop) {
+        throw new Error("Assign ref first!")
+      }
+    })
+  }`)
 }
