@@ -1,7 +1,7 @@
 {
   "name": "whatif3",
   "sources": {
-    "dir": "src",
+    "dir": "src2",
     "subdirs": true
   },
   "package-specs": {
@@ -9,10 +9,8 @@
     "in-source": true
   },
   "suffix": ".res.mjs",
-  "jsx": { "version": 4 },
   "bs-dependencies": [
-    "@rescript/core",
-    "@rescript/react"
+    "@rescript/core"
   ],
   "bsc-flags": [
     "-open RescriptCore",
