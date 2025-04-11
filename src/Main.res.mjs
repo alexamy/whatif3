@@ -6,7 +6,7 @@ import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as Core__Error from "@rescript/core/src/Core__Error.res.mjs";
 
 function render(children) {
-  return Jq.tree("div", "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100", [Jq.tree("div", "mx-auto min-w-xl max-w-5xl", [children])]);
+  return Jq.tree("div", [Jq.tree("div", [children], "mx-auto min-w-xl max-w-5xl")], "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100");
 }
 
 var App = {
