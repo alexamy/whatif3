@@ -7,9 +7,7 @@ module App = {
   }
 }
 
-open Web
-
-switch Document.document->Document.querySelector("#root") {
+switch Web.Document.document->Web.Document.querySelector("#root") {
 | Some(rootElement) => rootElement->Jq.append([Content.RoomD.render()])->ignore
 | None => Error.panic("No root element found!")
 }

@@ -44,8 +44,6 @@ module Room = {
 }
 
 module RoomD = {
-  open Web
-
   let space = Jq.string(" ")
 
   let render = () => {
