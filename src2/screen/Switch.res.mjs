@@ -2,12 +2,14 @@
 
 import * as Jq from "../lib/Jq.res.mjs";
 
+var Base = {};
+
 function replaceWithText(link) {
   var text = Jq.getText(link);
   Jq.replaceWith(link, Jq.string(text));
 }
 
-function useSwitch(link, content, initialOpt) {
+function createSwitch(link, content, initialOpt) {
   var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
   var state = {
     contents: initial
@@ -33,10 +35,11 @@ function useSwitch(link, content, initialOpt) {
 
 var Toggle = {
   replaceWithText: replaceWithText,
-  useSwitch: useSwitch
+  createSwitch: createSwitch
 };
 
 export {
+  Base ,
   Toggle ,
 }
 /* No side effect */

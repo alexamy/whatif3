@@ -1,5 +1,8 @@
+type state = Visited | Unvisited
+
+module Base = {}
+
 module Toggle = {
-  type state = Visited | Unvisited
   type t = {toggle: state => unit}
 
   let replaceWithText = link => {
@@ -7,7 +10,7 @@ module Toggle = {
     Jq.replaceWith(link, Jq.string(text))
   }
 
-  let useSwitch = (~link: Jq.t, ~content: Jq.t, ~initial=Unvisited) => {
+  let createSwitch = (~link: Jq.t, ~content: Jq.t, ~initial=Unvisited) => {
     let state = ref(initial)
 
     let rec update = newState => {
