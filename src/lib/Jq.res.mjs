@@ -106,9 +106,10 @@ function onClick(t, handler) {
   return Js_exn.raiseError("/home/alex/hobby/whatif3/src/lib/Jq.res:98:2048-2053 - Todo: node->Node.addEventListener(\\\"click\\\", handler)");
 }
 
-function makeClass(tag, classes) {
+function tree(tag, classes, nodes) {
   var element = document.createElement(tag);
   addClass(element, classes);
+  append(element, nodes);
   return element;
 }
 
@@ -123,29 +124,6 @@ function newline() {
 var Dom = {
   space: space,
   newline: newline
-};
-
-function construct(root, tree) {
-  if (tree.TAG !== "And") {
-    return append(root, [tree._0]);
-  }
-  var t = tree._0;
-  append(root, [t]);
-  Belt_Array.forEach(tree._1, (function (children) {
-          construct(t, children);
-        }));
-}
-
-function build(root, trees) {
-  Belt_Array.forEach(trees, (function (children) {
-          construct(root, children);
-        }));
-  return root;
-}
-
-var Tree = {
-  construct: construct,
-  build: build
 };
 
 export {
@@ -167,8 +145,7 @@ export {
   show ,
   hide ,
   onClick ,
-  makeClass ,
+  tree ,
   Dom ,
-  Tree ,
 }
 /* No side effect */

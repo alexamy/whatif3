@@ -99,9 +99,10 @@ let onClick = (t, handler) => {
 }
 
 // helpers
-let makeClass = (tag: tag, classes: string) => {
+let tree = (tag, classes, nodes) => {
   let element = make(tag)
   addClass(element, classes)
+  append(element, nodes)
   element
 }
 
@@ -109,24 +110,4 @@ let makeClass = (tag: tag, classes: string) => {
 module Dom = {
   let space = () => string(" ")
   let newline = () => make(#br)
-}
-
-module Tree = {
-  type rec tree =
-    | And(t, array<tree>)
-    | Last(t)
-
-  let rec construct = (root, tree) =>
-    switch tree {
-    | Last(t) => append(root, [t])
-    | And(t, trees) => {
-        append(root, [t])
-        Array.forEach(trees, children => construct(t, children))
-      }
-    }
-
-  let build = (root, trees) => {
-    Array.forEach(trees, children => construct(root, children))
-    root
-  }
 }
