@@ -114,9 +114,25 @@ function newline() {
   return document.createElement("br");
 }
 
+function build(_root, _tree) {
+  while(true) {
+    var tree = _tree;
+    var root = _root;
+    if (tree.TAG !== "Node") {
+      return append(root, [tree._0]);
+    }
+    var t = tree._0;
+    append(root, [t]);
+    _tree = tree._1;
+    _root = t;
+    continue ;
+  };
+}
+
 var Dom = {
   space: space,
-  newline: newline
+  newline: newline,
+  build: build
 };
 
 export {

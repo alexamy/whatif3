@@ -100,6 +100,19 @@ let onClick = (t, handler) => {
 
 // primitives
 module Dom = {
+  type rec tree =
+    | Node(t, tree)
+    | Leaf(t)
+
   let space = () => string(" ")
   let newline = () => make(#br)
+
+  let rec build = (root, tree) =>
+    switch tree {
+    | Leaf(t) => append(root, [t])
+    | Node(t, children) => {
+        append(root, [t])
+        build(t, children)
+      }
+    }
 }
