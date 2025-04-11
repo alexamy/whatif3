@@ -7,8 +7,13 @@ module Cn = {
   let normalize = classes => {
     String.split(classes, " ")
   }
-}
 
+  let fromObject = obj => {
+    Js.Dict.entries(obj)
+    ->Array.map(((class, value)) => value ? class : "")
+    ->Array.reduce("", (classes, class) => classes ++ " " ++ class)
+  }
+}
 // creation
 let make = (tag: tag) => {
   Document.createElement(Document.document, (tag :> string))
@@ -62,5 +67,14 @@ let toggleClass = (t, classes, value) => {
   classes
   ->Cn.normalize
   ->Array.forEach(class => t->ClassList.classList->ClassList.toggle(class, value))
+  t
+}
+
+let toggleClasses = (t, classes) => {
+  classes
+  ->Js.Dict.entries
+  ->Array.forEach(((class, isEnabled)) =>
+    t->ClassList.classList->ClassList.toggle(class, isEnabled)
+  )
   t
 }
