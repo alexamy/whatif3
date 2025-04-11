@@ -3,19 +3,10 @@
 import * as Jq from "../lib/Jq.res.mjs";
 import * as Switch from "./Switch.res.mjs";
 
-var link = Jq.tree("span", [Jq.string("Читать заметку.")], undefined, undefined);
-
-var content = Jq.tree("span", [Jq.string("\"Привет, мир!\"")], undefined, undefined);
-
-var note = Switch.Toggle.make(link, content, undefined);
-
-var Note1 = {
-  link: link,
-  content: content,
-  note: note
-};
-
 function render() {
+  var link = Jq.tree("span", [Jq.string("Читать заметку.")], undefined, undefined);
+  var content = Jq.tree("span", [Jq.string("\"Привет, мир!\"")], undefined, undefined);
+  Switch.Toggle.make(link, content, undefined);
   return Jq.tree("div", [
               Jq.strings([
                     "Вы стоите посреди комнаты. На вашей руке - умные часы.",
@@ -29,11 +20,10 @@ function render() {
 }
 
 var Room = {
-  Note1: Note1,
   render: render
 };
 
 export {
   Room ,
 }
-/* link Not a pure module */
+/* No side effect */

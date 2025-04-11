@@ -7,13 +7,13 @@ type place =
 type computer = Door | Watch
 
 module Room = {
-  module Note1 = {
-    let link = Jq.tree(#span, [Jq.string("Читать заметку.")])
-    let content = Jq.tree(#span, [Jq.string("\"Привет, мир!\"")])
-    let note = Switch.Toggle.make(~link, ~content)
-  }
-
   let render = () => {
+    module Note1 = {
+      let link = Jq.tree(#span, [Jq.string("Читать заметку.")])
+      let content = Jq.tree(#span, [Jq.string("\"Привет, мир!\"")])
+      let note = Switch.Toggle.make(~link, ~content)
+    }
+
     Jq.tree(
       #div,
       [
