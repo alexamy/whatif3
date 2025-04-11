@@ -6,8 +6,8 @@ module App = {
     let center = Jq.make(#div)
     Jq.addClass(center, "mx-auto min-w-xl max-w-5xl")
 
-    Jq.append(container, [center])
-    Jq.append(center, [children])
+    container->Jq.append([center])
+    center->Jq.append([children])
 
     container
   }

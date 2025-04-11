@@ -76,10 +76,10 @@ module SwitchD = {
 module RoomD = {
   module Note1 = {
     let link = Jq.make(#span)
-    Jq.append(link, [Jq.string("Читать заметку.")])
+    link->Jq.append([Jq.string("Читать заметку.")])
 
     let content = Jq.make(#span)
-    Jq.append(content, [Jq.string("\"Привет, мир!\"")])
+    content->Jq.append([Jq.string("\"Привет, мир!\"")])
 
     let note = SwitchD.useSwitch(~link, ~content)
   }
