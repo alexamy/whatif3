@@ -2,21 +2,24 @@
 
 import * as Jq from "../lib/Jq.res.mjs";
 
-function make(content, initialOpt) {
+function make(initialOpt) {
   var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
   var state = {
     contents: initial
   };
+  var content = {
+    contents: Jq.Dom.$$null()
+  };
   var update = function (newState) {
     state.contents = newState;
     if (newState === "Visited") {
-      return Jq.show(content);
+      return Jq.show(content.contents);
     } else {
-      return Jq.hide(content);
+      return Jq.hide(content.contents);
     }
   };
-  update(initial);
   return {
+          content: content,
           update: update
         };
 }
@@ -30,23 +33,30 @@ function replaceWithText(link) {
   Jq.replaceWith(link, Jq.string(text));
 }
 
-function make$1(link, content, initialOpt) {
+function make$1(initialOpt) {
   var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
-  var base = make(content, initial);
-  var update = function (newState) {
+  var base = make(undefined);
+  var link = {
+    contents: Jq.Dom.$$null()
+  };
+  var update = function (newStateOpt) {
+    var newState = newStateOpt !== undefined ? newStateOpt : initial;
     base.update(newState);
     if (newState === "Visited") {
-      return replaceWithText(link);
+      return replaceWithText(link.contents);
     } else {
-      return Jq.onClick(link, (function (param) {
+      return Jq.onClick(link.contents, (function (param) {
                     update("Visited");
                   }), {
                   once: true
                 });
     }
   };
-  update(initial);
-  return update;
+  return {
+          content: base.content,
+          link: link,
+          update: update
+        };
 }
 
 var Toggle = {

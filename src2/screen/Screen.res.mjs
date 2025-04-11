@@ -4,19 +4,19 @@ import * as Jq from "../lib/Jq.res.mjs";
 import * as Switch from "./Switch.res.mjs";
 
 function render() {
-  var link = Jq.tree("span", [Jq.string("Читать заметку.")], undefined, undefined, undefined);
-  var content = Jq.tree("span", [Jq.string("\"Привет, мир!\"")], undefined, undefined, undefined);
-  Switch.Toggle.make(link, content, undefined);
+  var note1 = Switch.Toggle.make(undefined);
   return Jq.tree("div", [
               Jq.strings([
                     "Вы стоите посреди комнаты. На вашей руке - умные часы.",
                     "Вы используете их для записи и чтения заметок."
                   ]),
               Jq.Dom.space(),
-              link,
+              Jq.tree("span", [Jq.string("Читать заметку.")], note1.link, undefined, undefined, undefined),
               Jq.Dom.newline(),
-              content
-            ], undefined, undefined, undefined);
+              Jq.tree("span", [Jq.string("\"Привет, мир!\"")], note1.content, undefined, undefined, undefined)
+            ], undefined, undefined, undefined, (function () {
+                note1.update(undefined);
+              }));
 }
 
 var Room = {

@@ -11,7 +11,7 @@ function mount(root, children) {
 }
 
 function render(children) {
-  return Jq.tree("div", [Jq.tree("div", [children], undefined, "mx-auto min-w-xl max-w-5xl", undefined)], undefined, "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100", undefined);
+  return Jq.tree("div", [Jq.tree("div", [children], undefined, "mx-auto min-w-xl max-w-5xl", undefined, undefined)], undefined, "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100", undefined, undefined);
 }
 
 var App = {

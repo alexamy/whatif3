@@ -117,17 +117,20 @@ function strings(strings$1) {
   return document.createTextNode(text);
 }
 
-function tree(tag, children, ref, $$class, classes) {
+function tree(tag, children, ref, $$class, classes, after) {
   var element = document.createElement(tag);
   append(element, children);
   Belt_Option.map(ref, (function (ref) {
-          return ref(element);
+          ref.contents = element;
         }));
   Belt_Option.map($$class, (function ($$class) {
           addClass(element, $$class);
         }));
   Belt_Option.map(classes, (function (classes) {
           toggleClasses(element, classes);
+        }));
+  Belt_Option.map(after, (function (after) {
+          return after();
         }));
   return element;
 }
