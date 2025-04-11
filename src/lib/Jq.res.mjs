@@ -42,55 +42,47 @@ function toNode(t) {
   return t;
 }
 
-function append(t, nodes) {
+function append(node, nodes) {
   Belt_Array.forEach(nodes, (function (other) {
-          t.appendChild(other);
+          node.appendChild(other);
         }));
-  return t;
 }
 
-function appendTo(t, other) {
-  other.appendChild(t);
-  return t;
+function appendTo(node, other) {
+  other.appendChild(node);
 }
 
-function replaceWith(t, other) {
-  t.parentNode.replaceChild(other, t);
-  return t;
+function replaceWith(node, other) {
+  node.parentNode.replaceChild(other, node);
 }
 
-function remove(t) {
-  t.parentNode.removeChild(t);
-  return t;
+function remove(node) {
+  node.parentNode.removeChild(node);
 }
 
-function setText(t, text) {
-  t.textContent = text;
-  return t;
+function setText(node, text) {
+  node.textContent = text;
 }
 
-function getText(t) {
-  return t.textContent;
+function getText(node) {
+  return node.textContent;
 }
 
-function addClass(t, classes) {
+function addClass(node, classes) {
   var classes$1 = classes.split(" ");
-  Caml_splice_call.spliceObjApply(t.classList, "add", [classes$1]);
-  return t;
+  Caml_splice_call.spliceObjApply(node.classList, "add", [classes$1]);
 }
 
-function removeClass(t, classes) {
+function removeClass(node, classes) {
   var classes$1 = classes.split(" ");
-  Caml_splice_call.spliceObjApply(t.classList, "remove", [classes$1]);
-  return t;
+  Caml_splice_call.spliceObjApply(node.classList, "remove", [classes$1]);
 }
 
-function toggleClass(t, classes, value) {
+function toggleClass(node, classes, value) {
   var classes$1 = classes.split(" ");
   Belt_Array.forEach(classes$1, (function ($$class) {
-          t.classList.toggle($$class, value);
+          node.classList.toggle($$class, value);
         }));
-  return t;
 }
 
 function toggleClasses(t, classes) {
@@ -98,23 +90,20 @@ function toggleClasses(t, classes) {
   Belt_Array.forEach(entries, (function (param) {
           toggleClass(t, param[0], param[1]);
         }));
-  return t;
 }
 
-function show(t) {
-  var style = t.style;
+function show(node) {
+  var style = node.style;
   style.display = "initial";
-  return t;
 }
 
-function hide(t) {
-  var style = t.style;
+function hide(node) {
+  var style = node.style;
   style.display = "none";
-  return t;
 }
 
 function onClick(t, handler) {
-  return Js_exn.raiseError("/home/alex/hobby/whatif3/src/lib/Jq.res:120:2216-2221 - Todo: node->Node.addEventListener(\\\"click\\\", handler)");
+  return Js_exn.raiseError("/home/alex/hobby/whatif3/src/lib/Jq.res:98:2048-2053 - Todo: node->Node.addEventListener(\\\"click\\\", handler)");
 }
 
 function space() {

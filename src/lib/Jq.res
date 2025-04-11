@@ -34,85 +34,63 @@ let toNode = t => {
 }
 
 // manipulation
-let append = (t, nodes) => {
-  let Jq(node) = t
+let append = (Jq(node), nodes) => {
   Array.forEach(nodes, (Jq(other)) => {
     node->Node.appendChild(other)
   })
-  t
 }
 
-let appendTo = (t, Jq(other)) => {
-  let Jq(node) = t
+let appendTo = (Jq(node), Jq(other)) => {
   other->Node.appendChild(node)
-  t
 }
 
-let replaceWith = (t, Jq(other)) => {
-  let Jq(node) = t
+let replaceWith = (Jq(node), Jq(other)) => {
   node->Node.parentNode->Node.replaceChild(~new=other, ~old=node)
-  t
 }
 
-let remove = t => {
-  let Jq(node) = t
+let remove = (Jq(node)) => {
   node->Node.parentNode->Node.removeChild(node)
-  t
 }
 
 // content
-let setText = (t, text) => {
-  let Jq(node) = t
+let setText = (Jq(node), text) => {
   node->Node.setTextContent(text)
-  t
 }
 
-let getText = t => {
-  let Jq(node) = t
+let getText = (Jq(node)) => {
   node->Node.getTextContent
 }
 
 // classes
-let addClass = (t, classes) => {
-  let Jq(node) = t
+let addClass = (Jq(node), classes) => {
   let classes = Cn.normalize(classes)
   node->ClassList.classList->ClassList.add(classes)
-  t
 }
 
-let removeClass = (t, classes) => {
-  let Jq(node) = t
+let removeClass = (Jq(node), classes) => {
   let classes = Cn.normalize(classes)
   node->ClassList.classList->ClassList.remove(classes)
-  t
 }
 
-let toggleClass = (t, classes, value) => {
-  let Jq(node) = t
+let toggleClass = (Jq(node), classes, value) => {
   let classes = Cn.normalize(classes)
   Array.forEach(classes, class => node->ClassList.classList->ClassList.toggle(class, value))
-  t
 }
 
 let toggleClasses = (t, classes) => {
   let entries = Js.Dict.entries(classes)
   Array.forEach(entries, ((class, isEnabled)) => toggleClass(t, class, isEnabled)->ignore)
-  t
 }
 
 // display
-let show = t => {
-  let Jq(node) = t
+let show = (Jq(node)) => {
   let style = node->Style.style
   style["display"] = #initial
-  t
 }
 
-let hide = t => {
-  let Jq(node) = t
+let hide = (Jq(node)) => {
   let style = node->Style.style
   style["display"] = #none
-  t
 }
 
 // events
