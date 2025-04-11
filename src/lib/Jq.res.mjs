@@ -102,7 +102,7 @@ function toggleClasses(t, classes) {
 
 function show(t) {
   var style = t.style;
-  style.display = "block";
+  style.display = "initial";
   return t;
 }
 

@@ -104,7 +104,7 @@ let toggleClasses = (t, classes) => {
 let show = t => {
   let Jq(node) = t
   let style = node->Style.style
-  style["display"] = #block
+  style["display"] = #initial
   t
 }
 

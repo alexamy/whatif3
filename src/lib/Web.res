@@ -10,7 +10,7 @@ module Node = {
 }
 
 module Style = {
-  type t = {@set "display": [#inline | #block | #none]}
+  type t = {@set "display": [#initial | #inline | #block | #none]}
   @get external style: Node.t => t = "style"
 }
 
