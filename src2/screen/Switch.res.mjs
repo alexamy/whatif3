@@ -14,11 +14,16 @@ function useSwitch(link, content, initialOpt) {
   };
   var update = function (newState) {
     state.contents = newState;
-    if (newState !== "Visited") {
-      return Jq.hide(content);
+    if (newState === "Visited") {
+      replaceWithText(link);
+      return Jq.show(content);
     }
-    replaceWithText(link);
-    Jq.show(content);
+    Jq.hide(content);
+    Jq.onClick(link, (function (param) {
+            update("Visited");
+          }), {
+          once: true
+        });
   };
   update(initial);
   return {

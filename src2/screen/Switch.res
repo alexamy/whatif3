@@ -10,15 +10,17 @@ module Toggle = {
   let useSwitch = (~link: Jq.t, ~content: Jq.t, ~initial=Unvisited) => {
     let state = ref(initial)
 
-    let update = newState => {
+    let rec update = newState => {
       state := newState
       switch newState {
       | Visited => {
           replaceWithText(link)
           Jq.show(content)
         }
-      // add click listener
-      | Unvisited => Jq.hide(content)
+      | Unvisited => {
+          Jq.hide(content)
+          link->Jq.onClick(_ => update(Visited), ~options={once: true})
+        }
       }
     }
 

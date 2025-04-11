@@ -9,12 +9,6 @@ var content = Jq.tree("span", [Jq.string("\"Привет, мир!\"")], undefine
 
 var note = Switch.Toggle.useSwitch(link, content, undefined);
 
-Jq.onClick(link, (function (param) {
-        note.toggle("Visited");
-      }), {
-      once: true
-    });
-
 var Note1 = {
   link: link,
   content: content,

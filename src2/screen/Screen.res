@@ -12,7 +12,6 @@ module Room = {
     let content = Jq.tree(#span, [Jq.string("\"Привет, мир!\"")])
 
     let note = Switch.Toggle.useSwitch(~link, ~content)
-    link->Jq.onClick(_ => note.toggle(Visited), ~options={once: true})
   }
 
   let render = () => {
