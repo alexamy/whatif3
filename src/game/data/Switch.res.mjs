@@ -35,30 +35,24 @@ var Base = {
 
 function useSwitch$1(initialOpt) {
   var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
-  var base = useSwitch(initial);
-  var isVisited = base.state === "Visited";
+  var match = useSwitch(initial);
+  var toggle = match.toggle;
+  var state = match.state;
   var link = function (children) {
-    if (isVisited) {
-      return children;
-    } else {
+    if (state === "Unvisited") {
       return JsxRuntime.jsx($$Screen.Link.make, {
                   onClick: (function () {
-                      base.toggle("Visited");
+                      toggle("Visited");
                     }),
                   children: children
                 });
-    }
-  };
-  var content = function (children) {
-    if (isVisited) {
-      return children;
     } else {
-      return null;
+      return children;
     }
   };
   return {
           link: link,
-          content: content
+          content: match.content
         };
 }
 

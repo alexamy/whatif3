@@ -29,17 +29,12 @@ module Toggle = {
   }
 
   let useSwitch = (~initial=Unvisited) => {
-    let base = Base.useSwitch(initial)
-    let isVisited = base.state === Visited
+    let {state, content, toggle} = Base.useSwitch(initial)
 
     let link = children => {
-      isVisited
-        ? children
-        : <Screen.Link onClick={_ => base.toggle(Visited)}> {children} </Screen.Link>
-    }
-
-    let content = children => {
-      isVisited ? children : React.null
+      state === Unvisited
+        ? <Screen.Link onClick={() => toggle(Visited)}> {children} </Screen.Link>
+        : children
     }
 
     {link, content}
