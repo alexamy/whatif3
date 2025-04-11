@@ -1,7 +1,7 @@
 type state = Visited | Unvisited
 
 module Base = {
-  type t = {toggle: state => unit}
+  type t = {state: ref<state>, update: state => unit}
 
   let make = (~content: Jq.t, ~initial=Unvisited) => {
     let state = ref(initial)
@@ -15,12 +15,12 @@ module Base = {
     }
 
     update(initial)
-    {toggle: update}
+    {state, update}
   }
 }
 
 module Toggle = {
-  type t = {toggle: state => unit}
+  type t = {update: state => unit}
 
   let replaceWithText = link => {
     let text = Jq.getText(link)
@@ -28,24 +28,17 @@ module Toggle = {
   }
 
   let make = (~link: Jq.t, ~content: Jq.t, ~initial=Unvisited) => {
-    let state = ref(initial)
+    let base = Base.make(~content, ~initial)
 
     let rec update = newState => {
-      state := newState
+      base.update(newState)
       switch newState {
-      | Visited => {
-          replaceWithText(link)
-          Jq.show(content)
-        }
-      | Unvisited => {
-          Jq.hide(content)
-          link->Jq.onClick(_ => update(Visited), ~options={once: true})
-        }
+      | Visited => replaceWithText(link)
+      | Unvisited => link->Jq.onClick(_ => update(Visited), ~options={once: true})
       }
     }
 
     update(initial)
-
-    {toggle: update}
+    {update}
   }
 }

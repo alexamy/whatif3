@@ -17,7 +17,8 @@ function make(content, initialOpt) {
   };
   update(initial);
   return {
-          toggle: update
+          state: state,
+          update: update
         };
 }
 
@@ -32,26 +33,21 @@ function replaceWithText(link) {
 
 function make$1(link, content, initialOpt) {
   var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
-  var state = {
-    contents: initial
-  };
+  var base = make(content, initial);
   var update = function (newState) {
-    state.contents = newState;
+    base.update(newState);
     if (newState === "Visited") {
-      replaceWithText(link);
-      return Jq.show(content);
+      return replaceWithText(link);
+    } else {
+      return Jq.onClick(link, (function (param) {
+                    update("Visited");
+                  }), {
+                  once: true
+                });
     }
-    Jq.hide(content);
-    Jq.onClick(link, (function (param) {
-            update("Visited");
-          }), {
-          once: true
-        });
   };
   update(initial);
-  return {
-          toggle: update
-        };
+  return update;
 }
 
 var Toggle = {
