@@ -42,13 +42,13 @@ let append = (t, nodes) => {
   t
 }
 
-let appendTo = (t, other) => {
+let appendTo = (t, Jq(other)) => {
   let Jq(node) = t
   other->Node.appendChild(node)
   t
 }
 
-let replaceWith = (t, other) => {
+let replaceWith = (t, Jq(other)) => {
   let Jq(node) = t
   node->Node.parentNode->Node.replaceChild(node, other)
   t
@@ -61,10 +61,15 @@ let remove = t => {
 }
 
 // content
-let text = (t, text) => {
+let setText = (t, text) => {
   let Jq(node) = t
-  node->Node.textContent(text)
+  node->Node.setTextContent(text)
   t
+}
+
+let getText = t => {
+  let Jq(node) = t
+  node->Node.getTextContent
 }
 
 // classes

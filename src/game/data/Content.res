@@ -43,6 +43,31 @@ module Room = {
   }
 }
 
+module SwitchD = {
+  type state = Visited | Unvisited
+  type t = {toggle: state => unit}
+
+  let useSwitch = (~link: Jq.t, ~content: Jq.t, ~initial=Unvisited) => {
+    let state = ref(initial)
+
+    let update = newState => {
+      state := newState
+      switch newState {
+      | Visited => {
+          let text = Jq.getText(content)
+          link->Jq.replaceWith(Jq.string(text))->ignore
+          content->Jq.remove->ignore
+        }
+      | Unvisited => ()
+      }
+    }
+
+    update(initial)
+
+    {toggle: update}
+  }
+}
+
 module RoomD = {
   let render = () => {
     Jq.make(#div)->Jq.append([

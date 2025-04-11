@@ -63,9 +63,13 @@ function remove(t) {
   return t;
 }
 
-function text(t, text$1) {
-  t.textContent = text$1;
+function setText(t, text) {
+  t.textContent = text;
   return t;
+}
+
+function getText(t) {
+  return t.textContent;
 }
 
 function addClass(t, classes) {
@@ -119,7 +123,8 @@ export {
   appendTo ,
   replaceWith ,
   remove ,
-  text ,
+  setText ,
+  getText ,
   addClass ,
   removeClass ,
   toggleClass ,

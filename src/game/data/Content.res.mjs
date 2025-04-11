@@ -58,6 +58,30 @@ var Room = {
   make: Content$Room
 };
 
+function useSwitch(link, content, initialOpt) {
+  var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
+  var state = {
+    contents: initial
+  };
+  var update = function (newState) {
+    state.contents = newState;
+    if (newState !== "Visited") {
+      return ;
+    }
+    var text = Jq.getText(content);
+    Jq.replaceWith(link, Jq.string(text));
+    Jq.remove(content);
+  };
+  update(initial);
+  return {
+          toggle: update
+        };
+}
+
+var SwitchD = {
+  useSwitch: useSwitch
+};
+
 function render() {
   return Jq.append(Jq.make("div"), [
               Jq.string("Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок."),
@@ -103,6 +127,7 @@ var screens = [
 
 export {
   Room ,
+  SwitchD ,
   RoomD ,
   screens ,
 }

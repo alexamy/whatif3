@@ -2,7 +2,8 @@ module Node = {
   type t
   @send external appendChild: (t, t) => unit = "appendChild"
   @send external insertBefore: (t, t, ~reference: t) => unit = "insertBefore"
-  @set external textContent: (t, string) => unit = "textContent"
+  @set external setTextContent: (t, string) => unit = "textContent"
+  @get external getTextContent: t => string = "textContent"
   @get external parentNode: t => t = "parentNode"
   @send external replaceChild: (t, t, t) => unit = "replaceChild"
   @send external removeChild: (t, t) => unit = "removeChild"
