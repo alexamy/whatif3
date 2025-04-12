@@ -9,6 +9,9 @@
     "in-source": true
   },
   "suffix": ".res.mjs",
+  "jsx": {
+    "module": "Jqx"
+  },
   "bs-dependencies": [
     "@rescript/core"
   ],
