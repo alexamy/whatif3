@@ -24,10 +24,10 @@ let array: array<element> => element = elements => {
     ),
   )
 }
-let null = Jq.Dom.null
+
 let float: float => element = number => One(number->Float.toString->Jq.string)
 let int: int => element = number => One(number->Int.toString->Jq.string)
-let string: string => element = text => One(Jq.string(text))
+let string: string => element = text => One(text->Jq.string)
 
 type fragmentProps = {children?: element}
 @module("preact") external jsxFragment: component<fragmentProps> = "Fragment"

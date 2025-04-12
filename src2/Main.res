@@ -5,20 +5,16 @@ module App = {
   }
 
   let render = (child: Jq.t) => {
-    Jq.tree(
-      #div,
-      ~class="w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100",
-      [Jq.tree(#div, ~class="mx-auto min-w-xl max-w-5xl", [child])],
-    )
+    let ref = ref(Jq.Dom.placeholder)
+    <div ref class="w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100">
+      <div class="mx-auto min-w-xl max-w-5xl"> {One(child)} </div>
+    </div>->ignore
+
+    ref.contents
   }
 }
 
 switch Web.Document.document->Web.Document.querySelector("#root") {
-| Some(rootElement) => {
-    // App.mount(rootElement, App.render(Game.render()))
-    let ref = ref(Jq.Dom.placeholder)
-    let view = <div ref> {Jqx.string("Hello")} </div>
-    rootElement->Jq.fromNode->Jq.append([ref.contents])
-  }
+| Some(rootElement) => App.mount(rootElement, App.render(Game.render()))
 | None => Error.panic("No root element found!")
 }

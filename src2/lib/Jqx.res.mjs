@@ -17,8 +17,6 @@ function array(elements) {
         };
 }
 
-var $$null = Jq.Dom.$$null;
-
 function $$float(number) {
   return {
           TAG: "One",
@@ -79,7 +77,6 @@ var Elements = {
 
 export {
   array ,
-  $$null ,
   $$float ,
   $$int ,
   string ,

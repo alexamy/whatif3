@@ -2,6 +2,7 @@
 
 import * as Jq from "./lib/Jq.res.mjs";
 import * as Jqx from "./lib/Jqx.res.mjs";
+import * as Game from "./game/Game.res.mjs";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as Core__Error from "@rescript/core/src/Core__Error.res.mjs";
 
@@ -11,7 +12,21 @@ function mount(root, children) {
 }
 
 function render(child) {
-  return Jq.tree("div", [Jq.tree("div", [child], undefined, "mx-auto min-w-xl max-w-5xl", undefined, undefined, undefined)], undefined, "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100", undefined, undefined, undefined);
+  var ref = {
+    contents: Jq.Dom.placeholder
+  };
+  Jqx.Elements.jsx("div", {
+        ref: ref,
+        class: "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100",
+        children: Jqx.Elements.jsx("div", {
+              class: "mx-auto min-w-xl max-w-5xl",
+              children: {
+                TAG: "One",
+                _0: child
+              }
+            })
+      });
+  return ref.contents;
 }
 
 var App = {
@@ -22,14 +37,7 @@ var App = {
 var rootElement = document.querySelector("#root");
 
 if (rootElement !== undefined) {
-  var ref = {
-    contents: Jq.Dom.placeholder
-  };
-  Jqx.Elements.jsx("div", {
-        ref: ref,
-        children: Jqx.string("Hello")
-      });
-  Jq.append(Jq.fromNode(Caml_option.valFromOption(rootElement)), [ref.contents]);
+  mount(Caml_option.valFromOption(rootElement), render(Game.render()));
 } else {
   Core__Error.panic("No root element found!");
 }
