@@ -1,4 +1,4 @@
-type element = Jsx.element
+type element = Jq.t
 type component<'props> = Jsx.component<'props>
 type componentLike<'props, 'return> = Jsx.componentLike<'props, 'return>
 
@@ -35,13 +35,14 @@ module Elements = {
   A base that the React JSX transform uses is provided via JsxDOM.domProps,
   but you can make this anything. The editor tooling will support
   autocompletion etc for your specific type. */
-  type props = JsxDOM.domProps
+  type props = {class?: string, children?: element}
 
-  @module("preact")
-  external jsx: (string, props) => Jsx.element = "jsx"
-
-  @module("preact")
-  external div: (string, props) => Jsx.element = "jsx"
+  let jsx = (string, props: props) => {
+    let element = Jq.makeFromString(string)
+    props.class->Option.map(class => Jq.addClass(element, class))->ignore
+    props.children->Option.map(child => Jq.append(element, [child]))->ignore
+    element
+  }
 
   @module("preact")
   external jsxKeyed: (string, props, ~key: string=?, @ignore unit) => Jsx.element = "jsx"

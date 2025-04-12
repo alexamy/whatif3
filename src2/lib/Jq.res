@@ -20,6 +20,10 @@ let make = (tag: tag) => {
   Jq(Document.createElement(Document.document, (tag :> string)))
 }
 
+let makeFromString = tag => {
+  Jq(Document.createTextNode(Document.document, tag))
+}
+
 let string = text => {
   Jq(Document.createTextNode(Document.document, text))
 }

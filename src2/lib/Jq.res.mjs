@@ -31,6 +31,10 @@ function make(tag) {
   return document.createElement(tag);
 }
 
+function makeFromString(tag) {
+  return document.createTextNode(tag);
+}
+
 function string(text) {
   return document.createTextNode(text);
 }
@@ -191,6 +195,7 @@ var Dom = {
 export {
   Cn ,
   make ,
+  makeFromString ,
   string ,
   fromNode ,
   toNode ,
