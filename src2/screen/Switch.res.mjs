@@ -11,6 +11,9 @@ function make(initialOpt) {
   var content = {
     contents: Jq.Dom.placeholder
   };
+  var makeContent = function (element) {
+    return Jq.ref(content, element);
+  };
   var update = function (newState) {
     state.contents = newState;
     if (newState === "Visited") {
@@ -23,9 +26,7 @@ function make(initialOpt) {
     update(initial);
   };
   return {
-          content: (function (element) {
-              return Jq.ref(content, element);
-            }),
+          content: makeContent,
           update: update,
           setup: setup
         };
@@ -46,6 +47,9 @@ function make$1(initialOpt) {
   var link = {
     contents: Jq.Dom.placeholder
   };
+  var makeLink = function (text) {
+    return Jq.ref(link, Link.render(Jq.tree("span", [Jq.string(text)], undefined, undefined, undefined, undefined, undefined)));
+  };
   var update = function (newState) {
     base.update(newState);
     if (newState === "Visited") {
@@ -60,9 +64,6 @@ function make$1(initialOpt) {
   };
   var setup = function () {
     update(initial);
-  };
-  var makeLink = function (text) {
-    return Jq.ref(link, Link.render(Jq.tree("span", [Jq.string(text)], undefined, undefined, undefined, undefined, undefined)));
   };
   return {
           content: base.content,

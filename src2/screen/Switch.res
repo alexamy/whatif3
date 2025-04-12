@@ -7,6 +7,10 @@ module Base = {
     let state = ref(initial)
     let content = ref(Jq.Dom.placeholder)
 
+    let makeContent = element => {
+      Jq.ref(content, element)
+    }
+
     let update = newState => {
       state := newState
       switch newState {
@@ -17,7 +21,7 @@ module Base = {
 
     let setup = () => update(initial)
 
-    {update, setup, content: element => Jq.ref(content, element)}
+    {update, setup, content: makeContent}
   }
 }
 
@@ -33,6 +37,10 @@ module Toggle = {
     let base = Base.make(~initial)
     let link = ref(Jq.Dom.placeholder)
 
+    let makeLink = text => {
+      Jq.ref(link, Link.render(Jq.tree(#span, [Jq.string(text)])))
+    }
+
     let rec update = newState => {
       base.update(newState)
       switch newState {
@@ -42,10 +50,6 @@ module Toggle = {
     }
 
     let setup = () => update(initial)
-
-    let makeLink = text => {
-      Jq.ref(link, Link.render(Jq.tree(#span, [Jq.string(text)])))
-    }
 
     {update, setup, link: makeLink, content: base.content}
   }
