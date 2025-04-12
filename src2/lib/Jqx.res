@@ -21,9 +21,7 @@ let float: float => element = number => number->Float.toString->Jq.string
 let int: int => element = number => number->Int.toString->Jq.string
 let string: string => element = Jq.string
 
-/* These are needed for Fragment (<> </>) support */
 type fragmentProps = {children?: element}
-
 @module("preact") external jsxFragment: component<fragmentProps> = "Fragment"
 
 /* The Elements module is the equivalent to the ReactDOM module in React. This holds things relevant to _lowercase_ JSX elements. */
@@ -40,8 +38,8 @@ module Elements = {
   }
 
   let jsx = (string, props: jsxProps) => {
-    let children = Option.mapWithDefault(props.children, [], child => [child])
-    make(string, (props :> p), ~children)
+    let children = Option.map(props.children, child => [child])
+    make(string, (props :> p), ~children?)
   }
 
   let jsxKeyed = (string, props, ~key=?, @ignore unit) => {

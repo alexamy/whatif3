@@ -25,7 +25,7 @@ function make(string, props, children) {
 }
 
 function jsx(string, props) {
-  var children = Belt_Option.mapWithDefault(props.children, [], (function (child) {
+  var children = Belt_Option.map(props.children, (function (child) {
           return [child];
         }));
   return make(string, props, children);
