@@ -13,42 +13,26 @@ function $$int(number) {
   return Jq.string(String(number));
 }
 
-function make(string, props, children) {
+function jsx(string, props) {
   var element = Jq.makeFromString(string);
   Belt_Option.map(props.class, (function ($$class) {
           Jq.addClass(element, $$class);
         }));
-  Belt_Option.map(children, (function (children) {
-          Jq.append(element, children);
+  Belt_Option.map(props.children, (function (child) {
+          Jq.append(element, [child]);
         }));
   return element;
-}
-
-function jsx(string, props) {
-  var children = Belt_Option.map(props.children, (function (child) {
-          return [child];
-        }));
-  return make(string, props, children);
 }
 
 function jsxKeyed(string, props, key, unit) {
   return jsx(string, props);
 }
 
-function jsxs(string, props) {
-  return make(string, props, props.children);
-}
-
-function jsxsKeyed(string, props, key, unit) {
-  return jsxs(string, props);
-}
-
 var Elements = {
-  make: make,
   jsx: jsx,
   jsxKeyed: jsxKeyed,
-  jsxs: jsxs,
-  jsxsKeyed: jsxsKeyed
+  jsxs: jsx,
+  jsxsKeyed: jsxKeyed
 };
 
 var string = Jq.string;

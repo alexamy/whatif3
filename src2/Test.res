@@ -1,17 +1,12 @@
-let x = <div />
+let x1 = <div />
 
-let x =
-  <div>
-    <div />
-  </div>
-
-let x =
+let x2 =
   <div class="test">
     <div />
-    <div />
   </div>
 
-let x =
-  <div class="test" key="test">
+let x3 =
+  <div>
+    <div />
     <div />
   </div>

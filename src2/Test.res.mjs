@@ -2,13 +2,14 @@
 
 import * as Jqx from "./lib/Jqx.res.mjs";
 
-var x1 = Jqx.Elements.jsxKeyed("div", {
+var x1 = Jqx.Elements.jsx("div", {});
+
+var x2 = Jqx.Elements.jsx("div", {
       class: "test",
       children: Jqx.Elements.jsx("div", {})
-    }, "test", undefined);
+    });
 
-var x2 = Jqx.Elements.jsxs("div", {
-      class: "test",
+var x3 = Jqx.Elements.jsxs("div", {
       children: [
         Jqx.Elements.jsx("div", {}),
         Jqx.Elements.jsx("div", {})
@@ -18,5 +19,6 @@ var x2 = Jqx.Elements.jsxs("div", {
 export {
   x1 ,
   x2 ,
+  x3 ,
 }
 /* x1 Not a pure module */
