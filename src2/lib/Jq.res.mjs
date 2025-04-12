@@ -121,8 +121,8 @@ function strings(strings$1) {
   return document.createTextNode(text);
 }
 
-function withRef(ref, element) {
-  ref.contents = element;
+function ref(ref$1, element) {
+  ref$1.contents = element;
   return element;
 }
 
@@ -197,7 +197,7 @@ export {
   hide ,
   onClick ,
   strings ,
-  withRef ,
+  ref ,
   tree ,
   Dom ,
 }

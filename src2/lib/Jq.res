@@ -108,7 +108,7 @@ let strings = strings => {
   strings->Array.joinWith(" ", x => x)->string
 }
 
-let withRef = (ref, element) => {
+let ref = (ref, element) => {
   ref := element
   element
 }
