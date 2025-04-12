@@ -14,6 +14,7 @@ module Room = {
 
     Jq.tree(
       #div,
+      ~class="prosy screen-w py-0",
       ~dependencies,
       [
         Jq.strings([

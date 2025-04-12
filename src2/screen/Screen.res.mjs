@@ -15,7 +15,7 @@ function render() {
               Jq.tree("span", [Jq.string("Читать заметку.")], note1.link, undefined, undefined, undefined),
               Jq.Dom.newline(),
               Jq.tree("span", [Jq.string("\"Привет, мир!\"")], note1.content, undefined, undefined, undefined)
-            ], undefined, undefined, undefined, dependencies);
+            ], undefined, "prosy screen-w py-0", undefined, dependencies);
 }
 
 var Room = {
