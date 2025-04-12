@@ -7,26 +7,22 @@ import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as Core__Error from "@rescript/core/src/Core__Error.res.mjs";
 
 function mount(root, children) {
-  var root$1 = Jq.fromNode(root);
-  Jq.append(root$1, [children]);
+  if (children.TAG === "One") {
+    var root$1 = Jq.fromNode(root);
+    return Jq.append(root$1, [children._0]);
+  }
+  var root$2 = Jq.fromNode(root);
+  Jq.append(root$2, children._0);
 }
 
 function render(child) {
-  var ref = {
-    contents: Jq.Dom.placeholder
-  };
-  Jqx.Elements.jsx("div", {
-        ref: ref,
-        class: "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100",
-        children: Jqx.Elements.jsx("div", {
-              class: "mx-auto min-w-xl max-w-5xl",
-              children: {
-                TAG: "One",
-                _0: child
-              }
-            })
-      });
-  return ref.contents;
+  return Jqx.Elements.jsx("div", {
+              class: "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100",
+              children: Jqx.Elements.jsx("div", {
+                    class: "mx-auto min-w-xl max-w-5xl",
+                    children: child
+                  })
+            });
 }
 
 var App = {
@@ -37,7 +33,10 @@ var App = {
 var rootElement = document.querySelector("#root");
 
 if (rootElement !== undefined) {
-  mount(Caml_option.valFromOption(rootElement), render(Game.render()));
+  mount(Caml_option.valFromOption(rootElement), render({
+            TAG: "One",
+            _0: Game.render()
+          }));
 } else {
   Core__Error.panic("No root element found!");
 }
