@@ -1,7 +1,7 @@
 type state = Visited | Unvisited
 
 module Base = {
-  type t = {content: ref<Jq.t>, update: state => unit, setup: unit => unit}
+  type t = {content: Jq.t => Jq.t, update: state => unit, setup: unit => unit}
 
   let make = (~initial=Unvisited) => {
     let state = ref(initial)
@@ -17,12 +17,12 @@ module Base = {
 
     let setup = () => update(initial)
 
-    {update, content, setup}
+    {update, setup, content: element => Jq.ref(content, element)}
   }
 }
 
 module Toggle = {
-  type t = {content: ref<Jq.t>, link: ref<Jq.t>, update: state => unit, setup: unit => unit}
+  type t = {content: Jq.t => Jq.t, link: string => Jq.t, update: state => unit, setup: unit => unit}
 
   let replaceWithText = link => {
     let text = Jq.getText(link)
@@ -43,6 +43,10 @@ module Toggle = {
 
     let setup = () => update(initial)
 
-    {update, setup, link, content: base.content}
+    let makeLink = text => {
+      Jq.ref(link, Link.render(Jq.tree(#span, [Jq.string(text)])))
+    }
+
+    {update, setup, link: makeLink, content: base.content}
   }
 }
