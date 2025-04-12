@@ -17,7 +17,7 @@ module Link = {
   }
 
   let ref = (ref, child) => {
-    Jq.ref(ref, render(Jq.tree(#span, ~ref, [child])))
+    Jq.ref(ref, render(Jq.tree(#span, ~ref, [Jq.string(child)])))
   }
 }
 
@@ -37,7 +37,7 @@ module Room = {
           "Вы используете их для записи и чтения заметок.",
         ]),
         Jq.Dom.space(),
-        Link.ref(note1.link, Jq.string("Читать заметку.")),
+        Link.ref(note1.link, "Читать заметку."),
         Jq.Dom.newline(),
         Jq.ref(note1.content, Jq.tree(#span, [Jq.string("\"Привет, мир!\"")])),
       ],

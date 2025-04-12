@@ -11,7 +11,7 @@ function render(child) {
 }
 
 function ref(ref$1, child) {
-  return Jq.ref(ref$1, render(Jq.tree("span", [child], ref$1, undefined, undefined, undefined, undefined)));
+  return Jq.ref(ref$1, render(Jq.tree("span", [Jq.string(child)], ref$1, undefined, undefined, undefined, undefined)));
 }
 
 var Link = {
@@ -28,7 +28,7 @@ function render$1() {
                     "Вы используете их для записи и чтения заметок."
                   ]),
               Jq.Dom.space(),
-              ref(note1.link, Jq.string("Читать заметку.")),
+              ref(note1.link, "Читать заметку."),
               Jq.Dom.newline(),
               Jq.ref(note1.content, Jq.tree("span", [Jq.string("\"Привет, мир!\"")], undefined, undefined, undefined, undefined, undefined))
             ], undefined, "prosy screen-w py-0", undefined, dependencies, undefined);
