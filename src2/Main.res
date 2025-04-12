@@ -14,6 +14,11 @@ module App = {
 }
 
 switch Web.Document.document->Web.Document.querySelector("#root") {
-| Some(rootElement) => App.mount(rootElement, App.render(Game.render()))
+| Some(rootElement) => {
+    // App.mount(rootElement, App.render(Game.render()))
+    let ref = ref(Jq.Dom.placeholder)
+    let view = <div ref> {Jqx.string("Hello")} </div>
+    rootElement->Jq.fromNode->Jq.append([ref.contents])
+  }
 | None => Error.panic("No root element found!")
 }

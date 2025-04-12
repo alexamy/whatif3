@@ -21,7 +21,7 @@ let make = (tag: tag) => {
 }
 
 let makeFromString = tag => {
-  Jq(Document.createTextNode(Document.document, tag))
+  Jq(Document.createElement(Document.document, tag))
 }
 
 let string = text => {

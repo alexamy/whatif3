@@ -50,6 +50,9 @@ function fromElement(element) {
 
 function jsx(string, props) {
   var element = Jq.makeFromString(string);
+  Belt_Option.map(props.ref, (function (ref) {
+          ref.contents = element;
+        }));
   Belt_Option.map(props.class, (function ($$class) {
           Jq.addClass(element, $$class);
         }));

@@ -32,7 +32,7 @@ function make(tag) {
 }
 
 function makeFromString(tag) {
-  return document.createTextNode(tag);
+  return document.createElement(tag);
 }
 
 function string(text) {

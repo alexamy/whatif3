@@ -16,12 +16,12 @@ external jsxsKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) =>
 
 let array: array<element> => element = elements => {
   Many(
-    Array.flatMap(elements, element => {
+    Array.flatMap(elements, element =>
       switch element {
       | One(element) => [element]
       | Many(elements) => elements
       }
-    }),
+    ),
   )
 }
 let null = Jq.Dom.null
@@ -34,7 +34,7 @@ type fragmentProps = {children?: element}
 
 /* The Elements module is the equivalent to the ReactDOM module in React. This holds things relevant to _lowercase_ JSX elements. */
 module Elements = {
-  type p = {class?: string, children?: element}
+  type p = {ref?: ref<Jq.t>, class?: string, children?: element}
 
   let fromElement: element => array<Jq.t> = element => {
     switch element {
@@ -45,6 +45,7 @@ module Elements = {
 
   let jsx = (string, props) => {
     let element = Jq.makeFromString(string)
+    props.ref->Option.map(ref => ref := element)->ignore
     props.class->Option.map(class => Jq.addClass(element, class))->ignore
     props.children->Option.map(child => Jq.append(element, fromElement(child)))->ignore
     One(element)
