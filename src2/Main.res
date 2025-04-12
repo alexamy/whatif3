@@ -4,7 +4,7 @@ module App = {
     Jq.append(root, [children])
   }
 
-  let render = (children: Jq.t) => {
+  let render = (children: array<Jq.t>) => {
     Jq.tree(
       #div,
       ~class="w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100",
@@ -12,7 +12,7 @@ module App = {
         Jq.tree(
           #div,
           ~class="mx-auto min-w-xl max-w-5xl",
-          [Jq.tree(#div, ~class="flex gap-4 justify-center", [children])],
+          [Jq.tree(#div, ~class="flex gap-4 justify-center", children)],
         ),
       ],
     )
@@ -20,6 +20,6 @@ module App = {
 }
 
 switch Web.Document.document->Web.Document.querySelector("#root") {
-| Some(rootElement) => App.mount(rootElement, App.render(Screen.Room.render()))
+| Some(rootElement) => App.mount(rootElement, App.render([Screen.Room.render(), Terminal.render()]))
 | None => Error.panic("No root element found!")
 }

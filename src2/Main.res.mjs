@@ -2,6 +2,7 @@
 
 import * as Jq from "./lib/Jq.res.mjs";
 import * as $$Screen from "./screen/Screen.res.mjs";
+import * as Terminal from "./screen/Terminal.res.mjs";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as Core__Error from "@rescript/core/src/Core__Error.res.mjs";
 
@@ -11,7 +12,7 @@ function mount(root, children) {
 }
 
 function render(children) {
-  return Jq.tree("div", [Jq.tree("div", [Jq.tree("div", [children], undefined, "flex gap-4 justify-center", undefined, undefined)], undefined, "mx-auto min-w-xl max-w-5xl", undefined, undefined)], undefined, "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100", undefined, undefined);
+  return Jq.tree("div", [Jq.tree("div", [Jq.tree("div", children, undefined, "flex gap-4 justify-center", undefined, undefined)], undefined, "mx-auto min-w-xl max-w-5xl", undefined, undefined)], undefined, "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100", undefined, undefined);
 }
 
 var App = {
@@ -22,7 +23,10 @@ var App = {
 var rootElement = document.querySelector("#root");
 
 if (rootElement !== undefined) {
-  mount(Caml_option.valFromOption(rootElement), render($$Screen.Room.render()));
+  mount(Caml_option.valFromOption(rootElement), render([
+            $$Screen.Room.render(),
+            Terminal.render()
+          ]));
 } else {
   Core__Error.panic("No root element found!");
 }
