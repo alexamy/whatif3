@@ -75,11 +75,20 @@ var Elements = {
   jsxsKeyed: jsxKeyed
 };
 
+function asArray(element) {
+  if (element.TAG === "One") {
+    return [element._0];
+  } else {
+    return element._0;
+  }
+}
+
 export {
   array ,
   $$float ,
   $$int ,
   string ,
   Elements ,
+  asArray ,
 }
 /* Jq Not a pure module */

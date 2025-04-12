@@ -1,15 +1,7 @@
 module App = {
   let mount = (root: Web.Node.t, children: Jqx.element) => {
-    switch children {
-    | One(child) => {
-        let root = Jq.fromNode(root)
-        Jq.append(root, [child])
-      }
-    | Many(children) => {
-        let root = Jq.fromNode(root)
-        Jq.append(root, children)
-      }
-    }
+    let root = Jq.fromNode(root)
+    Jq.append(root, Jqx.asArray(children))
   }
 
   let render = (child: Jqx.element) => {
