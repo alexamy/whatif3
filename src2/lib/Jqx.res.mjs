@@ -3,22 +3,61 @@
 import * as Jq from "./Jq.res.mjs";
 import * as Belt_Option from "rescript/lib/es6/belt_Option.js";
 
-function jsx(string, props) {
+var $$null = Jq.Dom.$$null;
+
+function $$float(number) {
+  return Jq.string(String(number));
+}
+
+function $$int(number) {
+  return Jq.string(String(number));
+}
+
+function make(string, props, children) {
   var element = Jq.makeFromString(string);
   Belt_Option.map(props.class, (function ($$class) {
           Jq.addClass(element, $$class);
         }));
-  Belt_Option.map(props.children, (function (child) {
-          Jq.append(element, [child]);
+  Belt_Option.map(children, (function (children) {
+          Jq.append(element, children);
         }));
   return element;
 }
 
+function jsx(string, props) {
+  var children = Belt_Option.mapWithDefault(props.children, [], (function (child) {
+          return [child];
+        }));
+  return make(string, props, children);
+}
+
+function jsxKeyed(string, props, key, unit) {
+  return jsx(string, props);
+}
+
+function jsxs(string, props) {
+  return make(string, props, props.children);
+}
+
+function jsxsKeyed(string, props, key, unit) {
+  return jsxs(string, props);
+}
+
 var Elements = {
-  jsx: jsx
+  make: make,
+  jsx: jsx,
+  jsxKeyed: jsxKeyed,
+  jsxs: jsxs,
+  jsxsKeyed: jsxsKeyed
 };
 
+var string = Jq.string;
+
 export {
+  $$null ,
+  $$float ,
+  $$int ,
+  string ,
   Elements ,
 }
 /* Jq Not a pure module */

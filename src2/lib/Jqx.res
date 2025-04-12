@@ -14,15 +14,12 @@ external jsxs: (component<'props>, 'props) => element = "jsxs"
 @module("preact")
 external jsxsKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => element = "jsxs"
 
-/* These identity functions and static values below are optional, but lets
-you move things easily to the `element` type. The only required thing to
-define though is `array`, which the JSX transform will output. */
 external array: array<element> => element = "%identity"
-@val external null: element = "null"
+let null = Jq.Dom.null
 
-external float: float => element = "%identity"
-external int: int => element = "%identity"
-external string: string => element = "%identity"
+let float: float => element = number => number->Float.toString->Jq.string
+let int: int => element = number => number->Int.toString->Jq.string
+let string: string => element = Jq.string
 
 /* These are needed for Fragment (<> </>) support */
 type fragmentProps = {children?: element}
@@ -31,27 +28,33 @@ type fragmentProps = {children?: element}
 
 /* The Elements module is the equivalent to the ReactDOM module in React. This holds things relevant to _lowercase_ JSX elements. */
 module Elements = {
-  /* Here you can control what props lowercase JSX elements should have.
-  A base that the React JSX transform uses is provided via JsxDOM.domProps,
-  but you can make this anything. The editor tooling will support
-  autocompletion etc for your specific type. */
-  type props = {class?: string, children?: element}
+  type p = {class?: string}
+  type jsxProps = {...p, children?: element}
+  type jsxsProps = {...p, children?: array<element>}
 
-  let jsx = (string, props: props) => {
+  let make = (string, props: p, ~children=?) => {
     let element = Jq.makeFromString(string)
     props.class->Option.map(class => Jq.addClass(element, class))->ignore
-    props.children->Option.map(child => Jq.append(element, [child]))->ignore
+    children->Option.map(children => Jq.append(element, children))->ignore
     element
   }
 
-  @module("preact")
-  external jsxKeyed: (string, props, ~key: string=?, @ignore unit) => Jsx.element = "jsx"
+  let jsx = (string, props: jsxProps) => {
+    let children = Option.mapWithDefault(props.children, [], child => [child])
+    make(string, (props :> p), ~children)
+  }
 
-  @module("preact")
-  external jsxs: (string, props) => Jsx.element = "jsxs"
+  let jsxKeyed = (string, props, ~key=?, @ignore unit) => {
+    jsx(string, props)
+  }
 
-  @module("preact")
-  external jsxsKeyed: (string, props, ~key: string=?, @ignore unit) => Jsx.element = "jsxs"
+  let jsxs = (string, props: jsxsProps) => {
+    make(string, (props :> p), ~children=?props.children)
+  }
+
+  let jsxsKeyed = (string, props, ~key=?, @ignore unit) => {
+    jsxs(string, props)
+  }
 
   external someElement: element => option<element> = "%identity"
 }

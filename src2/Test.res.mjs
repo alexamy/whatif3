@@ -2,12 +2,21 @@
 
 import * as Jqx from "./lib/Jqx.res.mjs";
 
-var x = Jqx.Elements.jsx("div", {
+var x1 = Jqx.Elements.jsxKeyed("div", {
       class: "test",
       children: Jqx.Elements.jsx("div", {})
+    }, "test", undefined);
+
+var x2 = Jqx.Elements.jsxs("div", {
+      class: "test",
+      children: [
+        Jqx.Elements.jsx("div", {}),
+        Jqx.Elements.jsx("div", {})
+      ]
     });
 
 export {
-  x ,
+  x1 ,
+  x2 ,
 }
-/* x Not a pure module */
+/* x1 Not a pure module */
