@@ -8,7 +8,7 @@ function render() {
   return Jq.tree("div", [
               $$Screen.Room.render(),
               Terminal.render()
-            ], undefined, "flex gap-4 justify-center", undefined, undefined);
+            ], undefined, "flex gap-4 justify-center", undefined, undefined, undefined);
 }
 
 export {

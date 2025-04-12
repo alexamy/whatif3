@@ -7,7 +7,7 @@ function render() {
   return Jq.tree("div", [Jq.strings(["Компьютер"])], undefined, "monospace screen-w screen-h outline-0 whitespace-pre text-nowrap text-gray-800 p-2 flex flex-col justify-between", Js_dict.fromArray([[
                     "bg-blue-400",
                     true
-                  ]]), undefined);
+                  ]]), undefined, undefined);
 }
 
 export {

@@ -7,6 +7,7 @@ module Node = {
   @get external parentNode: t => t = "parentNode"
   @send external replaceChild: (t, ~new: t, ~old: t) => unit = "replaceChild"
   @send external removeChild: (t, t) => unit = "removeChild"
+  @send external setAttribute: (t, string, string) => unit = "setAttribute"
 }
 
 module Event = {

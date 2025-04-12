@@ -69,6 +69,10 @@ function getText(node) {
   return node.textContent;
 }
 
+function setAttribute(node, name, value) {
+  node.setAttribute(name, value);
+}
+
 function addClass(node, classes) {
   var classes$1 = classes.split(" ");
   Caml_splice_call.spliceObjApply(node.classList, "add", [classes$1]);
@@ -117,7 +121,7 @@ function strings(strings$1) {
   return document.createTextNode(text);
 }
 
-function tree(tag, children, ref, $$class, classes, dependencies) {
+function tree(tag, children, ref, $$class, classes, dependencies, attributes) {
   var element = document.createElement(tag);
   append(element, children);
   Belt_Option.map(ref, (function (ref) {
@@ -132,6 +136,11 @@ function tree(tag, children, ref, $$class, classes, dependencies) {
   Belt_Option.map(dependencies, (function (dependencies) {
           Belt_Array.forEach(dependencies, (function (dependency) {
                   dependency();
+                }));
+        }));
+  Belt_Option.map(attributes, (function (attributes) {
+          Belt_Array.forEach(attributes, (function (param) {
+                  setAttribute(element, param[0], param[1]);
                 }));
         }));
   return element;
@@ -174,6 +183,7 @@ export {
   remove ,
   setText ,
   getText ,
+  setAttribute ,
   addClass ,
   removeClass ,
   toggleClass ,

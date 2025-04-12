@@ -61,6 +61,10 @@ let getText = (Jq(node)) => {
   node->Node.getTextContent
 }
 
+let setAttribute = (Jq(node), name, value) => {
+  node->Node.setAttribute(name, value)
+}
+
 // classes
 let addClass = (Jq(node), classes) => {
   let classes = Cn.normalize(classes)
@@ -104,15 +108,22 @@ let strings = strings => {
   strings->Array.joinWith(" ", x => x)->string
 }
 
-let tree = (tag, children, ~ref=?, ~class=?, ~classes=?, ~dependencies=?) => {
+let tree = (tag, children, ~ref=?, ~class=?, ~classes=?, ~dependencies=?, ~attributes=?) => {
   let element = make(tag)
   append(element, children)
 
   ref->Option.map(ref => ref := element)->ignore
   class->Option.map(class => addClass(element, class))->ignore
   classes->Option.map(classes => toggleClasses(element, classes))->ignore
+
   dependencies
   ->Option.map(dependencies => Array.forEach(dependencies, dependency => dependency()))
+  ->ignore
+
+  attributes
+  ->Option.map(attributes =>
+    Array.forEach(attributes, ((name, value)) => setAttribute(element, name, value))
+  )
   ->ignore
 
   element

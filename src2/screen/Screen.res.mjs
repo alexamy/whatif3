@@ -3,7 +3,18 @@
 import * as Jq from "../lib/Jq.res.mjs";
 import * as Switch from "./Switch.res.mjs";
 
-function render() {
+function render(child, ref) {
+  return Jq.tree("a", [child], ref, "not-prose text-blue-300 hover:text-blue-400 visited:text-base", undefined, undefined, [[
+                "href",
+                "#"
+              ]]);
+}
+
+var Link = {
+  render: render
+};
+
+function render$1() {
   var note1 = Switch.Toggle.make(undefined);
   var dependencies = [note1.setup];
   return Jq.tree("div", [
@@ -12,17 +23,18 @@ function render() {
                     "Вы используете их для записи и чтения заметок."
                   ]),
               Jq.Dom.space(),
-              Jq.tree("span", [Jq.string("Читать заметку.")], note1.link, undefined, undefined, undefined),
+              render(Jq.tree("span", [Jq.string("Читать заметку.")], undefined, undefined, undefined, undefined, undefined), note1.link),
               Jq.Dom.newline(),
-              Jq.tree("span", [Jq.string("\"Привет, мир!\"")], note1.content, undefined, undefined, undefined)
-            ], undefined, "prosy screen-w py-0", undefined, dependencies);
+              Jq.tree("span", [Jq.string("\"Привет, мир!\"")], note1.content, undefined, undefined, undefined, undefined)
+            ], undefined, "prosy screen-w py-0", undefined, dependencies, undefined);
 }
 
 var Room = {
-  render: render
+  render: render$1
 };
 
 export {
+  Link ,
   Room ,
 }
 /* Jq Not a pure module */

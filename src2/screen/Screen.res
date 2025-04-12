@@ -6,6 +6,18 @@ type place =
 
 type computer = Door | Watch
 
+module Link = {
+  let render = (child: Jq.t, ~ref=?) => {
+    Jq.tree(
+      #a,
+      ~ref?,
+      ~class="not-prose text-blue-300 hover:text-blue-400 visited:text-base",
+      ~attributes=[("href", "#")],
+      [child],
+    )
+  }
+}
+
 module Room = {
   let render = () => {
     let note1 = Switch.Toggle.make()
@@ -22,7 +34,7 @@ module Room = {
           "Вы используете их для записи и чтения заметок.",
         ]),
         Jq.Dom.space(),
-        Jq.tree(#span, ~ref=note1.link, [Jq.string("Читать заметку.")]),
+        Link.render(~ref=note1.link, Jq.tree(#span, [Jq.string("Читать заметку.")])),
         Jq.Dom.newline(),
         Jq.tree(#span, ~ref=note1.content, [Jq.string("\"Привет, мир!\"")]),
       ],
