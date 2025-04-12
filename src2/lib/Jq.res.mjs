@@ -49,6 +49,18 @@ function append(node, nodes) {
         }));
 }
 
+function appendList(t, _nodes) {
+  while(true) {
+    var nodes = _nodes;
+    if (!nodes) {
+      return ;
+    }
+    t.appendChild(nodes.hd);
+    _nodes = nodes.tl;
+    continue ;
+  };
+}
+
 function appendTo(node, other) {
   other.appendChild(node);
 }
@@ -183,6 +195,7 @@ export {
   fromNode ,
   toNode ,
   append ,
+  appendList ,
   appendTo ,
   replaceWith ,
   remove ,

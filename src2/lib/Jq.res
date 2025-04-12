@@ -40,6 +40,17 @@ let append = (Jq(node), nodes) => {
   })
 }
 
+let rec appendList = (t, nodes) => {
+  switch nodes {
+  | list{} => ()
+  | list{head, ...tail} => {
+      let Jq(node) = t
+      node->Node.appendChild(head)
+      appendList(t, tail)
+    }
+  }
+}
+
 let appendTo = (Jq(node), Jq(other)) => {
   other->Node.appendChild(node)
 }
