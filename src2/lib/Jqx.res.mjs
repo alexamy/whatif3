@@ -75,7 +75,7 @@ var Elements = {
   jsxsKeyed: jsxKeyed
 };
 
-function asArray(element) {
+function asPlain(element) {
   if (element.TAG === "One") {
     return [element._0];
   } else {
@@ -89,6 +89,6 @@ export {
   $$int ,
   string ,
   Elements ,
-  asArray ,
+  asPlain ,
 }
 /* Jq Not a pure module */

@@ -61,7 +61,7 @@ module Elements = {
   external someElement: element => option<element> = "%identity"
 }
 
-let asArray: element => array<Jq.t> = element => {
+let asPlain: element => array<Jq.t> = element => {
   switch element {
   | One(element) => [element]
   | Many(elements) => elements
