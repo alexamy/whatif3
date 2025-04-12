@@ -3,8 +3,8 @@
 import * as Jq from "../lib/Jq.res.mjs";
 import * as Switch from "./Switch.res.mjs";
 
-function render(child, ref) {
-  return Jq.tree("a", [child], ref, "not-prose text-blue-300 hover:text-blue-400 visited:text-base", undefined, undefined, [[
+function render(child) {
+  return Jq.tree("a", [child], undefined, "not-prose text-blue-300 hover:text-blue-400 visited:text-base", undefined, undefined, [[
                 "href",
                 "#"
               ]]);
@@ -23,9 +23,9 @@ function render$1() {
                     "Вы используете их для записи и чтения заметок."
                   ]),
               Jq.Dom.space(),
-              render(Jq.tree("span", [Jq.string("Читать заметку.")], undefined, undefined, undefined, undefined, undefined), note1.link),
+              Jq.withRef(note1.link, render(Jq.tree("span", [Jq.string("Читать заметку.")], undefined, undefined, undefined, undefined, undefined))),
               Jq.Dom.newline(),
-              Jq.tree("span", [Jq.string("\"Привет, мир!\"")], note1.content, undefined, undefined, undefined, undefined)
+              Jq.withRef(note1.content, Jq.tree("span", [Jq.string("\"Привет, мир!\"")], undefined, undefined, undefined, undefined, undefined))
             ], undefined, "prosy screen-w py-0", undefined, dependencies, undefined);
 }
 

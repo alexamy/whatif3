@@ -108,6 +108,11 @@ let strings = strings => {
   strings->Array.joinWith(" ", x => x)->string
 }
 
+let withRef = (ref, element) => {
+  ref := element
+  element
+}
+
 let tree = (tag, children, ~ref=?, ~class=?, ~classes=?, ~dependencies=?, ~attributes=?) => {
   let element = make(tag)
   append(element, children)

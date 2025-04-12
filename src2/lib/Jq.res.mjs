@@ -121,6 +121,11 @@ function strings(strings$1) {
   return document.createTextNode(text);
 }
 
+function withRef(ref, element) {
+  ref.contents = element;
+  return element;
+}
+
 function tree(tag, children, ref, $$class, classes, dependencies, attributes) {
   var element = document.createElement(tag);
   append(element, children);
@@ -192,6 +197,7 @@ export {
   hide ,
   onClick ,
   strings ,
+  withRef ,
   tree ,
   Dom ,
 }
