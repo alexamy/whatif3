@@ -10,10 +10,10 @@ var x2 = Jqx.Elements.jsx("div", {
     });
 
 var x3 = Jqx.Elements.jsxs("div", {
-      children: [
-        Jqx.Elements.jsx("div", {}),
-        Jqx.Elements.jsx("div", {})
-      ]
+      children: Jqx.array([
+            Jqx.Elements.jsx("div", {}),
+            Jqx.Elements.jsx("div", {})
+          ])
     });
 
 export {

@@ -1,4 +1,4 @@
-type element = Jq.t
+type element = One(Jq.t) | Many(array<Jq.t>)
 type component<'props> = Jsx.component<'props>
 type componentLike<'props, 'return> = Jsx.componentLike<'props, 'return>
 
@@ -14,11 +14,20 @@ external jsxs: (component<'props>, 'props) => element = "jsxs"
 @module("preact")
 external jsxsKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => element = "jsxs"
 
-external array: array<element> => element = "%identity"
+let array: array<element> => element = elements => {
+  Many(
+    Array.flatMap(elements, element => {
+      switch element {
+      | One(element) => [element]
+      | Many(elements) => elements
+      }
+    }),
+  )
+}
 let null = Jq.Dom.null
-let float: float => element = number => number->Float.toString->Jq.string
-let int: int => element = number => number->Int.toString->Jq.string
-let string: string => element = Jq.string
+let float: float => element = number => One(number->Float.toString->Jq.string)
+let int: int => element = number => One(number->Int.toString->Jq.string)
+let string: string => element = text => One(Jq.string(text))
 
 type fragmentProps = {children?: element}
 @module("preact") external jsxFragment: component<fragmentProps> = "Fragment"
@@ -27,11 +36,18 @@ type fragmentProps = {children?: element}
 module Elements = {
   type p = {class?: string, children?: element}
 
+  let fromElement: element => array<Jq.t> = element => {
+    switch element {
+    | One(element) => [element]
+    | Many(elements) => elements
+    }
+  }
+
   let jsx = (string, props) => {
     let element = Jq.makeFromString(string)
     props.class->Option.map(class => Jq.addClass(element, class))->ignore
-    props.children->Option.map(child => Jq.append(element, [child]))->ignore
-    element
+    props.children->Option.map(child => Jq.append(element, fromElement(child)))->ignore
+    One(element)
   }
 
   let jsxKeyed = (string, props, ~key=?, @ignore unit) => {
