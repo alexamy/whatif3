@@ -6,6 +6,7 @@ let jsx: (component<'props>, 'props) => element = (component, props) => {
   component(props)
 }
 
+@@warning("-27")
 let jsxKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => element = (
   component,
   props,
@@ -14,7 +15,7 @@ let jsxKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => eleme
 ) => {
   jsx(component, props)
 }
-
+@@warning("+27")
 let jsxs: (component<'props>, 'props) => element = jsx
 let jsxsKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => element = jsxKeyed
 
@@ -33,9 +34,11 @@ let jsxFragment: component<fragmentProps> = (props: fragmentProps) => {
 module Elements = {
   let jsx = (string, props) => Jqx.make(string, props)
 
+  @@warning("-27")
   let jsxKeyed = (string, props, ~key=?, @ignore unit) => {
     jsx(string, props)
   }
+  @@warning("+27")
 
   let jsxs = jsx
   let jsxsKeyed = jsxKeyed
