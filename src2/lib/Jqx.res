@@ -76,10 +76,7 @@ module Make = {
 
 /* The Elements module is the equivalent to the ReactDOM module in React. This holds things relevant to _lowercase_ JSX elements. */
 module Elements = {
-  let jsx = (string, props) => {
-    let element = Make.make(string, props)
-    element
-  }
+  let jsx = (string, props) => Make.make(string, props)
 
   let jsxKeyed = (string, props, ~key=?, @ignore unit) => {
     jsx(string, props)
