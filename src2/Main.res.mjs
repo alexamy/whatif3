@@ -2,7 +2,7 @@
 
 import * as Jq from "./lib/Jq.res.mjs";
 import * as Jqx from "./lib/Jqx.res.mjs";
-import * as Game from "./game/Game.res.mjs";
+import * as Game from "./Game.res.mjs";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as Core__Error from "@rescript/core/src/Core__Error.res.mjs";
 
