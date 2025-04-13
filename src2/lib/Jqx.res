@@ -49,13 +49,10 @@ let jsxFragment: component<fragmentProps> = (props: fragmentProps) => {
 
 /* The Elements module is the equivalent to the ReactDOM module in React. This holds things relevant to _lowercase_ JSX elements. */
 module Elements = {
-  type p = {ref?: ref<Jq.t>, class?: string, children?: element}
+  type props = JqxMake.t
 
   let jsx = (string, props) => {
-    let element = Jq.makeFromString(string)
-    props.ref->Option.map(ref => ref := element)->ignore
-    props.class->Option.map(class => Jq.addClass(element, class))->ignore
-    props.children->Option.map(child => Jq.append(element, fromElement(child)))->ignore
+    let element = JqxMake.make(string, props)
     One(element)
   }
 

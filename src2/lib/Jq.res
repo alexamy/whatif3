@@ -128,6 +128,7 @@ let ref = (ref, element) => {
   element
 }
 
+// TODO: remove
 let tree = (tag, children, ~ref=?, ~class=?, ~classes=?, ~dependencies=?, ~attributes=?) => {
   let element = make(tag)
   append(element, children)
