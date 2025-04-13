@@ -1,7 +1,7 @@
 module App = {
   let mount = (root: Web.Node.t, children: Jqx.element) => {
     let root = Jq.fromNode(root)
-    Jq.append(root, Jqx.asPlain(children))
+    Jq.append(root, Jqx.toArray(children))
   }
 
   let render = (child: Jqx.element) => {
@@ -12,6 +12,6 @@ module App = {
 }
 
 switch Web.Document.document->Web.Document.querySelector("#root") {
-| Some(rootElement) => App.mount(rootElement, App.render(One(Game.render())))
+| Some(rootElement) => App.mount(rootElement, App.render(Game.render()))
 | None => Error.panic("No root element found!")
 }
