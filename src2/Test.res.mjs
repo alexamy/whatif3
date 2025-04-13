@@ -6,7 +6,7 @@ var x1 = Jqx.Elements.jsx("div", {});
 
 var x2 = Jqx.Elements.jsx("div", {
       class: "test",
-      children: Jqx.Elements.jsx("div", {})
+      children: Jqx.Elements.someElement(Jqx.Elements.jsx("div", {}))
     });
 
 var x3 = Jqx.Elements.jsxs("div", {
@@ -26,7 +26,7 @@ var Link = {
 
 function Test$Nest(props) {
   return Jqx.Elements.jsx("div", {
-              children: props.children
+              children: Jqx.Elements.someElement(props.children)
             });
 }
 

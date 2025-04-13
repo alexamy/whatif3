@@ -10,7 +10,7 @@ function Link(props) {
                   "href",
                   "#"
                 ]],
-              children: props.children,
+              children: Jqx.Elements.someElement(props.children),
               onClickOnce: props.onClickOnce
             });
 }

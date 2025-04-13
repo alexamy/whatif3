@@ -10,7 +10,7 @@ function Terminal(props) {
                       "bg-blue-400",
                       true
                     ]]),
-              children: Jqx.string("Компьютер")
+              children: Jqx.Elements.someElement(Jqx.string("Компьютер"))
             });
 }
 

@@ -85,5 +85,5 @@ module Elements = {
   let jsxs = jsx
   let jsxsKeyed = jsxKeyed
 
-  external someElement: element => option<element> = "%identity"
+  let someElement: element => option<element> = element => Some(element)
 }

@@ -7,16 +7,16 @@ import * as Terminal from "./screen/Terminal.res.mjs";
 function Game(props) {
   return Jqx.Elements.jsx("div", {
               class: "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100",
-              children: Jqx.Elements.jsx("div", {
-                    class: "mx-auto min-w-xl max-w-5xl",
-                    children: Jqx.Elements.jsxs("div", {
-                          class: "flex gap-4 justify-center",
-                          children: [
-                            Jqx.jsx($$Screen.Room.make, {}),
-                            Jqx.jsx(Terminal.make, {})
-                          ]
-                        })
-                  })
+              children: Jqx.Elements.someElement(Jqx.Elements.jsx("div", {
+                        class: "mx-auto min-w-xl max-w-5xl",
+                        children: Jqx.Elements.someElement(Jqx.Elements.jsxs("div", {
+                                  class: "flex gap-4 justify-center",
+                                  children: [
+                                    Jqx.jsx($$Screen.Room.make, {}),
+                                    Jqx.jsx(Terminal.make, {})
+                                  ]
+                                }))
+                      }))
             });
 }
 

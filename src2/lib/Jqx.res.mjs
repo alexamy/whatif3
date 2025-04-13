@@ -3,6 +3,7 @@
 import * as Jq from "./Jq.res.mjs";
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as Belt_Option from "rescript/lib/es6/belt_Option.js";
+import * as Caml_option from "rescript/lib/es6/caml_option.js";
 
 var toArray = (function(element) {
   return Array.isArray(element) ? element : [element];
@@ -77,11 +78,16 @@ function jsxKeyed$1(string, props, key, unit) {
   return make(string, props);
 }
 
+function someElement(element) {
+  return Caml_option.some(element);
+}
+
 var Elements = {
   jsx: jsx$1,
   jsxKeyed: jsxKeyed$1,
   jsxs: jsx$1,
-  jsxsKeyed: jsxKeyed$1
+  jsxsKeyed: jsxKeyed$1,
+  someElement: someElement
 };
 
 var jsxs = jsx;

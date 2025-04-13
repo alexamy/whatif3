@@ -19,7 +19,7 @@ function Screen$Room(props) {
                 note1.link("Читать заметку."),
                 Jq.Dom.newline(),
                 note1.content(Jqx.Elements.jsx("span", {
-                          children: Jqx.string("\"Привет, мир!\"")
+                          children: Jqx.Elements.someElement(Jqx.string("\"Привет, мир!\""))
                         }))
               ]
             });
