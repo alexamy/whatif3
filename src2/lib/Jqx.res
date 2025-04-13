@@ -74,12 +74,17 @@ let make = (tag, props) => {
   )
   ->ignore
 
-  // TODO: dispose
+  let onClickHandler = props.onClick->Option.map(onClick => Jq.onClick(element, onClick))
+
   let onClickOnceHandler =
     props.onClickOnce->Option.map(onClick => Jq.onClick(element, onClick, ~options={once: true}))
 
   let dispose = () => {
     props.children->Option.map(dispose)->ignore
+
+    onClickHandler
+    ->Option.map(handler => Web.Event.removeClickListener(element, handler))
+    ->ignore
 
     onClickOnceHandler
     ->Option.map(handler => Web.Event.removeClickListener(element, handler))

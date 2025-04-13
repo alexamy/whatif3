@@ -167,6 +167,9 @@ function make(tag, props) {
                   Jq.setAttribute(element, param[0], param[1]);
                 }));
         }));
+  var onClickHandler = Belt_Option.map(props.onClick, (function (onClick) {
+          return Jq.onClick(element, onClick, undefined);
+        }));
   var onClickOnceHandler = Belt_Option.map(props.onClickOnce, (function (onClick) {
           return Jq.onClick(element, onClick, {
                       once: true
@@ -174,6 +177,9 @@ function make(tag, props) {
         }));
   var dispose$1 = function () {
     Belt_Option.map(props.children, dispose);
+    Belt_Option.map(onClickHandler, (function (handler) {
+            Web.$$Event.removeClickListener(element, handler);
+          }));
     Belt_Option.map(onClickOnceHandler, (function (handler) {
             Web.$$Event.removeClickListener(element, handler);
           }));
