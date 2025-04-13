@@ -3,6 +3,14 @@
 import * as Jq from "./Jq.res.mjs";
 import * as Belt_Option from "rescript/lib/es6/belt_Option.js";
 
+function jsx(component, props) {
+  return component(props);
+}
+
+function jsxKeyed(component, props, key, unit) {
+  return component(props);
+}
+
 var toArray = (function(element) {
   return Array.isArray(element) ? element : [element]
 });
@@ -21,7 +29,7 @@ function $$float(number) {
   return Jq.string(text);
 }
 
-function jsx(string, props) {
+function jsx$1(string, props) {
   var element = Jq.makeFromString(string);
   Belt_Option.map(props.ref, (function (ref) {
           ref.contents = element;
@@ -35,18 +43,20 @@ function jsx(string, props) {
   return element;
 }
 
-function jsxKeyed(string, props, key, unit) {
-  return jsx(string, props);
+function jsxKeyed$1(string, props, key, unit) {
+  return jsx$1(string, props);
 }
 
 var Elements = {
-  jsx: jsx,
-  jsxKeyed: jsxKeyed,
-  jsxs: jsx,
-  jsxsKeyed: jsxKeyed
+  jsx: jsx$1,
+  jsxKeyed: jsxKeyed$1,
+  jsxs: jsx$1,
+  jsxsKeyed: jsxKeyed$1
 };
 
 export {
+  jsx ,
+  jsxKeyed ,
   toArray ,
   string ,
   $$int ,

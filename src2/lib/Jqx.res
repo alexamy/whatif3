@@ -2,11 +2,18 @@ type element = Jq.t
 type componentLike<'props, 'return> = 'props => 'return
 type component<'props> = componentLike<'props, element>
 
-@module("preact")
-external jsx: (component<'props>, 'props) => element = "jsx"
+let jsx: (component<'props>, 'props) => element = (component, props) => {
+  component(props)
+}
 
-@module("preact")
-external jsxKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => element = "jsx"
+let jsxKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => element = (
+  component,
+  props,
+  ~key=?,
+  @ignore unit,
+) => {
+  jsx(component, props)
+}
 
 @module("preact")
 external jsxs: (component<'props>, 'props) => element = "jsxs"
