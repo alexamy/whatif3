@@ -11,7 +11,7 @@ module Node = {
 }
 
 module Event = {
-  type t
+  type handler
 
   type options = {once: bool}
 
@@ -25,11 +25,11 @@ module Event = {
     button: int,
   }
 
-  external dangerousToGenericHandler: ('a => unit) => t = "%identity"
+  external dangerousToGenericHandler: ('a => unit) => handler = "%identity"
 
   // TODO: preventDefault
-  @send external addEventListener: (Node.t, string, t, options) => unit = "addEventListener"
-  @send external removeEventListener: (Node.t, string, t) => unit = "removeEventListener"
+  @send external addEventListener: (Node.t, string, handler, options) => unit = "addEventListener"
+  @send external removeEventListener: (Node.t, string, handler) => unit = "removeEventListener"
 
   let addClickListener = (node, handler: click => unit, ~options) => {
     let handler = dangerousToGenericHandler(handler)
