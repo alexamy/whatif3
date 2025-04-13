@@ -11,7 +11,7 @@ function Screen$Room(props) {
               class: "prosy screen-w py-0",
               dependencies: dependencies,
               children: [
-                Jqx.strings([
+                Jqx.text([
                       "Вы стоите посреди комнаты. На вашей руке - умные часы.",
                       "Вы используете их для записи и чтения заметок."
                     ]),

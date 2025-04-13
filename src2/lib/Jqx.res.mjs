@@ -83,7 +83,7 @@ var jsxs = jsx;
 
 var jsxsKeyed = jsxKeyed;
 
-var strings = Jq.strings;
+var text = Jq.strings;
 
 export {
   toArray ,
@@ -95,7 +95,7 @@ export {
   $$int ,
   $$float ,
   jsxFragment ,
-  strings ,
+  text ,
   Make ,
   Elements ,
 }
