@@ -1,4 +1,4 @@
-type rec data = {element: Jq.t, children: option<data>, dispose: unit => unit}
+type rec data = {element: Jq.t, child: option<data>, dispose: unit => unit}
 type element = One(data) | Many(array<data>)
 type componentLike<'props, 'return> = 'props => 'return
 type component<'props> = componentLike<'props, element>
@@ -20,7 +20,7 @@ let array: array<element> => element = elements => {
   )
 }
 
-let atom = element => One({element, children: None, dispose: _ => ()})
+let atom = element => One({element, child: None, dispose: _ => ()})
 let string: string => element = text => text->Jq.string->atom
 let int: int => element = number => number->Int.toString->string
 let float: float => element = number => number->Float.toString->string

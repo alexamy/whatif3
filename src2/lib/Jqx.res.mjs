@@ -32,7 +32,7 @@ function atom(element) {
           TAG: "One",
           _0: {
             element: element,
-            children: undefined,
+            child: undefined,
             dispose: (function () {
                 
               })
