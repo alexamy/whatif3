@@ -38,7 +38,7 @@ module Toggle = {
     let link = ref(Jq.Dom.placeholder)
 
     let makeLink = text => {
-      Jq.ref(link, Link.render(Jq.tree(#span, [Jq.string(text)])))
+      <Link bind={link}> {Jqx.string(text)} </Link>
     }
 
     let rec update = newState => {

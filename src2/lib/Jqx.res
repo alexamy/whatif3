@@ -35,7 +35,7 @@ let jsxFragment: component<fragmentProps> = (props: fragmentProps) => {
 
 module Make = {
   type t = {
-    ref?: ref<Jq.t>,
+    bind?: ref<Jq.t>,
     class?: string,
     classes?: dict<bool>,
     dependencies?: array<unit => unit>,
@@ -48,7 +48,7 @@ module Make = {
     let children = props.children->Option.mapWithDefault([], toArray)
     Jq.append(element, children)
 
-    props.ref->Option.map(ref => ref := element)->ignore
+    props.bind->Option.map(ref => ref := element)->ignore
     props.class->Option.map(class => Jq.addClass(element, class))->ignore
     props.classes->Option.map(classes => Jq.toggleClasses(element, classes))->ignore
 
