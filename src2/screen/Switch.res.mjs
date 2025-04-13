@@ -48,23 +48,21 @@ function make$1(initialOpt) {
   var link = {
     contents: Jq.Dom.placeholder
   };
-  var makeLink = function (text) {
-    return Jqx.jsx(Link.make, {
-                children: Jqx.string(text),
-                bind: link
-              });
-  };
   var update = function (newState) {
     base.update(newState);
     if (newState === "Visited") {
       return replaceWithText(link.contents);
-    } else {
-      return Jq.onClick(link.contents, (function (param) {
-                    update("Visited");
-                  }), {
-                  once: true
-                });
     }
+    
+  };
+  var makeLink = function (text) {
+    return Jqx.jsx(Link.make, {
+                children: Jqx.string(text),
+                bind: link,
+                onClickOnce: (function (param) {
+                    update("Visited");
+                  })
+              });
   };
   var setup = function () {
     update(initial);

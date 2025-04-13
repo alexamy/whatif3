@@ -37,16 +37,16 @@ module Toggle = {
     let base = Base.make(~initial)
     let link = ref(Jq.Dom.placeholder)
 
-    let makeLink = text => {
-      <Link bind={link}> {Jqx.string(text)} </Link>
-    }
-
-    let rec update = newState => {
+    let update = newState => {
       base.update(newState)
       switch newState {
       | Visited => replaceWithText(link.contents)
-      | Unvisited => link.contents->Jq.onClick(_ => update(Visited), ~options={once: true})
+      | Unvisited => ()
       }
+    }
+
+    let makeLink = text => {
+      <Link bind={link} onClickOnce={_ => update(Visited)}> {Jqx.string(text)} </Link>
     }
 
     let setup = () => update(initial)

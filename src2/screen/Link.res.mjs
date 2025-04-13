@@ -10,7 +10,8 @@ function Link(props) {
                   "href",
                   "#"
                 ]],
-              children: props.children
+              children: props.children,
+              onClickOnce: props.onClickOnce
             });
 }
 
