@@ -4,5 +4,5 @@ let make = () => {
     class="monospace screen-w screen-h outline-0 whitespace-pre text-nowrap text-gray-800 p-2 flex flex-col justify-between"
     classes={Js.Dict.fromArray([("bg-blue-400", true)])}>
     {Jqx.string("Компьютер")}
-  </dbind
+  </div>
 }

@@ -23,6 +23,6 @@ module Room = {
       {note1.link("Читать заметку.")}
       {Jq.Dom.newline()}
       {note1.content(Jq.tree(#span, [Jq.string("\"Привет, мир!\"")]))}
-    </dbind
+    </div>
   }
 }

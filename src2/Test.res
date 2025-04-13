@@ -3,13 +3,13 @@ let x1 = <div />
 let x2 =
   <div class="test">
     <div />
-  </dbind
+  </div>
 
 let x3 =
   <div>
     <div />
     <div />
-  </dbind
+  </div>
 
 module Link = {
   @jsx.component
@@ -21,7 +21,7 @@ module Link = {
 module Nest = {
   @jsx.component
   let make = (~children) => {
-    <div> {children} </dbind
+    <div> {children} </div>
   }
 }
 
