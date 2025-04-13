@@ -46,7 +46,7 @@ module Make = {
   }
 
   let make = (tag, props) => {
-    let element = Jq.makeFromString(tag)
+    let element = Jq.make(tag)
     let children = props.children->Option.mapWithDefault([], toArray)
     Jq.append(element, children)
 

@@ -7,8 +7,7 @@ import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as Core__Error from "@rescript/core/src/Core__Error.res.mjs";
 
 function mount(root, children) {
-  var root$1 = Jq.fromNode(root);
-  Jq.append(root$1, Jqx.toArray(children));
+  Jq.append(root, Jqx.toArray(children));
 }
 
 function render(child) {

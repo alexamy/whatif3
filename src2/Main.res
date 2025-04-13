@@ -1,6 +1,5 @@
 module App = {
   let mount = (root: Web.Node.t, children: Jqx.element) => {
-    let root = Jq.fromNode(root)
     Jq.append(root, Jqx.toArray(children))
   }
 

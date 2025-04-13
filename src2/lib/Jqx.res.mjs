@@ -35,7 +35,7 @@ function jsxFragment(props) {
 }
 
 function make(tag, props) {
-  var element = Jq.makeFromString(tag);
+  var element = Jq.make(tag);
   var children = Belt_Option.mapWithDefault(props.children, [], toArray);
   Jq.append(element, children);
   Belt_Option.map(props.bind, (function (ref) {

@@ -31,38 +31,14 @@ function make(tag) {
   return document.createElement(tag);
 }
 
-function makeFromString(tag) {
-  return document.createElement(tag);
-}
-
 function string(text) {
   return document.createTextNode(text);
-}
-
-function fromNode(node) {
-  return node;
-}
-
-function toNode(t) {
-  return t;
 }
 
 function append(node, nodes) {
   Belt_Array.forEach(nodes, (function (other) {
           node.appendChild(other);
         }));
-}
-
-function appendList(t, _nodes) {
-  while(true) {
-    var nodes = _nodes;
-    if (!nodes) {
-      return ;
-    }
-    t.appendChild(nodes.hd);
-    _nodes = nodes.tl;
-    continue ;
-  };
 }
 
 function appendTo(node, other) {
@@ -195,12 +171,8 @@ var Dom = {
 export {
   Cn ,
   make ,
-  makeFromString ,
   string ,
-  fromNode ,
-  toNode ,
   append ,
-  appendList ,
   appendTo ,
   replaceWith ,
   remove ,

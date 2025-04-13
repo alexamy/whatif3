@@ -1,8 +1,6 @@
 open Web
 
-@unboxed
-type t = Jq(Node.t)
-type tag = [#div | #span | #p | #a | #br]
+type t = Node.t
 
 module Cn = {
   let normalize = classes => {
@@ -16,82 +14,58 @@ module Cn = {
   }
 }
 // creation
-let make = (tag: tag) => {
-  Jq(Document.createElement(Document.document, (tag :> string)))
-}
-
-let makeFromString = tag => {
-  Jq(Document.createElement(Document.document, tag))
+let make = tag => {
+  Document.createElement(Document.document, (tag :> string))
 }
 
 let string = text => {
-  Jq(Document.createTextNode(Document.document, text))
-}
-
-let fromNode = node => {
-  Jq(node)
-}
-
-let toNode = t => {
-  let Jq(node) = t
-  node
+  Document.createTextNode(Document.document, text)
 }
 
 // manipulation
-let append = (Jq(node), nodes) => {
-  Array.forEach(nodes, (Jq(other)) => {
+let append = (node, nodes) => {
+  Array.forEach(nodes, other => {
     node->Node.appendChild(other)
   })
 }
 
-let rec appendList = (t, nodes) => {
-  switch nodes {
-  | list{} => ()
-  | list{head, ...tail} => {
-      let Jq(node) = t
-      node->Node.appendChild(head)
-      appendList(t, tail)
-    }
-  }
-}
-
-let appendTo = (Jq(node), Jq(other)) => {
+let appendTo = (node, other) => {
   other->Node.appendChild(node)
 }
 
-let replaceWith = (Jq(node), Jq(other)) => {
+let replaceWith = (node, other) => {
   node->Node.parentNode->Node.replaceChild(~new=other, ~old=node)
 }
 
-let remove = (Jq(node)) => {
+let remove = node => {
   node->Node.parentNode->Node.removeChild(node)
 }
 
 // content
-let setText = (Jq(node), text) => {
+let setText = (node, text) => {
   node->Node.setTextContent(text)
 }
 
-let getText = (Jq(node)) => {
+let getText = node => {
   node->Node.getTextContent
 }
 
-let setAttribute = (Jq(node), name, value) => {
+let setAttribute = (node, name, value) => {
   node->Node.setAttribute(name, value)
 }
 
 // classes
-let addClass = (Jq(node), classes) => {
+let addClass = (node, classes) => {
   let classes = Cn.normalize(classes)
   node->ClassList.classList->ClassList.add(classes)
 }
 
-let removeClass = (Jq(node), classes) => {
+let removeClass = (node, classes) => {
   let classes = Cn.normalize(classes)
   node->ClassList.classList->ClassList.remove(classes)
 }
 
-let toggleClass = (Jq(node), classes, value) => {
+let toggleClass = (node, classes, value) => {
   let classes = Cn.normalize(classes)
   Array.forEach(classes, class => node->ClassList.classList->ClassList.toggle(class, value))
 }
@@ -102,18 +76,18 @@ let toggleClasses = (t, classes) => {
 }
 
 // display
-let show = (Jq(node)) => {
+let show = node => {
   let style = node->Style.style
   style["display"] = #initial
 }
 
-let hide = (Jq(node)) => {
+let hide = node => {
   let style = node->Style.style
   style["display"] = #none
 }
 
 // events
-let onClick = (Jq(node), handler, ~options: option<Event.options>=?) => {
+let onClick = (node, handler, ~options: option<Event.options>=?) => {
   let options = Option.getWithDefault(options, {once: false})
   Event.addClickListener(node, handler, ~options)
 }
@@ -154,7 +128,7 @@ let tree = (tag, children, ~ref=?, ~class=?, ~classes=?, ~dependencies=?, ~attri
 module Dom = {
   let null = () => string("")
   let space = () => string(" ")
-  let newline = () => make(#br)
+  let newline = () => make("br")
 
   let placeholder: t = %raw(`new Proxy({}, {
     get(target, prop) {
