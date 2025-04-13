@@ -63,17 +63,38 @@ function jsxFragment(props) {
             });
 }
 
-function jsx$1(string, props) {
-  var element = Jq.makeFromString(string);
+function make(tag, props) {
+  var element = Jq.makeFromString(tag);
+  var children = Belt_Option.mapWithDefault(props.children, [], fromElement);
+  Jq.append(element, children);
   Belt_Option.map(props.ref, (function (ref) {
           ref.contents = element;
         }));
   Belt_Option.map(props.class, (function ($$class) {
           Jq.addClass(element, $$class);
         }));
-  Belt_Option.map(props.children, (function (child) {
-          Jq.append(element, fromElement(child));
+  Belt_Option.map(props.classes, (function (classes) {
+          Jq.toggleClasses(element, classes);
         }));
+  Belt_Option.map(props.dependencies, (function (dependencies) {
+          Belt_Array.forEach(dependencies, (function (dependency) {
+                  dependency();
+                }));
+        }));
+  Belt_Option.map(props.attributes, (function (attributes) {
+          Belt_Array.forEach(attributes, (function (param) {
+                  Jq.setAttribute(element, param[0], param[1]);
+                }));
+        }));
+  return element;
+}
+
+var Make = {
+  make: make
+};
+
+function jsx$1(string, props) {
+  var element = make(string, props);
   return {
           TAG: "One",
           _0: element
@@ -106,6 +127,7 @@ export {
   $$int ,
   $$float ,
   jsxFragment ,
+  Make ,
   Elements ,
 }
 /* Jq Not a pure module */
