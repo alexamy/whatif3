@@ -103,7 +103,7 @@ function onClick(node, handler, options) {
   var options$1 = Belt_Option.getWithDefault(options, {
         once: false
       });
-  Web.$$Event.addClickListener(node, handler, options$1);
+  return Web.$$Event.addClickListener(node, handler, options$1);
 }
 
 function strings(strings$1) {

@@ -58,9 +58,9 @@ function make(tag, props) {
                 }));
         }));
   Belt_Option.map(props.onClickOnce, (function (onClick) {
-          Jq.onClick(element, onClick, {
-                once: true
-              });
+          return Jq.onClick(element, onClick, {
+                      once: true
+                    });
         }));
   return element;
 }

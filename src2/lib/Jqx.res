@@ -43,6 +43,7 @@ module Make = {
     dependencies?: array<unit => unit>,
     attributes?: array<(string, string)>,
     children?: element,
+    onClick?: Web.Event.click => unit,
     onClickOnce?: Web.Event.click => unit,
   }
 
@@ -65,9 +66,9 @@ module Make = {
     )
     ->ignore
 
-    props.onClickOnce
-    ->Option.map(onClick => Jq.onClick(element, onClick, ~options={once: true}))
-    ->ignore
+    // TODO: dispose
+    let onClickOnceHandler =
+      props.onClickOnce->Option.map(onClick => Jq.onClick(element, onClick, ~options={once: true}))
 
     element
   }

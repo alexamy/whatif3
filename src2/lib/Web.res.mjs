@@ -5,10 +5,16 @@ var $$Node = {};
 
 function addClickListener(node, handler, options) {
   node.addEventListener("click", handler, options);
+  return handler;
+}
+
+function removeClickListener(node, handler) {
+  node.removeEventListener("click", handler);
 }
 
 var $$Event = {
-  addClickListener: addClickListener
+  addClickListener: addClickListener,
+  removeClickListener: removeClickListener
 };
 
 var Style = {};
