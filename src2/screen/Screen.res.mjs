@@ -27,7 +27,7 @@ function Screen$Room(props) {
                     },
                     {
                       TAG: "One",
-                      _0: note1.content(Jq.makeFromString("span"))
+                      _0: note1.content(Jq.tree("span", [Jq.string("\"Привет, мир!\"")], undefined, undefined, undefined, undefined, undefined))
                     }
                   ])
             });

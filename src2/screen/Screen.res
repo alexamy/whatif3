@@ -22,7 +22,7 @@ module Room = {
       {One(Jq.Dom.space())}
       {One(note1.link("Читать заметку."))}
       {One(Jq.Dom.newline())}
-      {One(note1.content(Jq.makeFromString("span")))}
+      {One(note1.content(Jq.tree(#span, [Jq.string("\"Привет, мир!\"")])))}
     </div>
   }
 }
