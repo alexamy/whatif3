@@ -26,6 +26,9 @@ let int: int => element = number => number->Int.toString->string
 let float: float => element = number => number->Float.toString->string
 let null: unit => element = () => atom(Jq.Dom.null())
 
+let space = () => atom(Jq.Dom.space())
+let newline = () => atom(Jq.Dom.newline())
+
 let text: array<string> => element = strings => strings->Array.map(string)->array
 let ref: (ref<Jq.t>, element) => element = (ref, element) =>
   switch element {

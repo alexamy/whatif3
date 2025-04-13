@@ -56,6 +56,14 @@ function $$null() {
   return atom(Jq.Dom.$$null());
 }
 
+function space() {
+  return atom(Jq.Dom.space());
+}
+
+function newline() {
+  return atom(Jq.Dom.newline());
+}
+
 function text(strings) {
   return array(Belt_Array.map(strings, string));
 }
@@ -111,6 +119,8 @@ export {
   $$int ,
   $$float ,
   $$null ,
+  space ,
+  newline ,
   text ,
   ref ,
   make ,
