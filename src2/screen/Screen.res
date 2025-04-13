@@ -19,10 +19,10 @@ module Room = {
       {Jqx.string(
         "Вы используете их для записи и чтения заметок.",
       )}
-      {One(Jq.Dom.space())}
-      {One(note1.link("Читать заметку."))}
-      {One(Jq.Dom.newline())}
-      {One(note1.content(Jq.tree(#span, [Jq.string("\"Привет, мир!\"")])))}
+      {Jq.Dom.space()}
+      {note1.link("Читать заметку.")}
+      {Jq.Dom.newline()}
+      {note1.content(Jq.tree(#span, [Jq.string("\"Привет, мир!\"")]))}
     </div>
   }
 }

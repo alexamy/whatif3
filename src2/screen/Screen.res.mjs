@@ -10,26 +10,14 @@ function Screen$Room(props) {
   return Jqx.Elements.jsxs("div", {
               class: "prosy screen-w py-0",
               dependencies: dependencies,
-              children: Jqx.array([
-                    Jqx.string("Вы стоите посреди комнаты. На вашей руке - умные часы."),
-                    Jqx.string("Вы используете их для записи и чтения заметок."),
-                    {
-                      TAG: "One",
-                      _0: Jq.Dom.space()
-                    },
-                    {
-                      TAG: "One",
-                      _0: note1.link("Читать заметку.")
-                    },
-                    {
-                      TAG: "One",
-                      _0: Jq.Dom.newline()
-                    },
-                    {
-                      TAG: "One",
-                      _0: note1.content(Jq.tree("span", [Jq.string("\"Привет, мир!\"")], undefined, undefined, undefined, undefined, undefined))
-                    }
-                  ])
+              children: [
+                Jqx.string("Вы стоите посреди комнаты. На вашей руке - умные часы."),
+                Jqx.string("Вы используете их для записи и чтения заметок."),
+                Jq.Dom.space(),
+                note1.link("Читать заметку."),
+                Jq.Dom.newline(),
+                note1.content(Jq.tree("span", [Jq.string("\"Привет, мир!\"")], undefined, undefined, undefined, undefined, undefined))
+              ]
             });
 }
 

@@ -1,14 +1,10 @@
-type leaf = Jq.t
-type element = One(leaf) | Many(array<leaf>)
+type element = Jq.t
 type componentLike<'props, 'return> = 'props => 'return
 type component<'props> = componentLike<'props, element>
 
-let fromElement: element => array<Jq.t> = element => {
-  switch element {
-  | One(element) => [element]
-  | Many(elements) => elements
-  }
-}
+let toArray: element => array<Jq.t> = %raw(`function(element) {
+  return Array.isArray(element) ? element : [element];
+}`)
 
 let jsx: (component<'props>, 'props) => element = (component, props) => {
   component(props)
@@ -26,25 +22,15 @@ let jsxKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => eleme
 let jsxs: (component<'props>, 'props) => element = jsx
 let jsxsKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => element = jsxKeyed
 
-let array: array<element> => element = elements => {
-  Many(
-    Array.flatMap(elements, element =>
-      switch element {
-      | One(element) => [element]
-      | Many(elements) => elements
-      }
-    ),
-  )
-}
-
-let string: string => element = text => text->Jq.string->One
+external array: array<element> => element = "%identity"
+let string: string => element = text => text->Jq.string
 let int: int => element = number => number->Int.toString->string
 let float: float => element = number => number->Float.toString->string
 
 type fragmentProps = {children?: element}
 
 let jsxFragment: component<fragmentProps> = (props: fragmentProps) => {
-  Option.getWithDefault(props.children, One(Jq.Dom.null()))
+  Option.getWithDefault(props.children, Jq.Dom.null())
 }
 
 module Make = {
@@ -59,7 +45,7 @@ module Make = {
 
   let make = (tag, props) => {
     let element = Jq.makeFromString(tag)
-    let children = props.children->Option.mapWithDefault([], fromElement)
+    let children = props.children->Option.mapWithDefault([], toArray)
     Jq.append(element, children)
 
     props.ref->Option.map(ref => ref := element)->ignore
@@ -84,7 +70,7 @@ module Make = {
 module Elements = {
   let jsx = (string, props) => {
     let element = Make.make(string, props)
-    One(element)
+    element
   }
 
   let jsxKeyed = (string, props, ~key=?, @ignore unit) => {

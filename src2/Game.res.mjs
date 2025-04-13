@@ -7,10 +7,10 @@ import * as Terminal from "./screen/Terminal.res.mjs";
 function Game(props) {
   return Jqx.Elements.jsxs("div", {
               class: "flex gap-4 justify-center",
-              children: Jqx.array([
-                    Jqx.jsx($$Screen.Room.make, {}),
-                    Jqx.jsx(Terminal.make, {})
-                  ])
+              children: [
+                Jqx.jsx($$Screen.Room.make, {}),
+                Jqx.jsx(Terminal.make, {})
+              ]
             });
 }
 

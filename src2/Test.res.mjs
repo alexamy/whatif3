@@ -10,10 +10,10 @@ var x2 = Jqx.Elements.jsx("div", {
     });
 
 var x3 = Jqx.Elements.jsxs("div", {
-      children: Jqx.array([
-            Jqx.Elements.jsx("div", {}),
-            Jqx.Elements.jsx("div", {})
-          ])
+      children: [
+        Jqx.Elements.jsx("div", {}),
+        Jqx.Elements.jsx("div", {})
+      ]
     });
 
 function Test$Link(props) {
@@ -45,26 +45,26 @@ var x5 = Jqx.jsx(Test$Nest, {
     });
 
 var x6 = Jqx.jsxs(Test$Nest, {
-      children: Jqx.array([
-            Jqx.jsx(Test$Link, {
-                  count: 10
-                }),
-            Jqx.jsx(Test$Link, {
-                  count: 20
-                })
-          ])
+      children: [
+        Jqx.jsx(Test$Link, {
+              count: 10
+            }),
+        Jqx.jsx(Test$Link, {
+              count: 20
+            })
+      ]
     });
 
 var x7 = Jqx.jsx(Test$Nest, {
       children: Jqx.jsxs(Jqx.jsxFragment, {
-            children: Jqx.array([
-                  Jqx.jsx(Test$Link, {
-                        count: 10
-                      }),
-                  Jqx.jsx(Test$Link, {
-                        count: 20
-                      })
-                ])
+            children: [
+              Jqx.jsx(Test$Link, {
+                    count: 10
+                  }),
+              Jqx.jsx(Test$Link, {
+                    count: 20
+                  })
+            ]
           })
     });
 

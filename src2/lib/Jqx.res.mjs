@@ -4,13 +4,9 @@ import * as Jq from "./Jq.res.mjs";
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as Belt_Option from "rescript/lib/es6/belt_Option.js";
 
-function fromElement(element) {
-  if (element.TAG === "One") {
-    return [element._0];
-  } else {
-    return element._0;
-  }
-}
+var toArray = (function(element) {
+  return Array.isArray(element) ? element : [element];
+});
 
 function jsx(component, props) {
   return component(props);
@@ -20,52 +16,27 @@ function jsxKeyed(component, props, key, unit) {
   return component(props);
 }
 
-function array(elements) {
-  return {
-          TAG: "Many",
-          _0: Belt_Array.flatMap(elements, (function (element) {
-                  if (element.TAG === "One") {
-                    return [element._0];
-                  } else {
-                    return element._0;
-                  }
-                }))
-        };
-}
-
 function string(text) {
-  return {
-          TAG: "One",
-          _0: Jq.string(text)
-        };
+  return Jq.string(text);
 }
 
 function $$int(number) {
   var text = String(number);
-  return {
-          TAG: "One",
-          _0: Jq.string(text)
-        };
+  return Jq.string(text);
 }
 
 function $$float(number) {
   var text = String(number);
-  return {
-          TAG: "One",
-          _0: Jq.string(text)
-        };
+  return Jq.string(text);
 }
 
 function jsxFragment(props) {
-  return Belt_Option.getWithDefault(props.children, {
-              TAG: "One",
-              _0: Jq.Dom.$$null()
-            });
+  return Belt_Option.getWithDefault(props.children, Jq.Dom.$$null());
 }
 
 function make(tag, props) {
   var element = Jq.makeFromString(tag);
-  var children = Belt_Option.mapWithDefault(props.children, [], fromElement);
+  var children = Belt_Option.mapWithDefault(props.children, [], toArray);
   Jq.append(element, children);
   Belt_Option.map(props.ref, (function (ref) {
           ref.contents = element;
@@ -94,15 +65,11 @@ var Make = {
 };
 
 function jsx$1(string, props) {
-  var element = make(string, props);
-  return {
-          TAG: "One",
-          _0: element
-        };
+  return make(string, props);
 }
 
 function jsxKeyed$1(string, props, key, unit) {
-  return jsx$1(string, props);
+  return make(string, props);
 }
 
 var Elements = {
@@ -117,12 +84,11 @@ var jsxs = jsx;
 var jsxsKeyed = jsxKeyed;
 
 export {
-  fromElement ,
+  toArray ,
   jsx ,
   jsxKeyed ,
   jsxs ,
   jsxsKeyed ,
-  array ,
   string ,
   $$int ,
   $$float ,
