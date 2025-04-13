@@ -2,6 +2,10 @@ type element = Jq.t
 type componentLike<'props, 'return> = 'props => 'return
 type component<'props> = componentLike<'props, element>
 
+let toArray: element => array<element> = %raw(`function(element) {
+  return Array.isArray(element) ? element : [element]
+}`)
+
 let jsx: (component<'props>, 'props) => element = (component, props) => {
   component(props)
 }
@@ -22,10 +26,6 @@ external jsxs: (component<'props>, 'props) => element = "jsxs"
 external jsxsKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => element = "jsxs"
 
 external array: array<element> => element = "%identity"
-let toArray: element => array<element> = %raw(`function(element) {
-  return Array.isArray(element) ? element : [element]
-}`)
-
 let string: string => element = text => text->Jq.string
 let int: int => element = number => number->Int.toString->string
 let float: float => element = number => number->Float.toString->string

@@ -3,6 +3,10 @@
 import * as Jq from "./Jq.res.mjs";
 import * as Belt_Option from "rescript/lib/es6/belt_Option.js";
 
+var toArray = (function(element) {
+  return Array.isArray(element) ? element : [element]
+});
+
 function jsx(component, props) {
   return component(props);
 }
@@ -10,10 +14,6 @@ function jsx(component, props) {
 function jsxKeyed(component, props, key, unit) {
   return component(props);
 }
-
-var toArray = (function(element) {
-  return Array.isArray(element) ? element : [element]
-});
 
 function string(text) {
   return Jq.string(text);
@@ -55,9 +55,9 @@ var Elements = {
 };
 
 export {
+  toArray ,
   jsx ,
   jsxKeyed ,
-  toArray ,
   string ,
   $$int ,
   $$float ,
