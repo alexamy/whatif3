@@ -8,7 +8,7 @@ import * as Core__Error from "@rescript/core/src/Core__Error.res.mjs";
 
 function mount(root, children) {
   var root$1 = Jq.fromNode(root);
-  Jq.append(root$1, Jqx.toArray(children));
+  Jq.append(root$1, Jqx.fromElement(children));
 }
 
 function render(child) {
@@ -29,7 +29,10 @@ var App = {
 var rootElement = document.querySelector("#root");
 
 if (rootElement !== undefined) {
-  mount(Caml_option.valFromOption(rootElement), render(Game.render()));
+  mount(Caml_option.valFromOption(rootElement), render({
+            TAG: "One",
+            _0: Game.render()
+          }));
 } else {
   Core__Error.panic("No root element found!");
 }

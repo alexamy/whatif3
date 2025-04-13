@@ -11,10 +11,10 @@ var x2 = Jqx.Elements.jsx("div", {
     });
 
 var x3 = Jqx.Elements.jsxs("div", {
-      children: [
-        Jqx.Elements.jsx("div", {}),
-        Jqx.Elements.jsx("div", {})
-      ]
+      children: Jqx.array([
+            Jqx.Elements.jsx("div", {}),
+            Jqx.Elements.jsx("div", {})
+          ])
     });
 
 function Test$Link(props) {
@@ -46,14 +46,14 @@ var x5 = Jqx.jsx(Test$Nest, {
     });
 
 var x6 = Preact.jsxs(Test$Nest, {
-      children: [
-        Jqx.jsx(Test$Link, {
-              count: 10
-            }),
-        Jqx.jsx(Test$Link, {
-              count: 20
-            })
-      ]
+      children: Jqx.array([
+            Jqx.jsx(Test$Link, {
+                  count: 10
+                }),
+            Jqx.jsx(Test$Link, {
+                  count: 20
+                })
+          ])
     });
 
 export {
