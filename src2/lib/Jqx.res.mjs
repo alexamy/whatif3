@@ -84,10 +84,16 @@ var Elements = {
   jsxsKeyed: jsxKeyed$1
 };
 
+var jsxs = jsx;
+
+var jsxsKeyed = jsxKeyed;
+
 export {
   fromElement ,
   jsx ,
   jsxKeyed ,
+  jsxs ,
+  jsxsKeyed ,
   array ,
   string ,
   $$int ,

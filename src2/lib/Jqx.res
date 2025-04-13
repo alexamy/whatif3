@@ -23,11 +23,8 @@ let jsxKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => eleme
   jsx(component, props)
 }
 
-@module("preact")
-external jsxs: (component<'props>, 'props) => element = "jsxs"
-
-@module("preact")
-external jsxsKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => element = "jsxs"
+let jsxs: (component<'props>, 'props) => element = jsx
+let jsxsKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => element = jsxKeyed
 
 let array: array<element> => element = elements => {
   Many(
