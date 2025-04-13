@@ -1,6 +1,6 @@
 type element = Jq.t
-type component<'props> = Jsx.component<'props>
-type componentLike<'props, 'return> = Jsx.componentLike<'props, 'return>
+type componentLike<'props, 'return> = 'props => 'return
+type component<'props> = componentLike<'props, element>
 
 @module("preact")
 external jsx: (component<'props>, 'props) => element = "jsx"

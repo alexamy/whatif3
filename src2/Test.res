@@ -10,3 +10,12 @@ let x3 =
     <div />
     <div />
   </div>
+
+module Link = {
+  @jsx.component
+  let make = (~count) => {
+    <div />
+  }
+}
+
+let x4 = <Link count=10 />
