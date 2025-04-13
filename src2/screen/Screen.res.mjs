@@ -18,7 +18,9 @@ function Screen$Room(props) {
                 Jq.Dom.space(),
                 note1.link("Читать заметку."),
                 Jq.Dom.newline(),
-                note1.content(Jq.tree("span", [Jq.string("\"Привет, мир!\"")], undefined, undefined, undefined, undefined, undefined))
+                note1.content(Jqx.Elements.jsx("span", {
+                          children: Jqx.string("\"Привет, мир!\"")
+                        }))
               ]
             });
 }
