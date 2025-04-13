@@ -10,30 +10,15 @@ function mount(root, children) {
   Jq.append(root, Jqx.toArray(children));
 }
 
-function render(child) {
-  return Jqx.Elements.jsx("div", {
-              class: "w-full h-full min-h-screen m-0 p-6 bg-gray-900 text-gray-100",
-              children: Jqx.Elements.jsx("div", {
-                    class: "mx-auto min-w-xl max-w-5xl",
-                    children: child
-                  })
-            });
-}
-
-var App = {
-  mount: mount,
-  render: render
-};
-
 var rootElement = document.querySelector("#root");
 
 if (rootElement !== undefined) {
-  mount(Caml_option.valFromOption(rootElement), render(Jqx.jsx(Game.make, {})));
+  mount(Caml_option.valFromOption(rootElement), Jqx.jsx(Game.make, {}));
 } else {
   Core__Error.panic("No root element found!");
 }
 
 export {
-  App ,
+  mount ,
 }
 /* rootElement Not a pure module */
