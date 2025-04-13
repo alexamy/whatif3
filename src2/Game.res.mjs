@@ -11,10 +11,10 @@ function Game(props) {
                         class: "mx-auto min-w-xl max-w-5xl",
                         children: Jqx.Elements.someElement(Jqx.Elements.jsxs("div", {
                                   class: "flex gap-4 justify-center",
-                                  children: [
-                                    Jqx.jsx($$Screen.Room.make, {}),
-                                    Jqx.jsx(Terminal.make, {})
-                                  ]
+                                  children: Jqx.array([
+                                        Jqx.jsx($$Screen.Room.make, {}),
+                                        Jqx.jsx(Terminal.make, {})
+                                      ])
                                 }))
                       }))
             });

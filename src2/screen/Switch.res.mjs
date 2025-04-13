@@ -13,7 +13,7 @@ function make(initialOpt) {
     contents: Jq.Dom.placeholder
   };
   var makeContent = function (element) {
-    return Jq.ref(content, element);
+    return Jqx.ref(content, element);
   };
   var update = function (newState) {
     state.contents = newState;

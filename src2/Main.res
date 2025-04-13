@@ -1,7 +1,7 @@
 open Web
 
 let mount = (root: Node.t, children: Jqx.element) => {
-  Jq.append(root, Jqx.toArray(children))
+  Jq.append(root, Jqx.toJqArray(children))
 }
 
 switch Document.document->Document.querySelector("#root") {

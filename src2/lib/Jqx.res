@@ -1,10 +1,13 @@
-type element = Jq.t
+type data = Jq.t
+type element = One(data) | Many(array<data>)
 type componentLike<'props, 'return> = 'props => 'return
 type component<'props> = componentLike<'props, element>
 
-let toArray: element => array<Jq.t> = %raw(`function(element) {
-  return Array.isArray(element) ? element : [element];
-}`)
+let toJqArray: element => array<Jq.t> = element =>
+  switch element {
+  | One(element) => [element]
+  | Many(elements) => elements
+  }
 
 let jsx: (component<'props>, 'props) => element = (component, props) => {
   component(props)
@@ -22,18 +25,27 @@ let jsxKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => eleme
 let jsxs: (component<'props>, 'props) => element = jsx
 let jsxsKeyed: (component<'props>, 'props, ~key: string=?, @ignore unit) => element = jsxKeyed
 
-external array: array<element> => element = "%identity"
-let string: string => element = text => text->Jq.string
+let array: array<element> => element = elements => {
+  Many(Array.flatMap(elements, toJqArray))
+}
+
+let string: string => element = text => text->Jq.string->One
 let int: int => element = number => number->Int.toString->string
 let float: float => element = number => number->Float.toString->string
 
 type fragmentProps = {children?: element}
 
 let jsxFragment: component<fragmentProps> = (props: fragmentProps) => {
-  Option.getWithDefault(props.children, Jq.Dom.null())
+  Option.getWithDefault(props.children, One(Jq.Dom.null()))
 }
 
-let text: array<string> => element = Jq.strings
+let text: array<string> => element = strings => strings->Array.map(Jq.string)->Many
+let ref: (ref<Jq.t>, element) => element = (ref, element) =>
+  switch element {
+  | One(element) => One(Jq.ref(ref, element))
+  | Many([element]) => One(Jq.ref(ref, element))
+  | Many(_) => One(Jq.Dom.null())
+  }
 
 module Make = {
   type t = {
@@ -49,7 +61,7 @@ module Make = {
 
   let make = (tag, props) => {
     let element = Jq.make(tag)
-    let children = props.children->Option.mapWithDefault([], toArray)
+    let children = props.children->Option.mapWithDefault([], toJqArray)
     Jq.append(element, children)
 
     props.bind->Option.map(ref => ref := element)->ignore
@@ -70,7 +82,7 @@ module Make = {
     let onClickOnceHandler =
       props.onClickOnce->Option.map(onClick => Jq.onClick(element, onClick, ~options={once: true}))
 
-    element
+    One(element)
   }
 }
 

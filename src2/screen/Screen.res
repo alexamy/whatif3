@@ -17,9 +17,9 @@ module Room = {
         "Вы стоите посреди комнаты. На вашей руке - умные часы.",
         "Вы используете их для записи и чтения заметок.",
       ])}
-      {Jq.Dom.space()}
+      {One(Jq.Dom.space())}
       {note1.link("Читать заметку.")}
-      {Jq.Dom.newline()}
+      {One(Jq.Dom.newline())}
       {note1.content(<span> {Jqx.string("\"Привет, мир!\"")} </span>)}
     </div>
   }

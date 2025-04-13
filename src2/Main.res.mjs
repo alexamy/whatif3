@@ -7,7 +7,7 @@ import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as Core__Error from "@rescript/core/src/Core__Error.res.mjs";
 
 function mount(root, children) {
-  Jq.append(root, Jqx.toArray(children));
+  Jq.append(root, Jqx.toJqArray(children));
 }
 
 var rootElement = document.querySelector("#root");

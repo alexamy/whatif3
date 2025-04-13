@@ -3,11 +3,14 @@
 import * as Jq from "./Jq.res.mjs";
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as Belt_Option from "rescript/lib/es6/belt_Option.js";
-import * as Caml_option from "rescript/lib/es6/caml_option.js";
 
-var toArray = (function(element) {
-  return Array.isArray(element) ? element : [element];
-});
+function toJqArray(element) {
+  if (element.TAG === "One") {
+    return [element._0];
+  } else {
+    return element._0;
+  }
+}
 
 function jsx(component, props) {
   return component(props);
@@ -17,27 +20,74 @@ function jsxKeyed(component, props, key, unit) {
   return component(props);
 }
 
+function array(elements) {
+  return {
+          TAG: "Many",
+          _0: Belt_Array.flatMap(elements, toJqArray)
+        };
+}
+
 function string(text) {
-  return Jq.string(text);
+  return {
+          TAG: "One",
+          _0: Jq.string(text)
+        };
 }
 
 function $$int(number) {
   var text = String(number);
-  return Jq.string(text);
+  return {
+          TAG: "One",
+          _0: Jq.string(text)
+        };
 }
 
 function $$float(number) {
   var text = String(number);
-  return Jq.string(text);
+  return {
+          TAG: "One",
+          _0: Jq.string(text)
+        };
 }
 
 function jsxFragment(props) {
-  return Belt_Option.getWithDefault(props.children, Jq.Dom.$$null());
+  return Belt_Option.getWithDefault(props.children, {
+              TAG: "One",
+              _0: Jq.Dom.$$null()
+            });
+}
+
+function text(strings) {
+  return {
+          TAG: "Many",
+          _0: Belt_Array.map(strings, Jq.string)
+        };
+}
+
+function ref(ref$1, element) {
+  if (element.TAG === "One") {
+    return {
+            TAG: "One",
+            _0: Jq.ref(ref$1, element._0)
+          };
+  }
+  var match = element._0;
+  if (match.length !== 1) {
+    return {
+            TAG: "One",
+            _0: Jq.Dom.$$null()
+          };
+  }
+  var element$1 = match[0];
+  return {
+          TAG: "One",
+          _0: Jq.ref(ref$1, element$1)
+        };
 }
 
 function make(tag, props) {
   var element = Jq.make(tag);
-  var children = Belt_Option.mapWithDefault(props.children, [], toArray);
+  var children = Belt_Option.mapWithDefault(props.children, [], toJqArray);
   Jq.append(element, children);
   Belt_Option.map(props.bind, (function (ref) {
           ref.contents = element;
@@ -63,7 +113,10 @@ function make(tag, props) {
                       once: true
                     });
         }));
-  return element;
+  return {
+          TAG: "One",
+          _0: element
+        };
 }
 
 var Make = {
@@ -79,7 +132,7 @@ function jsxKeyed$1(string, props, key, unit) {
 }
 
 function someElement(element) {
-  return Caml_option.some(element);
+  return element;
 }
 
 var Elements = {
@@ -94,19 +147,19 @@ var jsxs = jsx;
 
 var jsxsKeyed = jsxKeyed;
 
-var text = Jq.strings;
-
 export {
-  toArray ,
+  toJqArray ,
   jsx ,
   jsxKeyed ,
   jsxs ,
   jsxsKeyed ,
+  array ,
   string ,
   $$int ,
   $$float ,
   jsxFragment ,
   text ,
+  ref ,
   Make ,
   Elements ,
 }
