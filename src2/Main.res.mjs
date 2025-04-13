@@ -29,10 +29,7 @@ var App = {
 var rootElement = document.querySelector("#root");
 
 if (rootElement !== undefined) {
-  mount(Caml_option.valFromOption(rootElement), render({
-            TAG: "One",
-            _0: Game.render()
-          }));
+  mount(Caml_option.valFromOption(rootElement), render(Jqx.jsx(Game.make, {})));
 } else {
   Core__Error.panic("No root element found!");
 }

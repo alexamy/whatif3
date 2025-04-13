@@ -12,6 +12,6 @@ module App = {
 }
 
 switch Web.Document.document->Web.Document.querySelector("#root") {
-| Some(rootElement) => App.mount(rootElement, App.render(One(Game.render())))
+| Some(rootElement) => App.mount(rootElement, App.render(<Game />))
 | None => Error.panic("No root element found!")
 }
