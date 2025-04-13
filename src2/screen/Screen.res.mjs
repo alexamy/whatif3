@@ -11,8 +11,10 @@ function Screen$Room(props) {
               class: "prosy screen-w py-0",
               dependencies: dependencies,
               children: [
-                Jqx.string("Вы стоите посреди комнаты. На вашей руке - умные часы."),
-                Jqx.string("Вы используете их для записи и чтения заметок."),
+                Jqx.strings([
+                      "Вы стоите посреди комнаты. На вашей руке - умные часы.",
+                      "Вы используете их для записи и чтения заметок."
+                    ]),
                 Jq.Dom.space(),
                 note1.link("Читать заметку."),
                 Jq.Dom.newline(),

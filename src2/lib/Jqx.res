@@ -33,6 +33,8 @@ let jsxFragment: component<fragmentProps> = (props: fragmentProps) => {
   Option.getWithDefault(props.children, Jq.Dom.null())
 }
 
+let strings: array<string> => element = Jq.strings
+
 module Make = {
   type t = {
     bind?: ref<Jq.t>,
