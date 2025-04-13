@@ -1,4 +1,4 @@
-type rec data = {element: Jq.t, child: option<data>, dispose: unit => unit}
+type rec data = {element: Jq.t, dispose: unit => unit}
 type element = One(data) | Many(array<data>)
 type componentLike<'props, 'return> = 'props => 'return
 type component<'props> = componentLike<'props, element>
@@ -20,7 +20,7 @@ let array: array<element> => element = elements => {
   )
 }
 
-let atom = element => One({element, child: None, dispose: _ => ()})
+let atom = element => One({element, dispose: _ => ()})
 let string: string => element = text => text->Jq.string->atom
 let int: int => element = number => number->Int.toString->string
 let float: float => element = number => number->Float.toString->string
@@ -36,6 +36,13 @@ let ref: (ref<Jq.t>, element) => element = (ref, element) =>
   | Many([{element}]) => atom(Jq.ref(ref, element))
   | Many(_) => null()
   }
+
+let dispose = element => {
+  switch element {
+  | One({dispose}) => dispose()
+  | Many(elements) => Array.forEach(elements, ({dispose}) => dispose())
+  }
+}
 
 type props = {
   bind?: ref<Jq.t>,
@@ -71,5 +78,15 @@ let make = (tag, props) => {
   let onClickOnceHandler =
     props.onClickOnce->Option.map(onClick => Jq.onClick(element, onClick, ~options={once: true}))
 
-  atom(element)
+  let dispose = () => {
+    props.children->Option.map(dispose)->ignore
+
+    onClickOnceHandler
+    ->Option.map(handler => Web.Event.removeClickListener(element, handler))
+    ->ignore
+
+    Jq.remove(element)
+  }
+
+  One({element, dispose})
 }
