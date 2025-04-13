@@ -55,6 +55,23 @@ var x6 = Jqx.jsxs(Test$Nest, {
           ])
     });
 
+var x7 = Jqx.jsx(Test$Nest, {
+      children: Jqx.jsxs(Jqx.jsxFragment, {
+            children: Jqx.array([
+                  Jqx.jsx(Test$Link, {
+                        count: 10
+                      }),
+                  Jqx.jsx(Test$Link, {
+                        count: 20
+                      })
+                ])
+          })
+    });
+
+var x8 = Jqx.jsx(Test$Nest, {
+      children: Jqx.jsx(Jqx.jsxFragment, {})
+    });
+
 export {
   x1 ,
   x2 ,
@@ -64,5 +81,7 @@ export {
   x4 ,
   x5 ,
   x6 ,
+  x7 ,
+  x8 ,
 }
 /* x1 Not a pure module */

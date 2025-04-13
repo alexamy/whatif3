@@ -37,3 +37,13 @@ let x6 =
     <Link count=10 />
     <Link count=20 />
   </Nest>
+
+let x7 =
+  <Nest>
+    {<>
+      <Link count=10 />
+      <Link count=20 />
+    </>}
+  </Nest>
+
+let x8 = <Nest> {<> </>} </Nest>

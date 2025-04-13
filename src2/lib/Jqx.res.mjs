@@ -56,6 +56,13 @@ function $$float(number) {
         };
 }
 
+function jsxFragment(props) {
+  return Belt_Option.getWithDefault(props.children, {
+              TAG: "One",
+              _0: Jq.Dom.$$null()
+            });
+}
+
 function jsx$1(string, props) {
   var element = Jq.makeFromString(string);
   Belt_Option.map(props.ref, (function (ref) {
@@ -98,6 +105,7 @@ export {
   string ,
   $$int ,
   $$float ,
+  jsxFragment ,
   Elements ,
 }
 /* Jq Not a pure module */

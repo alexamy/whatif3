@@ -42,7 +42,10 @@ let int: int => element = number => number->Int.toString->string
 let float: float => element = number => number->Float.toString->string
 
 type fragmentProps = {children?: element}
-@module("preact") external jsxFragment: component<fragmentProps> = "Fragment"
+
+let jsxFragment: component<fragmentProps> = (props: fragmentProps) => {
+  Option.getWithDefault(props.children, One(Jq.Dom.null()))
+}
 
 /* The Elements module is the equivalent to the ReactDOM module in React. This holds things relevant to _lowercase_ JSX elements. */
 module Elements = {
