@@ -12,14 +12,6 @@ function toJqArray(element) {
   }
 }
 
-function jsx(component, props) {
-  return component(props);
-}
-
-function jsxKeyed(component, props, key, unit) {
-  return component(props);
-}
-
 function array(elements) {
   return {
           TAG: "Many",
@@ -50,11 +42,11 @@ function $$float(number) {
         };
 }
 
-function jsxFragment(props) {
-  return Belt_Option.getWithDefault(props.children, {
-              TAG: "One",
-              _0: Jq.Dom.$$null()
-            });
+function $$null() {
+  return {
+          TAG: "One",
+          _0: Jq.Dom.$$null()
+        };
 }
 
 function text(strings) {
@@ -119,48 +111,15 @@ function make(tag, props) {
         };
 }
 
-var Make = {
-  make: make
-};
-
-function jsx$1(string, props) {
-  return make(string, props);
-}
-
-function jsxKeyed$1(string, props, key, unit) {
-  return make(string, props);
-}
-
-function someElement(element) {
-  return element;
-}
-
-var Elements = {
-  jsx: jsx$1,
-  jsxKeyed: jsxKeyed$1,
-  jsxs: jsx$1,
-  jsxsKeyed: jsxKeyed$1,
-  someElement: someElement
-};
-
-var jsxs = jsx;
-
-var jsxsKeyed = jsxKeyed;
-
 export {
   toJqArray ,
-  jsx ,
-  jsxKeyed ,
-  jsxs ,
-  jsxsKeyed ,
   array ,
   string ,
   $$int ,
   $$float ,
-  jsxFragment ,
+  $$null ,
   text ,
   ref ,
-  Make ,
-  Elements ,
+  make ,
 }
 /* Jq Not a pure module */

@@ -2,15 +2,16 @@
 
 import * as Jqx from "../lib/Jqx.res.mjs";
 import * as Js_dict from "rescript/lib/es6/js_dict.js";
+import * as JqxAdapter from "../lib/JqxAdapter.res.mjs";
 
 function Terminal(props) {
-  return Jqx.Elements.jsx("div", {
+  return JqxAdapter.Elements.jsx("div", {
               class: "monospace screen-w screen-h outline-0 whitespace-pre text-nowrap text-gray-800 p-2 flex flex-col justify-between",
               classes: Js_dict.fromArray([[
                       "bg-blue-400",
                       true
                     ]]),
-              children: Jqx.Elements.someElement(Jqx.string("Компьютер"))
+              children: JqxAdapter.Elements.someElement(Jqx.string("Компьютер"))
             });
 }
 

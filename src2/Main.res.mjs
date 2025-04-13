@@ -3,6 +3,7 @@
 import * as Jq from "./lib/Jq.res.mjs";
 import * as Jqx from "./lib/Jqx.res.mjs";
 import * as Game from "./Game.res.mjs";
+import * as JqxAdapter from "./lib/JqxAdapter.res.mjs";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as Core__Error from "@rescript/core/src/Core__Error.res.mjs";
 
@@ -13,7 +14,7 @@ function mount(root, children) {
 var rootElement = document.querySelector("#root");
 
 if (rootElement !== undefined) {
-  mount(Caml_option.valFromOption(rootElement), Jqx.jsx(Game.make, {}));
+  mount(Caml_option.valFromOption(rootElement), JqxAdapter.jsx(Game.make, {}));
 } else {
   Core__Error.panic("No root element found!");
 }

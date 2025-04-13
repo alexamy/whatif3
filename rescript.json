@@ -10,7 +10,7 @@
   },
   "suffix": ".res.mjs",
   "jsx": {
-    "module": "Jqx"
+    "module": "JqxAdapter"
   },
   "bs-dependencies": [
     "@rescript/core"

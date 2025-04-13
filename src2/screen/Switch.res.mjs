@@ -3,6 +3,7 @@
 import * as Jq from "../lib/Jq.res.mjs";
 import * as Jqx from "../lib/Jqx.res.mjs";
 import * as Link from "./Link.res.mjs";
+import * as JqxAdapter from "../lib/JqxAdapter.res.mjs";
 
 function make(initialOpt) {
   var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
@@ -56,7 +57,7 @@ function make$1(initialOpt) {
     
   };
   var makeLink = function (text) {
-    return Jqx.jsx(Link.make, {
+    return JqxAdapter.jsx(Link.make, {
                 children: Jqx.string(text),
                 bind: link,
                 onClickOnce: (function (param) {

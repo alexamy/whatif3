@@ -3,14 +3,15 @@
 import * as Jq from "../lib/Jq.res.mjs";
 import * as Jqx from "../lib/Jqx.res.mjs";
 import * as Switch from "./Switch.res.mjs";
+import * as JqxAdapter from "../lib/JqxAdapter.res.mjs";
 
 function Screen$Room(props) {
   var note1 = Switch.Toggle.make(undefined);
   var dependencies = [note1.setup];
-  return Jqx.Elements.jsxs("div", {
+  return JqxAdapter.Elements.jsxs("div", {
               class: "prosy screen-w py-0",
               dependencies: dependencies,
-              children: Jqx.array([
+              children: JqxAdapter.array([
                     Jqx.text([
                           "Вы стоите посреди комнаты. На вашей руке - умные часы.",
                           "Вы используете их для записи и чтения заметок."
@@ -24,8 +25,8 @@ function Screen$Room(props) {
                       TAG: "One",
                       _0: Jq.Dom.newline()
                     },
-                    note1.content(Jqx.Elements.jsx("span", {
-                              children: Jqx.Elements.someElement(Jqx.string("\"Привет, мир!\""))
+                    note1.content(JqxAdapter.Elements.jsx("span", {
+                              children: JqxAdapter.Elements.someElement(Jqx.string("\"Привет, мир!\""))
                             }))
                   ])
             });
