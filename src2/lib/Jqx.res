@@ -43,6 +43,7 @@ module Make = {
     dependencies?: array<unit => unit>,
     attributes?: array<(string, string)>,
     children?: element,
+    onClickOnce?: Web.Event.click => unit,
   }
 
   let make = (tag, props) => {
@@ -62,6 +63,10 @@ module Make = {
     ->Option.map(attributes =>
       Array.forEach(attributes, ((name, value)) => Jq.setAttribute(element, name, value))
     )
+    ->ignore
+
+    props.onClickOnce
+    ->Option.map(onClick => Jq.onClick(element, onClick, ~options={once: true}))
     ->ignore
 
     element

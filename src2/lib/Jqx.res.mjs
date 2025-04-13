@@ -57,6 +57,11 @@ function make(tag, props) {
                   Jq.setAttribute(element, param[0], param[1]);
                 }));
         }));
+  Belt_Option.map(props.onClickOnce, (function (onClick) {
+          Jq.onClick(element, onClick, {
+                once: true
+              });
+        }));
   return element;
 }
 
