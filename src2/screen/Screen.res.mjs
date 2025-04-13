@@ -16,15 +16,9 @@ function Screen$Room(props) {
                           "Вы стоите посреди комнаты. На вашей руке - умные часы.",
                           "Вы используете их для записи и чтения заметок."
                         ]),
-                    {
-                      TAG: "One",
-                      _0: Jq.Dom.space()
-                    },
+                    Jqx.atom(Jq.Dom.space()),
                     note1.link("Читать заметку."),
-                    {
-                      TAG: "One",
-                      _0: Jq.Dom.newline()
-                    },
+                    Jqx.atom(Jq.Dom.newline()),
                     note1.content(JqxAdapter.Elements.jsx("span", {
                               children: JqxAdapter.Elements.someElement(Jqx.string("\"Привет, мир!\""))
                             }))

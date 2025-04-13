@@ -6,75 +6,70 @@ import * as Belt_Option from "rescript/lib/es6/belt_Option.js";
 
 function toJqArray(element) {
   if (element.TAG === "One") {
-    return [element._0];
+    return [element._0.element];
   } else {
-    return element._0;
+    return Belt_Array.map(element._0, (function (param) {
+                  return param.element;
+                }));
   }
 }
 
 function array(elements) {
   return {
           TAG: "Many",
-          _0: Belt_Array.flatMap(elements, toJqArray)
+          _0: Belt_Array.flatMap(elements, (function (element) {
+                  if (element.TAG === "One") {
+                    return [element._0];
+                  } else {
+                    return element._0;
+                  }
+                }))
+        };
+}
+
+function atom(element) {
+  return {
+          TAG: "One",
+          _0: {
+            element: element,
+            children: [],
+            dispose: (function () {
+                
+              })
+          }
         };
 }
 
 function string(text) {
-  return {
-          TAG: "One",
-          _0: Jq.string(text)
-        };
+  return atom(Jq.string(text));
 }
 
 function $$int(number) {
-  var text = String(number);
-  return {
-          TAG: "One",
-          _0: Jq.string(text)
-        };
+  return string(String(number));
 }
 
 function $$float(number) {
-  var text = String(number);
-  return {
-          TAG: "One",
-          _0: Jq.string(text)
-        };
+  return string(String(number));
 }
 
 function $$null() {
-  return {
-          TAG: "One",
-          _0: Jq.Dom.$$null()
-        };
+  return atom(Jq.Dom.$$null());
 }
 
 function text(strings) {
-  return {
-          TAG: "Many",
-          _0: Belt_Array.map(strings, Jq.string)
-        };
+  return array(Belt_Array.map(strings, string));
 }
 
 function ref(ref$1, element) {
   if (element.TAG === "One") {
-    return {
-            TAG: "One",
-            _0: Jq.ref(ref$1, element._0)
-          };
+    return atom(Jq.ref(ref$1, element._0.element));
   }
   var match = element._0;
   if (match.length !== 1) {
-    return {
-            TAG: "One",
-            _0: Jq.Dom.$$null()
-          };
+    return $$null();
   }
-  var element$1 = match[0];
-  return {
-          TAG: "One",
-          _0: Jq.ref(ref$1, element$1)
-        };
+  var match$1 = match[0];
+  return atom(Jq.ref(ref$1, match$1.element));
 }
 
 function make(tag, props) {
@@ -105,15 +100,13 @@ function make(tag, props) {
                       once: true
                     });
         }));
-  return {
-          TAG: "One",
-          _0: element
-        };
+  return atom(element);
 }
 
 export {
   toJqArray ,
   array ,
+  atom ,
   string ,
   $$int ,
   $$float ,
