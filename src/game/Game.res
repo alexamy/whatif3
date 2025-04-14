@@ -6,6 +6,7 @@ let state = Mobx.observable({
 
 let increase = () => state.current = state.current + 1
 
+// TODO: check auto wrap
 @react.component
 let make = Mobx.observer(() => {
   let (current, setCurrent) = React.useState(() => Path.Center)
