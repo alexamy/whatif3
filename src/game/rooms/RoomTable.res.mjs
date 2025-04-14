@@ -5,16 +5,10 @@ import * as $$Screen from "./Screen.res.mjs";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as JsxRuntime from "react/jsx-runtime";
 
-var meta_options = [[
+var options = [[
     "Вернуться",
     "Center"
   ]];
-
-var meta = {
-  room: "Table",
-  computer: "Watch",
-  options: meta_options
-};
 
 function make(props) {
   var content = JsxRuntime.jsx(JsxRuntime.Fragment, {
@@ -25,13 +19,13 @@ function make(props) {
       });
   return JsxRuntime.jsx($$Screen.make, {
               content: content,
-              options: meta_options,
+              options: options,
               goTo: props.goTo
             });
 }
 
 export {
-  meta ,
+  options ,
   make ,
 }
 /* Utils Not a pure module */

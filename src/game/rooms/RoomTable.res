@@ -1,8 +1,4 @@
-let meta: Path.screen = {
-  room: Table,
-  computer: Watch,
-  options: [(React.string("Вернуться"), Center)],
-}
+let options = [(React.string("Вернуться"), Path.Center)]
 
 let make = (props: Path.props) => {
   let content =
@@ -13,5 +9,5 @@ let make = (props: Path.props) => {
       ])}
     </>
 
-  <Screen content goTo={props.goTo} options={meta.options} />
+  <Screen content options goTo={props.goTo} />
 }

@@ -5,7 +5,7 @@ import * as $$Screen from "./Screen.res.mjs";
 import * as Switch from "../hooks/Switch.res.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
 
-var meta_options = [
+var options = [
   [
     "Подойти к столу",
     "Table"
@@ -19,12 +19,6 @@ var meta_options = [
     "Door"
   ]
 ];
-
-var meta = {
-  room: "Center",
-  computer: "Watch",
-  options: meta_options
-};
 
 function make(props) {
   var note1 = Switch.Toggle.useSwitch(undefined);
@@ -44,13 +38,13 @@ function make(props) {
       });
   return JsxRuntime.jsx($$Screen.make, {
               content: content,
-              options: meta_options,
+              options: options,
               goTo: props.goTo
             });
 }
 
 export {
-  meta ,
+  options ,
   make ,
 }
 /* Utils Not a pure module */
