@@ -14,11 +14,11 @@ function $$Screen(props) {
                 JsxRuntime.jsx("nav", {
                       children: JsxRuntime.jsx("ul", {
                             children: Belt_Array.mapWithIndex(props.options, (function (i, param) {
-                                    var target = param[1];
+                                    var room = param[1];
                                     return JsxRuntime.jsx("li", {
                                                 children: JsxRuntime.jsx(Link.make, {
                                                       onClick: (function () {
-                                                          goTo(target);
+                                                          goTo(room);
                                                         }),
                                                       children: param[0]
                                                     })

@@ -1,7 +1,7 @@
 open Path
 
 let meta: Path.screen = {
-  place: Center,
+  room: Center,
   computer: Watch,
   options: [
     (React.string("Подойти к столу"), Table),

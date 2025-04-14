@@ -1,4 +1,4 @@
-type place =
+type room =
   | Center
   | Table
   | Window
@@ -6,10 +6,10 @@ type place =
 
 type computer = Door | Watch
 
-type destination = (React.element, place)
+type destination = (React.element, room)
 
 type screen = {
-  place: place,
+  room: room,
   computer: computer,
   options: array<destination>,
 }

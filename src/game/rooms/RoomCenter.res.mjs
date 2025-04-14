@@ -21,7 +21,7 @@ var meta_options = [
 ];
 
 var meta = {
-  place: "Center",
+  room: "Center",
   computer: "Watch",
   options: meta_options
 };
