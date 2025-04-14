@@ -32,9 +32,7 @@ module Toggle = {
     let {state, content, toggle} = Base.useSwitch(initial)
 
     let link = children => {
-      state === Unvisited
-        ? <Screen.Link onClick={() => toggle(Visited)}> {children} </Screen.Link>
-        : children
+      state === Unvisited ? <Link onClick={() => toggle(Visited)}> {children} </Link> : children
     }
 
     {link, content}
