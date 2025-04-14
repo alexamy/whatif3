@@ -9,6 +9,5 @@ type computer = Door | Watch
 type screen = {
   place: place,
   computer: computer,
-  description: string,
   options: array<(string, place)>,
 }
