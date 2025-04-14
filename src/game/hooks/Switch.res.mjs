@@ -52,6 +52,7 @@ function useSwitch$1(initialOpt) {
     }
   };
   return {
+          state: state,
           link: link,
           content: match.content
         };

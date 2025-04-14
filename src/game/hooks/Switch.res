@@ -24,6 +24,7 @@ module Base = {
 
 module Toggle = {
   type t = {
+    state: state,
     link: React.element => React.element,
     content: React.element => React.element,
   }
@@ -37,6 +38,6 @@ module Toggle = {
       state === Unvisited ? <Link onClick> {children} </Link> : children
     }
 
-    {link, content}
+    {state, link, content}
   }
 }

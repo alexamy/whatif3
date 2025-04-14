@@ -4,10 +4,15 @@ let options = [
   (React.string("Подойти к двери"), Path.Door),
 ]
 
-let note1 = ref(Switch.Unvisited)
+let note1Ref = ref(Switch.Unvisited)
 
 let make = (props: Path.props) => {
-  let note1 = Switch.Toggle.useSwitch(~initial=note1.contents)
+  let note1 = Switch.Toggle.useSwitch(~initial=note1Ref.contents)
+
+  React.useEffect(() => {
+    note1Ref := note1.state
+    None
+  }, [note1.state])
 
   let content =
     <>
