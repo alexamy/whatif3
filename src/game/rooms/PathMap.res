@@ -1,9 +1,9 @@
+exception NotFound
+
 let map = Core__Map.fromArray([
   (Path.Center, (RoomCenter.make, Terminal.make)),
   (Path.Table, (RoomTable.make, Terminal.make)),
 ])
-
-exception NotFound
 
 let get = current =>
   switch Core__Map.get(map, current) {

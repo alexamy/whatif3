@@ -5,6 +5,8 @@ import * as RoomTable from "./RoomTable.res.mjs";
 import * as RoomCenter from "./RoomCenter.res.mjs";
 import * as Caml_exceptions from "rescript/lib/es6/caml_exceptions.js";
 
+var NotFound = /* @__PURE__ */Caml_exceptions.create("PathMap.NotFound");
+
 var map = new Map([
       [
         "Center",
@@ -22,8 +24,6 @@ var map = new Map([
       ]
     ]);
 
-var NotFound = /* @__PURE__ */Caml_exceptions.create("PathMap.NotFound");
-
 function get(current) {
   var make = map.get(current);
   if (make !== undefined) {
@@ -36,8 +36,8 @@ function get(current) {
 }
 
 export {
-  map ,
   NotFound ,
+  map ,
   get ,
 }
 /* map Not a pure module */
