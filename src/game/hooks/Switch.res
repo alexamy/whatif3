@@ -28,11 +28,16 @@ module Toggle = {
     content: React.element => React.element,
   }
 
-  let useSwitch = (~initial=Unvisited) => {
+  let useSwitch = (~initial=Unvisited, ~onToggle=_ => ()) => {
     let {state, content, toggle} = Base.useSwitch(initial)
 
+    let onClick = () => {
+      onToggle()
+      toggle(Visited)
+    }
+
     let link = children => {
-      state === Unvisited ? <Link onClick={() => toggle(Visited)}> {children} </Link> : children
+      state === Unvisited ? <Link onClick> {children} </Link> : children
     }
 
     {link, content}

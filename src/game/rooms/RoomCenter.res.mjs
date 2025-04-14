@@ -20,8 +20,14 @@ var options = [
   ]
 ];
 
+var state = {
+  note1: "Unvisited"
+};
+
 function make(props) {
-  var note1 = Switch.Toggle.useSwitch(undefined);
+  var note1 = Switch.Toggle.useSwitch(state.note1, (function () {
+          state.note1 = "Visited";
+        }));
   var content = JsxRuntime.jsxs(JsxRuntime.Fragment, {
         children: [
           Utils.strings([
@@ -45,6 +51,7 @@ function make(props) {
 
 export {
   options ,
+  state ,
   make ,
 }
 /* Utils Not a pure module */

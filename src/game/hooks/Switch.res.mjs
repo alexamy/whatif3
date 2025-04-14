@@ -33,17 +33,22 @@ var Base = {
   useSwitch: useSwitch
 };
 
-function useSwitch$1(initialOpt) {
+function useSwitch$1(initialOpt, onToggleOpt) {
   var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
+  var onToggle = onToggleOpt !== undefined ? onToggleOpt : (function () {
+        
+      });
   var match = useSwitch(initial);
   var toggle = match.toggle;
   var state = match.state;
+  var onClick = function () {
+    onToggle();
+    toggle("Visited");
+  };
   var link = function (children) {
     if (state === "Unvisited") {
       return JsxRuntime.jsx(Link.make, {
-                  onClick: (function () {
-                      toggle("Visited");
-                    }),
+                  onClick: onClick,
                   children: children
                 });
     } else {
