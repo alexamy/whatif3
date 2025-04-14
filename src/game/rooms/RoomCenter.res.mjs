@@ -20,14 +20,12 @@ var options = [
   ]
 ];
 
-var state = {
-  note1: "Unvisited"
+var note1 = {
+  contents: "Unvisited"
 };
 
 function make(props) {
-  var note1 = Switch.Toggle.useSwitch(state.note1, (function () {
-          state.note1 = "Visited";
-        }));
+  var note1$1 = Switch.Toggle.useSwitch(note1);
   var content = JsxRuntime.jsxs(JsxRuntime.Fragment, {
         children: [
           Utils.strings([
@@ -36,8 +34,8 @@ function make(props) {
                 "Вы используете их для записи и чтения заметок."
               ]),
           " ",
-          note1.link("Читать заметку."),
-          note1.content(JsxRuntime.jsx("p", {
+          note1$1.link("Читать заметку."),
+          note1$1.content(JsxRuntime.jsx("p", {
                     children: "\"Привет, мир!\""
                   }))
         ]
@@ -51,7 +49,7 @@ function make(props) {
 
 export {
   options ,
-  state ,
+  note1 ,
   make ,
 }
 /* Utils Not a pure module */
