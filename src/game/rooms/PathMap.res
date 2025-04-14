@@ -1,4 +1,7 @@
-let map = Core__Map.fromArray([(Path.Center, RoomCenter.make), (Path.Table, RoomTable.make)])
+let map = Core__Map.fromArray([
+  (Path.Center, (RoomCenter.make, Terminal.make)),
+  (Path.Table, (RoomTable.make, Terminal.make)),
+])
 
 exception NotFound
 

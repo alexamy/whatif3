@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import * as PathMap from "./rooms/PathMap.res.mjs";
-import * as Terminal from "./terminals/Terminal.res.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
 
 function Game(props) {
@@ -10,8 +9,11 @@ function Game(props) {
         return "Center";
       });
   var setCurrent = match[1];
-  var make = PathMap.get(match[0]);
-  make.displayName = "CurrentRoom";
+  var match$1 = PathMap.get(match[0]);
+  var computer = match$1[1];
+  var room = match$1[0];
+  room.displayName = "CurrentRoom";
+  computer.displayName = "CurrentTerminal";
   var goTo = function (room) {
     setCurrent(function (param) {
           return room;
@@ -19,10 +21,10 @@ function Game(props) {
   };
   return JsxRuntime.jsxs("div", {
               children: [
-                JsxRuntime.jsx(make, {
+                JsxRuntime.jsx(room, {
                       goTo: goTo
                     }),
-                JsxRuntime.jsx(Terminal.make, {
+                JsxRuntime.jsx(computer, {
                       color: "Blue",
                       header: "Умные часы 3000"
                     })

@@ -1,16 +1,22 @@
 @react.component
 let make = () => {
   let (current, setCurrent) = React.useState(() => Path.Center)
+  let (room, computer) = PathMap.get(current)
 
   module CurrentRoom = {
-    let make = PathMap.get(current)
+    let make = room
     React.setDisplayName(make, "CurrentRoom")
+  }
+
+  module CurrentComputer = {
+    let make = computer
+    React.setDisplayName(make, "CurrentTerminal")
   }
 
   let goTo = room => setCurrent(_ => room)
 
   <div className="flex gap-4 justify-center">
     <CurrentRoom goTo />
-    <Terminal color=Blue header="Умные часы 3000" />
+    <CurrentComputer color=Blue header="Умные часы 3000" />
   </div>
 }
