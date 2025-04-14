@@ -1,4 +1,4 @@
-exception NotFound
+exception NotFound(Path.room)
 
 let map = Core__Map.fromArray([
   (Path.Center, (RoomCenter.make, Terminal.make)),
@@ -8,5 +8,5 @@ let map = Core__Map.fromArray([
 let get = current =>
   switch Core__Map.get(map, current) {
   | Some(make) => make
-  | None => raise(NotFound)
+  | None => raise(NotFound(current))
   }

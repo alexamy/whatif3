@@ -13,5 +13,5 @@ let make = (props: Path.props) => {
       ])}
     </>
 
-  <Screen goTo={props.goTo} content options={meta.options} />
+  <Screen content goTo={props.goTo} options={meta.options} />
 }

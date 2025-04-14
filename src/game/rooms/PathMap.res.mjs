@@ -31,6 +31,7 @@ function get(current) {
   }
   throw {
         RE_EXN_ID: NotFound,
+        _1: current,
         Error: new Error()
       };
 }
