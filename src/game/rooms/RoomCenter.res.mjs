@@ -23,7 +23,7 @@ var paths = [
 
 var space = " ";
 
-function Center(props) {
+function RoomCenter(props) {
   var goTo = props.goTo;
   var note1 = Switch.Toggle.useSwitch(undefined);
   var options = Belt_Array.map(paths, (function (param) {
@@ -57,7 +57,7 @@ function Center(props) {
 
 var computer = "Watch";
 
-var make = Center;
+var make = RoomCenter;
 
 export {
   computer ,

@@ -9,5 +9,5 @@ type computer = Door | Watch
 type screen = {
   place: place,
   computer: computer,
-  options: array<(string, place)>,
+  options: array<(React.element, place)>,
 }

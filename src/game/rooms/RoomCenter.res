@@ -3,9 +3,9 @@ open Path
 let computer = Watch
 
 let paths = [
-  ("Подойти к столу", Table),
-  ("Подойти к окну", Window),
-  ("Подойти к двери", Door),
+  (React.string("Подойти к столу"), Table),
+  (React.string("Подойти к окну"), Window),
+  (React.string("Подойти к двери"), Door),
 ]
 
 let space = React.string(" ")
@@ -14,7 +14,7 @@ let space = React.string(" ")
 let make = (~goTo) => {
   let note1 = Switch.Toggle.useSwitch()
 
-  let options = Array.map(paths, ((option, place)) => (React.string(option), _ => goTo(place)))
+  let options = Array.map(paths, ((option, place)) => (option, _ => goTo(place)))
   let content =
     <>
       {Utils.strings([
