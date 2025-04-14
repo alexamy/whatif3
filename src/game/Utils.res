@@ -4,3 +4,7 @@ let useLog = msg => {
     None
   }, [msg])
 }
+
+let strings = strings => {
+  strings->Array.joinWith(" ", x => x)->React.string
+}

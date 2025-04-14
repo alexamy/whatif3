@@ -17,9 +17,11 @@ let make = (~goTo) => {
   let options = Array.map(paths, ((option, place)) => (React.string(option), _ => goTo(place)))
   let content =
     <>
-      {React.string(
-        "Вы стоите посреди комнаты. На вашей руке - умные часы. Вы используете их для записи и чтения заметок.",
-      )}
+      {Utils.strings([
+        "Вы стоите посреди комнаты.",
+        "На вашей руке - умные часы.",
+        "Вы используете их для записи и чтения заметок.",
+      ])}
       {space}
       {note1.link(React.string("Читать заметку."))}
       {note1.content(<p> {React.string("\"Привет, мир!\"")} </p>)}
