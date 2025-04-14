@@ -15,3 +15,5 @@ type screen = {
   computer: computer,
   options: array<destination>,
 }
+
+type props = {goTo: room => unit}

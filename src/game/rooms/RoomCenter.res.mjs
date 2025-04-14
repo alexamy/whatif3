@@ -26,7 +26,7 @@ var meta = {
   options: meta_options
 };
 
-function RoomCenter(props) {
+function make(props) {
   var note1 = Switch.Toggle.useSwitch(undefined);
   var content = JsxRuntime.jsxs(JsxRuntime.Fragment, {
         children: [
@@ -48,8 +48,6 @@ function RoomCenter(props) {
               goTo: props.goTo
             });
 }
-
-var make = RoomCenter;
 
 export {
   meta ,

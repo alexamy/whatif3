@@ -1,5 +1,3 @@
-open Path
-
 let meta: Path.screen = {
   room: Center,
   computer: Watch,
@@ -10,8 +8,7 @@ let meta: Path.screen = {
   ],
 }
 
-@react.component
-let make = (~goTo) => {
+let make = (props: Path.props) => {
   let note1 = Switch.Toggle.useSwitch()
   let content =
     <>
@@ -25,5 +22,5 @@ let make = (~goTo) => {
       {note1.content(<p> {React.string("\"Привет, мир!\"")} </p>)}
     </>
 
-  <Screen goTo content options={meta.options} />
+  <Screen goTo={props.goTo} content options={meta.options} />
 }
