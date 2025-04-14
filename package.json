@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "build": "npm-run-all --serial res:build vite:build",
     "dev": "npm-run-all --parallel res:dev vite:dev",
@@ -19,6 +22,8 @@
     "@rescript/core": "^1.6.1",
     "@rescript/react": "^0.13.1",
     "@tailwindcss/vite": "^4.1.3",
+    "mobx": "^6.13.7",
+    "mobx-react-lite": "^4.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-robot": "^1.2.0",
@@ -36,6 +41,7 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
+    "mobx-react-observer": "^1.1.0",
     "npm-run-all": "^4.1.5",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
