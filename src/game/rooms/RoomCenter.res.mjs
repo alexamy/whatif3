@@ -25,7 +25,7 @@ var note1 = {
 };
 
 function make(props) {
-  var note1$1 = Switch.Toggle.useSwitch(note1);
+  var note1$1 = Switch.Toggle.useSwitch(note1.contents);
   var content = JsxRuntime.jsxs(JsxRuntime.Fragment, {
         children: [
           Utils.strings([

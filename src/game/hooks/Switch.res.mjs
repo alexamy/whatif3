@@ -33,16 +33,12 @@ var Base = {
   useSwitch: useSwitch
 };
 
-function useSwitch$1(initialOpt, onToggleOpt) {
+function useSwitch$1(initialOpt) {
   var initial = initialOpt !== undefined ? initialOpt : "Unvisited";
-  var onToggle = onToggleOpt !== undefined ? onToggleOpt : (function () {
-        
-      });
   var match = useSwitch(initial);
   var toggle = match.toggle;
   var state = match.state;
   var onClick = function () {
-    onToggle();
     toggle("Visited");
   };
   var link = function (children) {

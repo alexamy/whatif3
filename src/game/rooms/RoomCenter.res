@@ -7,7 +7,7 @@ let options = [
 let note1 = ref(Switch.Unvisited)
 
 let make = (props: Path.props) => {
-  let note1 = Switch.Toggle.useSwitch(~ref=note1)
+  let note1 = Switch.Toggle.useSwitch(~initial=note1.contents)
 
   let content =
     <>
