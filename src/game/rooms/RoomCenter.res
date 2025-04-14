@@ -1,6 +1,6 @@
 open Path
 
-let meta = {
+let meta: Path.screen = {
   place: Center,
   computer: Watch,
   options: [
@@ -13,8 +13,6 @@ let meta = {
 @react.component
 let make = (~goTo) => {
   let note1 = Switch.Toggle.useSwitch()
-
-  let options = Array.map(meta.options, ((option, place)) => (option, _ => goTo(place)))
   let content =
     <>
       {Utils.strings([
@@ -27,5 +25,5 @@ let make = (~goTo) => {
       {note1.content(<p> {React.string("\"Привет, мир!\"")} </p>)}
     </>
 
-  <Screen content options />
+  <Screen goTo content options={meta.options} />
 }

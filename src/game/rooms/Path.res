@@ -6,8 +6,10 @@ type place =
 
 type computer = Door | Watch
 
+type destination = (React.element, place)
+
 type screen = {
   place: place,
   computer: computer,
-  options: array<(React.element, place)>,
+  options: array<destination>,
 }

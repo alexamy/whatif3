@@ -5,6 +5,7 @@ import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as JsxRuntime from "react/jsx-runtime";
 
 function $$Screen(props) {
+  var goTo = props.goTo;
   return JsxRuntime.jsxs("div", {
               children: [
                 JsxRuntime.jsx("article", {
@@ -13,10 +14,13 @@ function $$Screen(props) {
                 JsxRuntime.jsx("nav", {
                       children: JsxRuntime.jsx("ul", {
                             children: Belt_Array.mapWithIndex(props.options, (function (i, param) {
+                                    var target = param[1];
                                     return JsxRuntime.jsx("li", {
                                                 children: JsxRuntime.jsx(Link.make, {
-                                                      onClick: param.onClick,
-                                                      children: param.content
+                                                      onClick: (function () {
+                                                          goTo(target);
+                                                        }),
+                                                      children: param[0]
                                                     })
                                               }, String(i));
                                   }))

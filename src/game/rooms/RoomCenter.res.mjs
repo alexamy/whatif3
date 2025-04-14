@@ -3,7 +3,6 @@
 import * as Utils from "../Utils.res.mjs";
 import * as $$Screen from "./Screen.res.mjs";
 import * as Switch from "../hooks/Switch.res.mjs";
-import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as JsxRuntime from "react/jsx-runtime";
 
 var meta_options = [
@@ -28,17 +27,7 @@ var meta = {
 };
 
 function RoomCenter(props) {
-  var goTo = props.goTo;
   var note1 = Switch.Toggle.useSwitch(undefined);
-  var options = Belt_Array.map(meta_options, (function (param) {
-          var place = param[1];
-          return [
-                  param[0],
-                  (function () {
-                      goTo(place);
-                    })
-                ];
-        }));
   var content = JsxRuntime.jsxs(JsxRuntime.Fragment, {
         children: [
           Utils.strings([
@@ -55,7 +44,8 @@ function RoomCenter(props) {
       });
   return JsxRuntime.jsx($$Screen.make, {
               content: content,
-              options: options
+              options: meta_options,
+              goTo: props.goTo
             });
 }
 
