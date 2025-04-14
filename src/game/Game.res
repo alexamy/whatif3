@@ -1,29 +1,17 @@
 @react.component
 let make = () => {
-  // let (current, setCurrent) = React.useState(_ => 0)
-  // let data = React.useMemo(() => Content.screens[current]->Option.getUnsafe, [current])
+  let (current, setCurrent) = React.useState(() => Path.Center)
 
-  // let findNext = place => {
-  //   let index = Array.getIndexBy(Content.screens, screen => screen.place === place)
-  //   switch index {
-  //   | Some(index) => setCurrent(_ => index)
-  //   | None => Error.panic("No next screen found")
-  //   }
-  // }
+  Utils.useLog((current :> string))
 
-  // let content = <p> {React.string("Placeholder")} </p>
-  // let options = Array.map(data.options, ((option, place)) => (
-  //   React.string(option),
-  //   _ => findNext(place),
-  // ))
+  module CurrentRoom = {
+    let make = RoomCenter.make
+  }
 
-  // let computer = switch data.computer {
-  // | Watch => <Terminal color=Blue header="Умные часы 3000" />
-  // | Door => <Terminal color=Red header="Введите код для открытия двери" />
-  // }
+  let goTo = room => setCurrent(_ => room)
 
   <div className="flex gap-4 justify-center">
-    <RoomCenter goTo={_ => ()} />
+    <CurrentRoom goTo />
     <Terminal color=Blue header="Умные часы 3000" />
   </div>
 }
