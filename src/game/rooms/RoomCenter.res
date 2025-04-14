@@ -1,20 +1,20 @@
 open Path
 
-let computer = Watch
-
-let paths = [
-  (React.string("Подойти к столу"), Table),
-  (React.string("Подойти к окну"), Window),
-  (React.string("Подойти к двери"), Door),
-]
-
-let space = React.string(" ")
+let meta = {
+  place: Center,
+  computer: Watch,
+  options: [
+    (React.string("Подойти к столу"), Table),
+    (React.string("Подойти к окну"), Window),
+    (React.string("Подойти к двери"), Door),
+  ],
+}
 
 @react.component
 let make = (~goTo) => {
   let note1 = Switch.Toggle.useSwitch()
 
-  let options = Array.map(paths, ((option, place)) => (option, _ => goTo(place)))
+  let options = Array.map(meta.options, ((option, place)) => (option, _ => goTo(place)))
   let content =
     <>
       {Utils.strings([
@@ -22,7 +22,7 @@ let make = (~goTo) => {
         "На вашей руке - умные часы.",
         "Вы используете их для записи и чтения заметок.",
       ])}
-      {space}
+      {React.string(" ")}
       {note1.link(React.string("Читать заметку."))}
       {note1.content(<p> {React.string("\"Привет, мир!\"")} </p>)}
     </>

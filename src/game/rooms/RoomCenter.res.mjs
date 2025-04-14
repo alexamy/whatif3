@@ -6,7 +6,7 @@ import * as Switch from "../hooks/Switch.res.mjs";
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as JsxRuntime from "react/jsx-runtime";
 
-var paths = [
+var meta_options = [
   [
     "Подойти к столу",
     "Table"
@@ -21,12 +21,16 @@ var paths = [
   ]
 ];
 
-var space = " ";
+var meta = {
+  place: "Center",
+  computer: "Watch",
+  options: meta_options
+};
 
 function RoomCenter(props) {
   var goTo = props.goTo;
   var note1 = Switch.Toggle.useSwitch(undefined);
-  var options = Belt_Array.map(paths, (function (param) {
+  var options = Belt_Array.map(meta_options, (function (param) {
           var place = param[1];
           return [
                   param[0],
@@ -42,7 +46,7 @@ function RoomCenter(props) {
                 "На вашей руке - умные часы.",
                 "Вы используете их для записи и чтения заметок."
               ]),
-          space,
+          " ",
           note1.link("Читать заметку."),
           note1.content(JsxRuntime.jsx("p", {
                     children: "\"Привет, мир!\""
@@ -55,14 +59,10 @@ function RoomCenter(props) {
             });
 }
 
-var computer = "Watch";
-
 var make = RoomCenter;
 
 export {
-  computer ,
-  paths ,
-  space ,
+  meta ,
   make ,
 }
 /* Utils Not a pure module */
