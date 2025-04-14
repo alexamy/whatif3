@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import * as Center from "./rooms/Center.res.mjs";
-import * as Content from "./data/Content.res.mjs";
+import * as Content from "./hooks/Content.res.mjs";
 import * as Terminal from "./screens/Terminal.res.mjs";
 import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as Core__Error from "@rescript/core/src/Core__Error.res.mjs";
