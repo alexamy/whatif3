@@ -23,6 +23,7 @@ let make = () => {
   }
 
   <div className="flex gap-4 justify-center">
-    <Content.Room goTo={findNext} />
+    <Center goTo={findNext} />
+    <Terminal color=Blue header="Умные часы 3000" />
   </div>
 }
