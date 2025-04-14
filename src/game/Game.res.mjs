@@ -11,6 +11,7 @@ function Game(props) {
       });
   var setCurrent = match[1];
   var make = PathMap.get(match[0]);
+  make.displayName = "CurrentRoom";
   var goTo = function (room) {
     setCurrent(function (param) {
           return room;

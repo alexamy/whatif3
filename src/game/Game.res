@@ -4,6 +4,7 @@ let make = () => {
 
   module CurrentRoom = {
     let make = PathMap.get(current)
+    React.setDisplayName(make, "CurrentRoom")
   }
 
   let goTo = room => setCurrent(_ => room)
