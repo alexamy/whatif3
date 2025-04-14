@@ -9,6 +9,7 @@ let note1Ref = ref(Switch.Unvisited)
 let make = (props: Path.props) => {
   let note1 = Switch.Toggle.useSwitch(~initial=note1Ref.contents)
 
+  // useContext?
   React.useEffect(() => {
     note1Ref := note1.state
     None
