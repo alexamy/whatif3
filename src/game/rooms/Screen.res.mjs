@@ -15,8 +15,8 @@ function $$Screen(props) {
                             children: Belt_Array.mapWithIndex(props.options, (function (i, param) {
                                     return JsxRuntime.jsx("li", {
                                                 children: JsxRuntime.jsx(Link.make, {
-                                                      onClick: param[1],
-                                                      children: param[0]
+                                                      onClick: param.onClick,
+                                                      children: param.content
                                                     })
                                               }, String(i));
                                   }))
