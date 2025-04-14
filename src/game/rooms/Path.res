@@ -1,5 +1,5 @@
 type place =
-  | Room
+  | Center
   | Table
   | Window
   | Door

@@ -1,4 +1,4 @@
-open Room
+open Path
 
 let computer = Watch
 
