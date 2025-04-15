@@ -19,14 +19,13 @@ function addImport(t, programPath) {
 }
 
 export default function (babel) {
-  console.log("babel", babel);
   const { types: t } = babel;
   let wasImportAdded = false;
 
   return {
     name: "observer-wrapper",
     visitor: {
-      Program(path) {
+      Program() {
         // Reset the flag at the beginning of each file
         wasImportAdded = false;
       },
