@@ -8,7 +8,7 @@ let increase = () => state.current = state.current + 1
 
 // TODO: check auto wrap
 @react.component
-let make = Mobx.observer(() => {
+let make = () => {
   let (current, setCurrent) = React.useState(() => Path.Center)
   let (room, computer) = PathMap.get(current)
 
@@ -30,4 +30,4 @@ let make = Mobx.observer(() => {
     {React.string(Int.toString(state.current))}
     <button onClick={_ => increase()}> {React.string("+")} </button>
   </div>
-})
+}

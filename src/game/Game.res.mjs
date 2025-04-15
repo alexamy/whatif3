@@ -3,7 +3,6 @@
 import * as Mobx from "mobx";
 import * as React from "react";
 import * as PathMap from "./rooms/PathMap.res.mjs";
-import * as MobxReactLite from "mobx-react-lite";
 import * as JsxRuntime from "react/jsx-runtime";
 
 var state = Mobx.observable({
@@ -14,41 +13,43 @@ function increase() {
   state.current = state.current + 1 | 0;
 }
 
-var make = MobxReactLite.observer(function (props) {
-      var match = React.useState(function () {
-            return "Center";
-          });
-      var setCurrent = match[1];
-      var match$1 = PathMap.get(match[0]);
-      var computer = match$1[1];
-      var room = match$1[0];
-      room.displayName = "CurrentRoom";
-      computer.displayName = "CurrentTerminal";
-      var goTo = function (room) {
-        setCurrent(function (param) {
-              return room;
-            });
-      };
-      return JsxRuntime.jsxs("div", {
-                  children: [
-                    JsxRuntime.jsx(room, {
-                          goTo: goTo
-                        }),
-                    JsxRuntime.jsx(computer, {
-                          color: "Blue",
-                          header: "Умные часы 3000"
-                        }),
-                    state.current.toString(),
-                    JsxRuntime.jsx("button", {
-                          children: "+",
-                          onClick: (function (param) {
-                              increase();
-                            })
+function Game(props) {
+  var match = React.useState(function () {
+        return "Center";
+      });
+  var setCurrent = match[1];
+  var match$1 = PathMap.get(match[0]);
+  var computer = match$1[1];
+  var room = match$1[0];
+  room.displayName = "CurrentRoom";
+  computer.displayName = "CurrentTerminal";
+  var goTo = function (room) {
+    setCurrent(function (param) {
+          return room;
+        });
+  };
+  return JsxRuntime.jsxs("div", {
+              children: [
+                JsxRuntime.jsx(room, {
+                      goTo: goTo
+                    }),
+                JsxRuntime.jsx(computer, {
+                      color: "Blue",
+                      header: "Умные часы 3000"
+                    }),
+                state.current.toString(),
+                JsxRuntime.jsx("button", {
+                      children: "+",
+                      onClick: (function (param) {
+                          increase();
                         })
-                  ],
-                  className: "flex gap-4 justify-center"
-                });
-    });
+                    })
+              ],
+              className: "flex gap-4 justify-center"
+            });
+}
+
+var make = Game;
 
 export {
   state ,
