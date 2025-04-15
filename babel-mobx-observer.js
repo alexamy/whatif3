@@ -19,6 +19,7 @@ function addImport(t, programPath) {
 }
 
 export default function (babel) {
+  console.log("babel", babel);
   const { types: t } = babel;
   let wasImportAdded = false;
 
