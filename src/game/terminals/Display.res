@@ -2,7 +2,7 @@ type options = {width: int, height: int} // 36x14
 type direction = Up | Down | Reset
 type command =
   | Clear
-  | Echo(string)
+  | Echo(array<string>)
 
 type t = {
   display: array<string>,
@@ -11,8 +11,8 @@ type t = {
 }
 
 let useDisplay = options => {
-  let (output, setOutput) = React.useState(_ => [])
-  let (verticalOffset, setVerticalOffset) = React.useState(_ => 0)
+  let (output, setOutput) = React.useState((_): array<string> => [])
+  let (verticalOffset, setVerticalOffset) = React.useState(_ => 1)
 
   let display = React.useMemo(() => {
     let start = Array.length(output) - options.height - verticalOffset
@@ -36,7 +36,7 @@ let useDisplay = options => {
   let screen = command => {
     switch command {
     | Clear => setOutput(_ => [])
-    | Echo(line) => setOutput(lines => [...lines, line])
+    | Echo(newLines) => setOutput(lines => Array.concat(lines, newLines))
     }
   }
 

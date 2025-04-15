@@ -13,7 +13,8 @@ let make = (props: Path.terminalProps) => {
   let processMessage = text => {
     switch String.trim(text) {
     | "очистить" => screen(Clear)
-    | message if String.length(message) > 0 => screen(Echo(message))
+    | "помощь" => screen(Echo(["Помощь"]))
+    | message if String.length(message) > 0 => screen(Echo([message]))
     | _ => ()
     }
   }

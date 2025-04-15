@@ -19,15 +19,23 @@ function make(props) {
   var message = match$1.message;
   var processMessage = function (text) {
     var message = text.trim();
-    if (message === "очистить") {
-      return screen("Clear");
-    } else if (message.length > 0) {
-      return screen({
-                  TAG: "Echo",
-                  _0: message
-                });
-    } else {
-      return ;
+    switch (message) {
+      case "очистить" :
+          return screen("Clear");
+      case "помощь" :
+          return screen({
+                      TAG: "Echo",
+                      _0: ["Помощь"]
+                    });
+      default:
+        if (message.length > 0) {
+          return screen({
+                      TAG: "Echo",
+                      _0: [message]
+                    });
+        } else {
+          return ;
+        }
     }
   };
   var onKeyDown = function (e) {
