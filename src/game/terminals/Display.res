@@ -5,7 +5,7 @@ type command =
   | Echo(array<string>)
 
 type t = {
-  display: array<string>,
+  lines: array<string>,
   screen: command => unit,
   viewport: direction => unit,
 }
@@ -14,7 +14,7 @@ let useDisplay = options => {
   let (output, setOutput) = React.useState((_): array<string> => [])
   let (verticalOffset, setVerticalOffset) = React.useState(_ => 1)
 
-  let display = React.useMemo(() => {
+  let lines = React.useMemo(() => {
     let start = Array.length(output) - options.height - verticalOffset
     let start = start > 0 ? start : 0
 
@@ -40,5 +40,5 @@ let useDisplay = options => {
     }
   }
 
-  {display, screen, viewport}
+  {lines, screen, viewport}
 }

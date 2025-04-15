@@ -8,7 +8,7 @@ type command =
 type t = {
   message: string,
   beam: string,
-  input: command => unit,
+  run: command => unit,
   focus: state => unit,
 }
 
@@ -41,7 +41,7 @@ let useInput = options => {
     }
   }
 
-  let input = command => {
+  let run = command => {
     switch command {
     | Clear => setMessage(_ => "")
     | RemoveChar => {
@@ -55,5 +55,5 @@ let useInput = options => {
     }
   }
 
-  {message, beam, input, focus}
+  {message, beam, run, focus}
 }

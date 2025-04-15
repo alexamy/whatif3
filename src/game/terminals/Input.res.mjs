@@ -46,7 +46,7 @@ function useInput(options) {
                 });
     }
   };
-  var input = function (command) {
+  var run = function (command) {
     if (typeof command !== "object") {
       if (command === "Clear") {
         return setMessage(function (param) {
@@ -72,7 +72,7 @@ function useInput(options) {
   return {
           message: message,
           beam: beam,
-          input: input,
+          run: run,
           focus: focus
         };
 }

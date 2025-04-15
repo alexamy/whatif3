@@ -1,8 +1,6 @@
-type color = Blue | Red
-
 let make = (props: Path.terminalProps) => {
-  let {display, screen, viewport} = Display.useDisplay({width: 36, height: 13})
-  let {message, beam, input, focus} = Input.useInput({
+  let display = Display.useDisplay({width: 36, height: 13})
+  let input = Input.useInput({
     width: 36,
   })
 
@@ -12,12 +10,18 @@ let make = (props: Path.terminalProps) => {
 
   let (highlighted, setHighlighted) = React.useState(_ => false)
 
+  let lines = React.array(
+    Array.mapWithIndex(display.lines, (line, i) =>
+      <div key={Int.toString(i)}> {React.string(line)} </div>
+    ),
+  )
+
   let knownCommands = ["очистить", "помощь"]
   let processMessage = text => {
     switch String.trim(text) {
-    | "очистить" => screen(Clear)
-    | "помощь" => screen(Echo(["Помощь"]))
-    | message if String.length(message) > 0 => screen(Echo([message]))
+    | "очистить" => display.screen(Clear)
+    | "помощь" => display.screen(Echo(["Помощь"]))
+    | message if String.length(message) > 0 => display.screen(Echo([message]))
     | _ => ()
     }
   }
@@ -26,29 +30,23 @@ let make = (props: Path.terminalProps) => {
     let key = JsxEvent.Keyboard.key(e)
 
     if String.length(key) === 1 || key === "Backspace" {
-      let newMessage = message ++ key
+      let newMessage = input.message ++ key
       setHighlighted(_ => Array.includes(knownCommands, newMessage))
     }
 
     switch key {
-    | "ArrowUp" => viewport(Up)
-    | "ArrowDown" => viewport(Down)
-    | "Backspace" => input(RemoveChar)
+    | "ArrowUp" => display.viewport(Up)
+    | "ArrowDown" => display.viewport(Down)
+    | "Backspace" => input.run(RemoveChar)
     | "Enter" => {
-        processMessage(message)
-        viewport(Reset)
-        input(Clear)
+        processMessage(input.message)
+        display.viewport(Reset)
+        input.run(Clear)
       }
-    | key if String.length(key) === 1 => input(AddChar(key))
+    | key if String.length(key) === 1 => input.run(AddChar(key))
     | _ => ()
     }
   }
-
-  let lines = React.array(
-    Array.mapWithIndex(display, (line, i) =>
-      <div key={Int.toString(i)}> {React.string(line)} </div>
-    ),
-  )
 
   <div
     className={`
@@ -59,18 +57,18 @@ let make = (props: Path.terminalProps) => {
     `}
     tabIndex=0
     onKeyDown
-    onClick={_ => focus(On)}
-    onFocus={_ => focus(On)}
-    onBlur={_ => focus(Off)}>
+    onClick={_ => input.focus(On)}
+    onFocus={_ => input.focus(On)}
+    onBlur={_ => input.focus(Off)}>
     <div className="text-center"> {React.string(header)} </div>
     <div className="flex flex-col">
       <div className="flex flex-col grow"> {lines} </div>
-      <div>
+      <div className="select-none">
         {React.string("> ")}
         <span className={`${highlighted ? "bg-green-800 text-white" : ""}`}>
-          {React.string(message)}
+          {React.string(input.message)}
         </span>
-        {React.string(beam)}
+        {React.string(input.beam)}
       </div>
     </div>
   </div>

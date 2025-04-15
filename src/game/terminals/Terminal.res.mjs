@@ -6,22 +6,22 @@ import * as Display from "./Display.res.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
 
 function make(props) {
-  var match = Display.useDisplay({
+  var display = Display.useDisplay({
         width: 36,
         height: 13
       });
-  var viewport = match.viewport;
-  var screen = match.screen;
-  var match$1 = Input.useInput({
+  var input = Input.useInput({
         width: 36
       });
-  var focus = match$1.focus;
-  var input = match$1.input;
-  var message = match$1.message;
-  var match$2 = React.useState(function () {
+  var match = React.useState(function () {
         return false;
       });
-  var setHighlighted = match$2[1];
+  var setHighlighted = match[1];
+  var lines = display.lines.map(function (line, i) {
+        return JsxRuntime.jsx("div", {
+                    children: line
+                  }, i.toString());
+      });
   var knownCommands = [
     "очистить",
     "помощь"
@@ -30,15 +30,15 @@ function make(props) {
     var message = text.trim();
     switch (message) {
       case "очистить" :
-          return screen("Clear");
+          return display.screen("Clear");
       case "помощь" :
-          return screen({
+          return display.screen({
                       TAG: "Echo",
                       _0: ["Помощь"]
                     });
       default:
         if (message.length > 0) {
-          return screen({
+          return display.screen({
                       TAG: "Echo",
                       _0: [message]
                     });
@@ -50,25 +50,25 @@ function make(props) {
   var onKeyDown = function (e) {
     var key = e.key;
     if (key.length === 1 || key === "Backspace") {
-      var newMessage = message + key;
+      var newMessage = input.message + key;
       setHighlighted(function (param) {
             return knownCommands.includes(newMessage);
           });
     }
     switch (key) {
       case "ArrowDown" :
-          return viewport("Down");
+          return display.viewport("Down");
       case "ArrowUp" :
-          return viewport("Up");
+          return display.viewport("Up");
       case "Backspace" :
-          return input("RemoveChar");
+          return input.run("RemoveChar");
       case "Enter" :
-          processMessage(message);
-          viewport("Reset");
-          return input("Clear");
+          processMessage(input.message);
+          display.viewport("Reset");
+          return input.run("Clear");
       default:
         if (key.length === 1) {
-          return input({
+          return input.run({
                       TAG: "AddChar",
                       _0: key
                     });
@@ -77,11 +77,6 @@ function make(props) {
         }
     }
   };
-  var lines = match.display.map(function (line, i) {
-        return JsxRuntime.jsx("div", {
-                    children: line
-                  }, i.toString());
-      });
   return JsxRuntime.jsxs("div", {
               children: [
                 JsxRuntime.jsx("div", {
@@ -98,11 +93,12 @@ function make(props) {
                               children: [
                                 "> ",
                                 JsxRuntime.jsx("span", {
-                                      children: message,
-                                      className: match$2[0] ? "bg-green-800 text-white" : ""
+                                      children: input.message,
+                                      className: match[0] ? "bg-green-800 text-white" : ""
                                     }),
-                                match$1.beam
-                              ]
+                                input.beam
+                              ],
+                              className: "select-none"
                             })
                       ],
                       className: "flex flex-col"
@@ -112,13 +108,13 @@ function make(props) {
               tabIndex: 0,
               onKeyDown: onKeyDown,
               onFocus: (function (param) {
-                  focus("On");
+                  input.focus("On");
                 }),
               onBlur: (function (param) {
-                  focus("Off");
+                  input.focus("Off");
                 }),
               onClick: (function (param) {
-                  focus("On");
+                  input.focus("On");
                 })
             });
 }
