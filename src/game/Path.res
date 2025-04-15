@@ -6,6 +6,6 @@ type room =
   | Door
 
 @unboxed
-type computer = Door | Watch
+type terminal = Door | Watch
 
 type props = {goTo: room => unit}
