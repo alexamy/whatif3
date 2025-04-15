@@ -37,7 +37,7 @@ let make = (~color, ~header) => {
   }
 
   let lines = React.array(
-    Array.mapWithIndex(display, (i, line) =>
+    Array.mapWithIndex(display, (line, i) =>
       <div key={Int.toString(i)}> {React.string(line)} </div>
     ),
   )

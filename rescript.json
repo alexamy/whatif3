@@ -15,7 +15,6 @@
     "@rescript/react"
   ],
   "bsc-flags": [
-    "-open RescriptCore",
-    "-open Belt"
+    "-open RescriptCore"
   ]
 }

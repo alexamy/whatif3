@@ -2,7 +2,6 @@
 
 import * as Input from "./Input.res.mjs";
 import * as Display from "./Display.res.mjs";
-import * as Belt_Array from "rescript/lib/es6/belt_Array.js";
 import * as JsxRuntime from "react/jsx-runtime";
 
 function Terminal(props) {
@@ -57,11 +56,11 @@ function Terminal(props) {
         }
     }
   };
-  var lines = Belt_Array.mapWithIndex(match.display, (function (i, line) {
-          return JsxRuntime.jsx("div", {
-                      children: line
-                    }, String(i));
-        }));
+  var lines = match.display.map(function (line, i) {
+        return JsxRuntime.jsx("div", {
+                    children: line
+                  }, i.toString());
+      });
   return JsxRuntime.jsxs("div", {
               children: [
                 JsxRuntime.jsx("div", {

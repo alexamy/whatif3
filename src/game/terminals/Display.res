@@ -16,9 +16,9 @@ let useDisplay = options => {
 
   let display = React.useMemo(() => {
     let start = Array.length(output) - options.height - verticalOffset
-    let offset = start > 0 ? start : 0
+    let start = start > 0 ? start : 0
 
-    Array.slice(output, ~offset, ~len=options.height)
+    Array.slice(output, ~start, ~end=start + options.height)
   }, (output, options.height, verticalOffset))
 
   let viewport = direction => {

@@ -16,8 +16,8 @@ function useDisplay(options) {
   var verticalOffset = match$1[0];
   var display = React.useMemo((function () {
           var start = (output.length - options.height | 0) - verticalOffset | 0;
-          var offset = start > 0 ? start : 0;
-          return Belt_Array.slice(output, offset, options.height);
+          var start$1 = start > 0 ? start : 0;
+          return output.slice(start$1, start$1 + options.height | 0);
         }), [
         output,
         options.height,

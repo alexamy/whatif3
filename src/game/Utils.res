@@ -6,5 +6,5 @@ let useLog = msg => {
 }
 
 let strings = strings => {
-  strings->Array.joinWith(" ", x => x)->React.string
+  strings->Array.join(" ")->React.string
 }

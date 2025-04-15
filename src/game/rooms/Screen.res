@@ -5,7 +5,7 @@ let make = (~content: React.element, ~options, ~goTo) => {
     <nav>
       <ul>
         {React.array(
-          Array.mapWithIndex(options, (i, (content, room)) =>
+          Array.mapWithIndex(options, ((content, room), i) =>
             <li key={Int.toString(i)}>
               <Link onClick={_ => goTo(room)}> {content} </Link>
             </li>

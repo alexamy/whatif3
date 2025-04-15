@@ -38,7 +38,7 @@ var make = MobxReactLite.observer(function (props) {
                           color: "Blue",
                           header: "Умные часы 3000"
                         }),
-                    String(state.current),
+                    state.current.toString(),
                     JsxRuntime.jsx("button", {
                           children: "+",
                           onClick: (function (param) {
