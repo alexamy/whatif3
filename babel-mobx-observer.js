@@ -1,5 +1,8 @@
 import fs from "fs";
 
+/** Observe *.res.mjs files and add mobx observer wrapper
+ * for each component function declaration. */
+
 function addImport(t, programPath) {
   // Check if the import already exists to avoid duplicates
   const existingImport = programPath.node.body.find(
@@ -7,7 +10,7 @@ function addImport(t, programPath) {
       node.type === "ImportDeclaration" &&
       node.source.value === "mobx-react-lite"
   );
-  if (existingImport) return false;
+  if (existingImport) return true;
 
   // Create import declaration
   const importDeclaration = t.importDeclaration(
@@ -30,6 +33,7 @@ export default function (babel) {
     name: "observer-wrapper",
     visitor: {
       Program(path, state) {
+        // Check if the file has changed
         const filename = state.filename;
         const stats = fs.statSync(filename);
         const time = stats.mtime.getTime();
@@ -37,10 +41,10 @@ export default function (babel) {
         if (time === cache.get(filename)) return;
         cache.set(filename, time);
 
-        console.log("File changed", filename);
-
         // Reset the flag at the beginning of each file
         wasImportAdded = false;
+
+        // console.log("File changed", filename);
       },
       FunctionDeclaration(path) {
         // Check that it is a component
