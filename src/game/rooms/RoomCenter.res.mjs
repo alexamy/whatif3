@@ -4,8 +4,6 @@ import * as Utils from "../Utils.res.mjs";
 import * as React from "react";
 import * as $$Screen from "./Screen.res.mjs";
 import * as Switch from "../hooks/Switch.res.mjs";
-import * as PathMap from "./PathMap.res.mjs";
-import * as Terminal from "../terminals/Terminal.res.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
 
 var options = [
@@ -53,15 +51,9 @@ function make(props) {
             });
 }
 
-PathMap.set({
-      tag: "Center",
-      room: make,
-      terminal: Terminal.make
-    });
-
 export {
   options ,
   note1Ref ,
   make ,
 }
-/*  Not a pure module */
+/* Utils Not a pure module */

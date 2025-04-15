@@ -1,7 +1,6 @@
 type color = Blue | Red
 
-@react.component
-let make = () => {
+let make = (props: Path.props) => {
   let {display, screen, viewport} = Display.useDisplay({width: 36, height: 13})
   let {message, beam, input, focus} = Input.useInput({
     width: 36,

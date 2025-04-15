@@ -29,5 +29,3 @@ let make = (props: Path.props) => {
 
   <Screen content options goTo={props.goTo} />
 }
-
-PathMap.set({tag: Path.Center, room: make, terminal: Terminal.make})

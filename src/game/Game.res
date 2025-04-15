@@ -1,20 +1,20 @@
 @react.component
 let make = () => {
   let (current, setCurrent) = React.useState(() => Path.Center)
-  let {room, terminal} = PathMap.get(current)
+  let {left, right} = PathMap.get(current)
 
-  module CurrentRoom = {
-    let make = room
+  module CurrentLeft = {
+    let make = left
   }
 
-  module CurrentTerminal = {
-    let make = terminal
+  module CurrentRight = {
+    let make = right
   }
 
   let goTo = room => setCurrent(_ => room)
 
   <div className="flex gap-4 justify-center">
-    <CurrentRoom goTo />
-    <CurrentTerminal />
+    <CurrentLeft goTo />
+    <CurrentRight goTo />
   </div>
 }

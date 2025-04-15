@@ -17,10 +17,12 @@ function Game(props) {
   };
   return JsxRuntime.jsxs("div", {
               children: [
-                JsxRuntime.jsx(match$1.room, {
+                JsxRuntime.jsx(match$1.left, {
                       goTo: goTo
                     }),
-                JsxRuntime.jsx(match$1.terminal, {})
+                JsxRuntime.jsx(match$1.right, {
+                      goTo: goTo
+                    })
               ],
               className: "flex gap-4 justify-center"
             });

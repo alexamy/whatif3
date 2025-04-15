@@ -4,7 +4,7 @@ import * as Input from "./Input.res.mjs";
 import * as Display from "./Display.res.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
 
-function Terminal(props) {
+function make(props) {
   var match = Display.useDisplay({
         width: 36,
         height: 13
@@ -98,8 +98,6 @@ function Terminal(props) {
                 })
             });
 }
-
-var make = Terminal;
 
 export {
   make ,
