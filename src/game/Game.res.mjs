@@ -6,7 +6,7 @@ import * as JsxRuntime from "react/jsx-runtime";
 
 function Game(props) {
   var match = React.useState(function () {
-        return "Center";
+        return "RoomCenter";
       });
   var setCurrent = match[1];
   var match$1 = PathMap.get(match[0]);

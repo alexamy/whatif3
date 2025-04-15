@@ -1,9 +1,9 @@
 @unboxed
 type room =
-  | Center
-  | Table
-  | Window
-  | Door
+  | RoomCenter
+  | RoomTable
+  | RoomWindow
+  | RoomDoor
 
 type roomProps = {goTo: room => unit}
 type terminalProps = {}

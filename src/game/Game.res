@@ -1,6 +1,6 @@
 @react.component
 let make = () => {
-  let (current, setCurrent) = React.useState(() => Path.Center)
+  let (current, setCurrent) = React.useState(() => Path.RoomCenter)
   let {left, right} = PathMap.get(current)
 
   module CurrentLeft = {

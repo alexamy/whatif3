@@ -9,15 +9,15 @@ import * as JsxRuntime from "react/jsx-runtime";
 var options = [
   [
     "Подойти к столу",
-    "Table"
+    "RoomTable"
   ],
   [
     "Подойти к окну",
-    "Window"
+    "RoomWindow"
   ],
   [
     "Подойти к двери",
-    "Door"
+    "RoomDoor"
   ]
 ];
 

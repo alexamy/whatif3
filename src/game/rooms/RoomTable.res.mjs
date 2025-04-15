@@ -7,7 +7,7 @@ import * as JsxRuntime from "react/jsx-runtime";
 
 var options = [[
     "Вернуться",
-    "Center"
+    "RoomCenter"
   ]];
 
 function make(props) {

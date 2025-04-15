@@ -1,7 +1,7 @@
 let options = [
-  (React.string("Подойти к столу"), Path.Table),
-  (React.string("Подойти к окну"), Path.Window),
-  (React.string("Подойти к двери"), Path.Door),
+  (React.string("Подойти к столу"), Path.RoomTable),
+  (React.string("Подойти к окну"), Path.RoomWindow),
+  (React.string("Подойти к двери"), Path.RoomDoor),
 ]
 
 let note1Ref = ref(Switch.Unvisited)

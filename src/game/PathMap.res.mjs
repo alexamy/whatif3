@@ -9,14 +9,14 @@ var NotFound = /* @__PURE__ */Caml_exceptions.create("PathMap.NotFound");
 
 var map = new Map([
       [
-        "Center",
+        "RoomCenter",
         {
           left: RoomCenter.make,
           right: Terminal.make
         }
       ],
       [
-        "Table",
+        "RoomTable",
         {
           left: RoomTable.make,
           right: Terminal.make
