@@ -17,6 +17,6 @@ let make = () => {
 
   <div className="flex gap-4 justify-center">
     <CurrentRoom goTo />
-    <CurrentComputer color=Blue header="Умные часы 3000" />
+    <CurrentComputer />
   </div>
 }

@@ -24,10 +24,7 @@ function Game(props) {
                 JsxRuntime.jsx(room, {
                       goTo: goTo
                     }),
-                JsxRuntime.jsx(computer, {
-                      color: "Blue",
-                      header: "Умные часы 3000"
-                    })
+                JsxRuntime.jsx(computer, {})
               ],
               className: "flex gap-4 justify-center"
             });

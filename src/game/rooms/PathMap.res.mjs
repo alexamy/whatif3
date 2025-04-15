@@ -7,6 +7,8 @@ import * as Caml_exceptions from "rescript/lib/es6/caml_exceptions.js";
 
 var NotFound = /* @__PURE__ */Caml_exceptions.create("PathMap.NotFound");
 
+var AlreadyExists = /* @__PURE__ */Caml_exceptions.create("PathMap.AlreadyExists");
+
 var map = new Map([
       [
         "Center",
@@ -36,9 +38,26 @@ function get(current) {
       };
 }
 
+function set(info) {
+  var existing = map.get(info.room);
+  if (existing !== undefined) {
+    throw {
+          RE_EXN_ID: AlreadyExists,
+          _1: info.room,
+          Error: new Error()
+        };
+  }
+  map.set(info.room, [
+        info.make,
+        info.terminal
+      ]);
+}
+
 export {
   NotFound ,
+  AlreadyExists ,
   map ,
   get ,
+  set ,
 }
 /* map Not a pure module */

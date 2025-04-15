@@ -1,17 +1,15 @@
 type color = Blue | Red
 
 @react.component
-let make = (~color, ~header) => {
+let make = () => {
   let {display, screen, viewport} = Display.useDisplay({width: 36, height: 13})
   let {message, beam, input, focus} = Input.useInput({
     width: 36,
   })
 
   // TODO: split components
-  let colorClass = switch color {
-  | Blue => "bg-blue-400"
-  | Red => "bg-red-400"
-  }
+  let header = "Умные часы 3000"
+  let colorClass = "bg-blue-400"
 
   let processMessage = text => {
     switch String.trim(text) {

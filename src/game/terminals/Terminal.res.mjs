@@ -17,8 +17,6 @@ function Terminal(props) {
   var focus = match$1.focus;
   var input = match$1.input;
   var message = match$1.message;
-  var colorClass;
-  colorClass = props.color === "Blue" ? "bg-blue-400" : "bg-red-400";
   var processMessage = function (text) {
     var message = text.trim();
     if (message === "очистить") {
@@ -64,7 +62,7 @@ function Terminal(props) {
   return JsxRuntime.jsxs("div", {
               children: [
                 JsxRuntime.jsx("div", {
-                      children: props.header,
+                      children: "Умные часы 3000",
                       className: "text-center"
                     }),
                 JsxRuntime.jsxs("div", {
@@ -86,7 +84,7 @@ function Terminal(props) {
                       className: "flex flex-col"
                     })
               ],
-              className: "monospace screen-w screen-h " + colorClass + " outline-0 whitespace-pre text-nowrap  text-gray-800 p-2 flex flex-col justify-between",
+              className: "monospace screen-w screen-h bg-blue-400 outline-0 whitespace-pre text-nowrap  text-gray-800 p-2 flex flex-col justify-between",
               tabIndex: 0,
               onKeyDown: onKeyDown,
               onFocus: (function (param) {
