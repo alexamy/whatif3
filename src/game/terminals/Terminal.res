@@ -10,6 +10,8 @@ let make = (props: Path.terminalProps) => {
   let header = "Умные часы 3000"
   let colorClass = "bg-blue-400"
 
+  let (highlighted, setHighlighted) = React.useState(_ => false)
+
   let processMessage = text => {
     switch String.trim(text) {
     | "очистить" => screen(Clear)
@@ -41,7 +43,13 @@ let make = (props: Path.terminalProps) => {
   )
 
   <div
-    className={`monospace screen-w screen-h ${colorClass} outline-0 whitespace-pre text-nowrap  text-gray-800 p-2 flex flex-col justify-between`}
+    className={`
+      monospace screen-w screen-h
+      outline-0 whitespace-pre text-nowrap
+      p-2 flex flex-col justify-between
+      text-gray-800 ${colorClass}
+      ${highlighted ? "bg-green-800 text-white" : ""}
+    `}
     tabIndex=0
     onKeyDown
     onClick={_ => focus(On)}
