@@ -27,8 +27,8 @@ function make(props) {
 }
 
 PathMap.set({
-      room: "Table",
-      path: make,
+      tag: "Table",
+      room: make,
       terminal: Terminal.make
     });
 

@@ -1,10 +1,10 @@
 @react.component
 let make = () => {
   let (current, setCurrent) = React.useState(() => Path.Center)
-  let {path, terminal} = PathMap.get(current)
+  let {room, terminal} = PathMap.get(current)
 
   module CurrentRoom = {
-    let make = path
+    let make = room
   }
 
   module CurrentTerminal = {

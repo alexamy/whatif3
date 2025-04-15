@@ -17,7 +17,7 @@ function Game(props) {
   };
   return JsxRuntime.jsxs("div", {
               children: [
-                JsxRuntime.jsx(match$1.path, {
+                JsxRuntime.jsx(match$1.room, {
                       goTo: goTo
                     }),
                 JsxRuntime.jsx(match$1.terminal, {})

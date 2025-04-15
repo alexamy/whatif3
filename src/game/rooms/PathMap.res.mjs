@@ -21,15 +21,15 @@ function get(current) {
 }
 
 function set(info) {
-  var existing = map.get(info.room);
+  var existing = map.get(info.tag);
   if (existing !== undefined) {
     throw {
           RE_EXN_ID: AlreadyExists,
-          _1: info.room,
+          _1: info.tag,
           Error: new Error()
         };
   }
-  map.set(info.room, info);
+  map.set(info.tag, info);
 }
 
 export {

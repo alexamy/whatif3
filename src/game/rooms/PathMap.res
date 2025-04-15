@@ -2,8 +2,8 @@ exception NotFound(Path.room)
 exception AlreadyExists(Path.room)
 
 type info = {
-  room: Path.room,
-  path: Path.props => React.element,
+  tag: Path.room,
+  room: Path.props => React.element,
   terminal: Terminal.props => React.element,
 }
 
@@ -16,9 +16,9 @@ let get = current =>
   }
 
 let set = info => {
-  let existing = Map.get(map, info.room)
+  let existing = Map.get(map, info.tag)
   switch existing {
-  | Some(_) => raise(AlreadyExists(info.room))
-  | None => Map.set(map, info.room, info)
+  | Some(_) => raise(AlreadyExists(info.tag))
+  | None => Map.set(map, info.tag, info)
   }
 }
