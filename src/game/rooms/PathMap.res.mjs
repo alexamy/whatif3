@@ -29,10 +29,7 @@ function set(info) {
           Error: new Error()
         };
   }
-  map.set(info.room, [
-        info.make,
-        info.terminal
-      ]);
+  map.set(info.room, info);
 }
 
 export {

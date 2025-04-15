@@ -3,14 +3,11 @@ exception AlreadyExists(Path.room)
 
 type info = {
   room: Path.room,
-  make: Path.props => React.element,
+  path: Path.props => React.element,
   terminal: Terminal.props => React.element,
 }
 
-let map: Map.t<
-  Path.room,
-  (Path.props => React.element, Terminal.props => React.element),
-> = Map.make()
+let map: Map.t<Path.room, info> = Map.make()
 
 let get = current =>
   switch Map.get(map, current) {
@@ -22,6 +19,6 @@ let set = info => {
   let existing = Map.get(map, info.room)
   switch existing {
   | Some(_) => raise(AlreadyExists(info.room))
-  | None => Map.set(map, info.room, (info.make, info.terminal))
+  | None => Map.set(map, info.room, info)
   }
 }

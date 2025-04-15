@@ -10,10 +10,6 @@ function Game(props) {
       });
   var setCurrent = match[1];
   var match$1 = PathMap.get(match[0]);
-  var computer = match$1[1];
-  var room = match$1[0];
-  room.displayName = "CurrentRoom";
-  computer.displayName = "CurrentTerminal";
   var goTo = function (room) {
     setCurrent(function (param) {
           return room;
@@ -21,10 +17,10 @@ function Game(props) {
   };
   return JsxRuntime.jsxs("div", {
               children: [
-                JsxRuntime.jsx(room, {
+                JsxRuntime.jsx(match$1.path, {
                       goTo: goTo
                     }),
-                JsxRuntime.jsx(computer, {})
+                JsxRuntime.jsx(match$1.terminal, {})
               ],
               className: "flex gap-4 justify-center"
             });
