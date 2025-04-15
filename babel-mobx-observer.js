@@ -1,3 +1,5 @@
+import fs from "fs";
+
 function addImport(t, programPath) {
   // Check if the import already exists to avoid duplicates
   const existingImport = programPath.node.body.find(
@@ -20,13 +22,23 @@ function addImport(t, programPath) {
 
 export default function (babel) {
   const { types: t } = babel;
+
+  const cache = new Map();
   let wasImportAdded = false;
 
   return {
     name: "observer-wrapper",
     visitor: {
       Program(path, state) {
-        console.log("Program", state.filename);
+        const filename = state.filename;
+        const stats = fs.statSync(filename);
+        const time = stats.mtime.getTime();
+
+        if (time === cache.get(filename)) return;
+        cache.set(filename, time);
+
+        console.log("File changed", filename);
+
         // Reset the flag at the beginning of each file
         wasImportAdded = false;
       },
