@@ -7,6 +7,8 @@ import observerPlugin from './babel-mobx-observer.js';
 export default defineConfig({
   plugins: [
     babel({
+      filter: /\.res\.mjs$/,
+      exclude: /node_modules/,
       babelConfig: {
         plugins: [observerPlugin],
       },
