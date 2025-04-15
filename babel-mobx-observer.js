@@ -25,7 +25,8 @@ export default function (babel) {
   return {
     name: "observer-wrapper",
     visitor: {
-      Program() {
+      Program(path, state) {
+        console.log("Program", state.filename);
         // Reset the flag at the beginning of each file
         wasImportAdded = false;
       },
@@ -60,7 +61,7 @@ export default function (babel) {
         // Replace original function declaration
         path.replaceWith(
           t.variableDeclaration("var", [
-            t.variableDeclarator(t.identifier("Component1"), observerCall)
+            t.variableDeclarator(t.identifier(name), observerCall)
           ])
         );
       }
