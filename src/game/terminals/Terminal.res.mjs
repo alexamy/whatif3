@@ -21,6 +21,11 @@ function make(props) {
   var match$2 = React.useState(function () {
         return false;
       });
+  var setHighlighted = match$2[1];
+  var knownCommands = [
+    "очистить",
+    "помощь"
+  ];
   var processMessage = function (text) {
     var message = text.trim();
     switch (message) {
@@ -44,6 +49,12 @@ function make(props) {
   };
   var onKeyDown = function (e) {
     var key = e.key;
+    if (key.length === 1 || key === "Backspace") {
+      var newMessage = message + key;
+      setHighlighted(function (param) {
+            return knownCommands.includes(newMessage);
+          });
+    }
     switch (key) {
       case "ArrowDown" :
           return viewport("Down");
@@ -87,7 +98,8 @@ function make(props) {
                               children: [
                                 "> ",
                                 JsxRuntime.jsx("span", {
-                                      children: message
+                                      children: message,
+                                      className: match$2[0] ? "bg-green-800 text-white" : ""
                                     }),
                                 match$1.beam
                               ]
@@ -96,9 +108,7 @@ function make(props) {
                       className: "flex flex-col"
                     })
               ],
-              className: "\n      monospace screen-w screen-h\n      outline-0 whitespace-pre text-nowrap\n      p-2 flex flex-col justify-between\n      text-gray-800 bg-blue-400\n      " + (
-                match$2[0] ? "bg-green-800 text-white" : ""
-              ) + "\n    ",
+              className: "\n      monospace screen-w screen-h\n      outline-0 whitespace-pre text-nowrap\n      p-2 flex flex-col justify-between\n      text-gray-800 bg-blue-400\n    ",
               tabIndex: 0,
               onKeyDown: onKeyDown,
               onFocus: (function (param) {

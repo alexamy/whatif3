@@ -12,6 +12,7 @@ let make = (props: Path.terminalProps) => {
 
   let (highlighted, setHighlighted) = React.useState(_ => false)
 
+  let knownCommands = ["очистить", "помощь"]
   let processMessage = text => {
     switch String.trim(text) {
     | "очистить" => screen(Clear)
@@ -22,15 +23,22 @@ let make = (props: Path.terminalProps) => {
   }
 
   let onKeyDown = e => {
-    switch JsxEvent.Keyboard.key(e) {
+    let key = JsxEvent.Keyboard.key(e)
+
+    if String.length(key) === 1 || key === "Backspace" {
+      let newMessage = message ++ key
+      setHighlighted(_ => Array.includes(knownCommands, newMessage))
+    }
+
+    switch key {
+    | "ArrowUp" => viewport(Up)
+    | "ArrowDown" => viewport(Down)
+    | "Backspace" => input(RemoveChar)
     | "Enter" => {
         processMessage(message)
         viewport(Reset)
         input(Clear)
       }
-    | "Backspace" => input(RemoveChar)
-    | "ArrowUp" => viewport(Up)
-    | "ArrowDown" => viewport(Down)
     | key if String.length(key) === 1 => input(AddChar(key))
     | _ => ()
     }
@@ -48,7 +56,6 @@ let make = (props: Path.terminalProps) => {
       outline-0 whitespace-pre text-nowrap
       p-2 flex flex-col justify-between
       text-gray-800 ${colorClass}
-      ${highlighted ? "bg-green-800 text-white" : ""}
     `}
     tabIndex=0
     onKeyDown
@@ -60,7 +67,9 @@ let make = (props: Path.terminalProps) => {
       <div className="flex flex-col grow"> {lines} </div>
       <div>
         {React.string("> ")}
-        <span> {React.string(message)} </span>
+        <span className={`${highlighted ? "bg-green-800 text-white" : ""}`}>
+          {React.string(message)}
+        </span>
         {React.string(beam)}
       </div>
     </div>
