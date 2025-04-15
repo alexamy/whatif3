@@ -1,8 +1,8 @@
 exception NotFound(Path.room)
 
 type info = {
-  left: Path.props => React.element,
-  right: Path.props => React.element,
+  left: Path.roomProps => React.element,
+  right: Path.terminalProps => React.element,
 }
 
 let map: Map.t<Path.room, info> = Map.fromArray([

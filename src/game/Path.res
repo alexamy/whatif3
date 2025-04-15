@@ -8,4 +8,5 @@ type room =
 @unboxed
 type terminal = Door | Watch
 
-type props = {goTo: room => unit}
+type roomProps = {goTo: room => unit}
+type terminalProps = {}

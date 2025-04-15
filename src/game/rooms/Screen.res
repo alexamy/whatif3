@@ -1,5 +1,5 @@
 @react.component
-let make = (~content: React.element, ~options, ~goTo) => {
+let make = (~content: React.element, ~options, ~goTo: Path.room => unit) => {
   <div className="prosy screen-w py-0">
     <article> {content} </article>
     <nav>
