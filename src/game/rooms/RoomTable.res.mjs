@@ -2,6 +2,8 @@
 
 import * as Utils from "../Utils.res.mjs";
 import * as $$Screen from "./Screen.res.mjs";
+import * as PathMap from "./PathMap.res.mjs";
+import * as Terminal from "../terminals/Terminal.res.mjs";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as JsxRuntime from "react/jsx-runtime";
 
@@ -24,8 +26,14 @@ function make(props) {
             });
 }
 
+PathMap.set({
+      room: "Table",
+      make: make,
+      terminal: Terminal.make
+    });
+
 export {
   options ,
   make ,
 }
-/* Utils Not a pure module */
+/*  Not a pure module */

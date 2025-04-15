@@ -10,10 +10,7 @@ type info = {
 let map: Map.t<
   Path.room,
   (Path.props => React.element, Terminal.props => React.element),
-> = Map.fromArray([
-  (Path.Center, (RoomCenter.make, Terminal.make)),
-  (Path.Table, (RoomTable.make, Terminal.make)),
-])
+> = Map.make()
 
 let get = current =>
   switch Map.get(map, current) {
