@@ -1,8 +1,11 @@
+@module("mobx-react-lite")
+external observer: React.component<'a> => React.component<'a> = "observer"
+
 @module("mobx")
 external observable: 'a => 'a = "observable"
 
-@module("mobx-react-lite")
-external observer: React.component<'a> => React.component<'a> = "observer"
+@module("mobx")
+external reaction: (unit => unit) => unit = "reaction"
 
 @module("mobx")
 external action: (unit => unit) => unit => unit = "action"
