@@ -37,7 +37,7 @@ function makeComponent(param) {
                     input: input
                   });
       }
-      
+
     };
     var onKeyDown = function (e) {
       var key = e.key;

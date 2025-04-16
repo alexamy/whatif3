@@ -4,10 +4,10 @@ let options = [
   (React.string("Подойти к двери"), Path.RoomDoor),
 ]
 
-let note1Ref = ref(Switch.Unvisited)
+let note1Ref = ref(HookSwitch.Unvisited)
 
 let make = (props: Path.roomProps) => {
-  let note1 = Switch.Toggle.useSwitch(~initial=note1Ref.contents)
+  let note1 = HookSwitch.Toggle.useSwitch(~initial=note1Ref.contents)
 
   // useContext?
   React.useEffect(() => {
