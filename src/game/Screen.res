@@ -1,13 +1,19 @@
 @react.component
-let make = (~content: React.element, ~options, ~goTo: Path.room => unit) => {
+let make = (
+  ~content: React.element,
+  ~options: array<Path.pathOptions>,
+  ~goTo: Path.room => unit,
+) => {
   <div className="prosy screen-w py-0">
     <article> {content} </article>
     <nav>
       <ul>
         {React.array(
-          Array.mapWithIndex(options, ((content, room), i) =>
-            <li key={Int.toString(i)}>
-              <Link onClick={_ => goTo(room)}> {content} </Link>
+          Array.mapWithIndex(options, (option, i) =>
+            <li
+              key={Int.toString(i)}
+              className={option.hidden->Option.getOr(false) ? "hidden" : "list-item"}>
+              <Link onClick={_ => goTo(option.room)}> {option.element} </Link>
             </li>
           ),
         )}

@@ -1,7 +1,7 @@
-let options = [
-  (React.string("Подойти к столу"), Path.RoomTable),
-  (React.string("Подойти к окну"), Path.RoomWindow),
-  (React.string("Подойти к двери"), Path.RoomDoor),
+let options: array<Path.pathOptions> = [
+  {element: React.string("Подойти к столу"), room: Path.RoomTable},
+  {element: React.string("Подойти к окну"), room: Path.RoomWindow},
+  {element: React.string("Подойти к двери"), room: Path.RoomDoor},
 ]
 
 let note1Ref = ref(HookSwitch.Unvisited)

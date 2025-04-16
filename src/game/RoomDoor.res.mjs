@@ -7,13 +7,12 @@ import * as MobxReactLite from "mobx-react-lite";
 import * as JsxRuntime from "react/jsx-runtime";
 
 var store = Store.makeStore({
-      count: 1
+      count: 1,
+      options: [{
+          element: "Вернуться",
+          room: "RoomCenter"
+        }]
     });
-
-var options = [[
-    "Вернуться",
-    "RoomCenter"
-  ]];
 
 var make = MobxReactLite.observer(function (props) {
       var content = JsxRuntime.jsxs(JsxRuntime.Fragment, {
@@ -29,7 +28,7 @@ var make = MobxReactLite.observer(function (props) {
           });
       return JsxRuntime.jsx($$Screen.make, {
                   content: content,
-                  options: options,
+                  options: store.state.options,
                   goTo: props.goTo
                 });
     });
@@ -38,7 +37,6 @@ make.displayName = "RoomDoor";
 
 export {
   store ,
-  options ,
   make ,
 }
 /* store Not a pure module */

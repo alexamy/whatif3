@@ -7,18 +7,18 @@ import * as HookSwitch from "./HookSwitch.res.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
 
 var options = [
-  [
-    "Подойти к столу",
-    "RoomTable"
-  ],
-  [
-    "Подойти к окну",
-    "RoomWindow"
-  ],
-  [
-    "Подойти к двери",
-    "RoomDoor"
-  ]
+  {
+    element: "Подойти к столу",
+    room: "RoomTable"
+  },
+  {
+    element: "Подойти к окну",
+    room: "RoomWindow"
+  },
+  {
+    element: "Подойти к двери",
+    room: "RoomDoor"
+  }
 ];
 
 var note1Ref = {

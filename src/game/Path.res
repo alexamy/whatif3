@@ -6,3 +6,9 @@ type room =
   | RoomDoor
 
 type pathProps = {goTo: room => unit}
+
+type pathOptions = {
+  element: React.element,
+  room: room,
+  hidden?: bool,
+}
