@@ -5,9 +5,9 @@ type room =
   | RoomWindow
   | RoomDoor
 
-type pathProps = {goTo: room => unit}
+type props = {goTo: room => unit}
 
-type pathOptions = {
+type options = {
   element: React.element,
   room: room,
   hidden?: bool,

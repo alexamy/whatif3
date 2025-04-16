@@ -1,11 +1,11 @@
-type state = {mutable count: int, mutable options: array<Path.pathOptions>}
+type state = {mutable count: int, mutable options: array<Path.options>}
 
 let store = Store.makeStore({
   count: 1,
   options: [{element: React.string("Вернуться"), room: Path.RoomCenter}],
 })
 
-let make = Mobx.observer((props: Path.pathProps) => {
+let make = Mobx.observer((props: Path.props) => {
   let content =
     <>
       {Utils.strings([

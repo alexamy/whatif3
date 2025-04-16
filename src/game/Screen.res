@@ -1,7 +1,7 @@
 @react.component
-let make = (
+let make = Mobx.observer((
   ~content: React.element,
-  ~options: array<Path.pathOptions>,
+  ~options: array<Path.options>,
   ~goTo: Path.room => unit,
 ) => {
   <div className="prosy screen-w py-0">
@@ -20,4 +20,4 @@ let make = (
       </ul>
     </nav>
   </div>
-}
+})

@@ -12,7 +12,7 @@ type constructProps = {
 }
 
 let makeComponent = ({header, styleClass, knownCommands, processMessage}: constructProps) => (
-  _: Path.pathProps,
+  _: Path.props,
 ) => {
   let display = Display.useDisplay({width: 35, height: 14})
   let input = Input.useInput({width: 35})

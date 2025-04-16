@@ -2,38 +2,37 @@
 
 import * as Link from "./Link.res.mjs";
 import * as Core__Option from "@rescript/core/src/Core__Option.res.mjs";
+import * as MobxReactLite from "mobx-react-lite";
 import * as JsxRuntime from "react/jsx-runtime";
 
-function $$Screen(props) {
-  var goTo = props.goTo;
-  return JsxRuntime.jsxs("div", {
-              children: [
-                JsxRuntime.jsx("article", {
-                      children: props.content
-                    }),
-                JsxRuntime.jsx("nav", {
-                      children: JsxRuntime.jsx("ul", {
-                            children: props.options.map(function (option, i) {
-                                  return JsxRuntime.jsx("li", {
-                                              children: JsxRuntime.jsx(Link.make, {
-                                                    onClick: (function () {
-                                                        goTo(option.room);
+var make = MobxReactLite.observer(function (props) {
+      var goTo = props.goTo;
+      return JsxRuntime.jsxs("div", {
+                  children: [
+                    JsxRuntime.jsx("article", {
+                          children: props.content
+                        }),
+                    JsxRuntime.jsx("nav", {
+                          children: JsxRuntime.jsx("ul", {
+                                children: props.options.map(function (option, i) {
+                                      return JsxRuntime.jsx("li", {
+                                                  children: JsxRuntime.jsx(Link.make, {
+                                                        onClick: (function () {
+                                                            goTo(option.room);
+                                                          }),
+                                                        children: option.element
                                                       }),
-                                                    children: option.element
-                                                  }),
-                                              className: Core__Option.getOr(option.hidden, false) ? "hidden" : "list-item"
-                                            }, i.toString());
-                                })
-                          })
-                    })
-              ],
-              className: "prosy screen-w py-0"
-            });
-}
-
-var make = $$Screen;
+                                                  className: Core__Option.getOr(option.hidden, false) ? "hidden" : "list-item"
+                                                }, i.toString());
+                                    })
+                              })
+                        })
+                  ],
+                  className: "prosy screen-w py-0"
+                });
+    });
 
 export {
   make ,
 }
-/* Link Not a pure module */
+/* make Not a pure module */

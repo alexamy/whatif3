@@ -1,8 +1,8 @@
-let options: array<Path.pathOptions> = [
+let options: array<Path.options> = [
   {element: React.string("Вернуться"), room: Path.RoomCenter},
 ]
 
-let make = (props: Path.pathProps) => {
+let make = (props: Path.props) => {
   let content =
     <>
       {Utils.strings([

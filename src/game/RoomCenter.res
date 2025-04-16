@@ -1,4 +1,4 @@
-let options: array<Path.pathOptions> = [
+let options: array<Path.options> = [
   {element: React.string("Подойти к столу"), room: Path.RoomTable},
   {element: React.string("Подойти к окну"), room: Path.RoomWindow},
   {element: React.string("Подойти к двери"), room: Path.RoomDoor},
@@ -6,7 +6,7 @@ let options: array<Path.pathOptions> = [
 
 let note1Ref = ref(HookSwitch.Unvisited)
 
-let make = (props: Path.pathProps) => {
+let make = (props: Path.props) => {
   let note1 = HookSwitch.Toggle.useSwitch(~initial=note1Ref.contents)
 
   // useContext?
