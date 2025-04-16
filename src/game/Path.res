@@ -7,8 +7,4 @@ type room =
 
 type props = {goTo: room => unit}
 
-type options = {
-  element: React.element,
-  room: room,
-  hidden?: bool,
-}
+type options = (React.element, room)

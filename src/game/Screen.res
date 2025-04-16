@@ -9,11 +9,9 @@ let make = Mobx.observer((
     <nav>
       <ul>
         {React.array(
-          Array.mapWithIndex(options, (option, i) =>
-            <li
-              key={Int.toString(i)}
-              className={option.hidden->Option.getOr(false) ? "hidden" : "list-item"}>
-              <Link onClick={_ => goTo(option.room)}> {option.element} </Link>
+          Array.mapWithIndex(options, ((element, room), i) =>
+            <li key={Int.toString(i)}>
+              <Link onClick={_ => goTo(room)}> {element} </Link>
             </li>
           ),
         )}

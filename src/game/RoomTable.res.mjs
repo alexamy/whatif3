@@ -5,10 +5,10 @@ import * as $$Screen from "./Screen.res.mjs";
 import * as Caml_option from "rescript/lib/es6/caml_option.js";
 import * as JsxRuntime from "react/jsx-runtime";
 
-var options = [{
-    element: "Вернуться",
-    room: "RoomCenter"
-  }];
+var options = [[
+    "Вернуться",
+    "RoomCenter"
+  ]];
 
 function make(props) {
   var content = JsxRuntime.jsx(JsxRuntime.Fragment, {

@@ -3,26 +3,29 @@
 import * as Store from "./Store.res.mjs";
 import * as Utils from "./Utils.res.mjs";
 import * as $$Screen from "./Screen.res.mjs";
+import * as Core__Option from "@rescript/core/src/Core__Option.res.mjs";
 import * as MobxReactLite from "mobx-react-lite";
 import * as JsxRuntime from "react/jsx-runtime";
 
 var store = Store.makeStore({
       count: 1,
-      options: [{
-          element: "Вернуться",
-          room: "RoomCenter"
-        }]
+      options: [[
+          "Вернуться",
+          "RoomCenter"
+        ]]
     });
 
 function addOpenDoorTransition() {
+  var transition = [
+    "Выйти",
+    "RoomTable"
+  ];
   store.update(function (state) {
-        if (state.options.find(function (option) {
-                return option.room === "RoomTable";
-              }) === undefined) {
-          state.options.push({
-                element: "Выйти",
-                room: "RoomTable"
-              });
+        var existing = state.options.find(function (param) {
+              return param[1] === "RoomTable";
+            });
+        if (Core__Option.isNone(existing)) {
+          state.options.push(transition);
           return ;
         }
         

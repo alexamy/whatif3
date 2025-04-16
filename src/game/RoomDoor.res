@@ -2,14 +2,17 @@ type state = {mutable count: int, mutable options: array<Path.options>}
 
 let store = Store.makeStore({
   count: 1,
-  options: [{element: React.string("Вернуться"), room: Path.RoomCenter}],
+  options: [(React.string("Вернуться"), Path.RoomCenter)],
 })
 
 let addOpenDoorTransition = () => {
   let target = Path.RoomTable
+  let transition = (React.string("Выйти"), target)
+
   store.update(state => {
-    if Array.find(state.options, option => option.room == target) == None {
-      Array.push(state.options, {element: React.string("Выйти"), room: target})
+    let existing = Array.find(state.options, ((_, room)) => room === target)
+    if Option.isNone(existing) {
+      Array.push(state.options, transition)
     }
   })
 }
