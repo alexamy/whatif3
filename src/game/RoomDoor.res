@@ -1,26 +1,21 @@
+type state = {mutable count: int, mutable options: array<Path.options>}
+
+let state = {
+  count: 1,
+  options: [(React.string("Выйти"), Path.RoomTable)],
+}
+
 let addOpenDoorTransition = () => {
   let exitTransition = (React.string("Выйти"), Path.RoomTable)
 
-  Store.update(Path.RoomDoor, state =>
-    switch state {
-    | RoomDoor(state) => {
-        let existing = Array.find(state.options, transition => transition == exitTransition)
-        if Option.isNone(existing) {
-          Array.push(state.options, exitTransition)
-        }
-      }
-    | _ => failwith("RoomDoor state not found")
-    }
-  )
+  let existing = Array.find(state.options, transition => transition == exitTransition)
+
+  if Option.isNone(existing) {
+    Array.push(state.options, exitTransition)
+  }
 }
 
 let make = Mobx.observer((props: Path.props) => {
-  let entry = Store.get(Path.RoomDoor)
-  let state = switch entry {
-  | RoomDoor(state) => state
-  | _ => failwith("RoomDoor state not found")
-  }
-
   let content =
     <>
       {Utils.strings([
