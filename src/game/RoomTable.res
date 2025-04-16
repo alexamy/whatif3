@@ -1,7 +1,25 @@
 let options: array<Path.options> = [(React.string("Вернуться"), Path.RoomCenter)]
 
 let make = Mobx.observer((props: Path.props) => {
-  let note1 = HookSwitch.Toggle.useSwitch(~initial=HookSwitch.Unvisited)
+  let entry = Store.get(Path.RoomTable)
+  let state = switch entry {
+  | RoomTable(state) => state
+  | _ => failwith("RoomTable state not found")
+  }
+
+  let note1 = HookSwitch.Toggle.useSwitch(~initial=state.note1)
+
+  React.useEffect(() => {
+    Store.update(
+      Path.RoomTable,
+      state =>
+        switch state {
+        | RoomTable(state) => state.note1 = note1.state
+        | _ => failwith("RoomTable state not found")
+        },
+    )
+    None
+  }, [note1.state])
 
   let content =
     <>
