@@ -5,7 +5,7 @@ let store = Store.makeStore({
   options: [{element: React.string("Вернуться"), room: Path.RoomCenter}],
 })
 
-let openDoorTransition = () => {
+let addOpenDoorTransition = () => {
   let target = Path.RoomTable
   store.update(state => {
     if Array.find(state.options, option => option.room == target) == None {

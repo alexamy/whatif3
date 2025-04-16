@@ -6,7 +6,7 @@ let processMessage = ({text, display}: TerminalBase.processProps) => {
   switch text {
   | "1234" => {
       display.screen(Echo(["Дверь открыта"]))
-      RoomDoor.openDoorTransition()
+      RoomDoor.addOpenDoorTransition()
     }
   | _ => display.screen(Echo(["Неверный пароль"]))
   }

@@ -14,7 +14,7 @@ var store = Store.makeStore({
         }]
     });
 
-function openDoorTransition() {
+function addOpenDoorTransition() {
   store.update(function (state) {
         if (state.options.find(function (option) {
                 return option.room === "RoomTable";
@@ -52,7 +52,7 @@ make.displayName = "RoomDoor";
 
 export {
   store ,
-  openDoorTransition ,
+  addOpenDoorTransition ,
   make ,
 }
 /* store Not a pure module */

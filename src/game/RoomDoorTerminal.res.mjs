@@ -19,7 +19,7 @@ function processMessage(param) {
         TAG: "Echo",
         _0: ["Дверь открыта"]
       });
-  RoomDoor.openDoorTransition();
+  RoomDoor.addOpenDoorTransition();
 }
 
 var make = TerminalBase.makeComponent({
