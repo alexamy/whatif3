@@ -2,50 +2,16 @@
 
 import * as TerminalBase from "./TerminalBase.res.mjs";
 
-var header = "Введите пароль для открытия двери";
+var header = "Умные часы 3000";
 
-var styleClass = "bg-red-400";
-
-function processMessage(param) {
-  var display = param.display;
-  if (param.text === "1234") {
-    return display.screen({
-                TAG: "Echo",
-                _0: ["Дверь открыта"]
-              });
-  } else {
-    return display.screen({
-                TAG: "Echo",
-                _0: ["Неверный пароль"]
-              });
-  }
-}
-
-var make = TerminalBase.makeComponent({
-      header: header,
-      styleClass: styleClass,
-      knownCommands: undefined,
-      processMessage: processMessage
-    });
-
-var RoomDoorTerminal = {
-  header: header,
-  styleClass: styleClass,
-  knownCommands: undefined,
-  processMessage: processMessage,
-  make: make
-};
-
-var header$1 = "Умные часы 3000";
-
-var styleClass$1 = "bg-blue-400";
+var styleClass = "bg-blue-400";
 
 var knownCommands = [
   "очистить",
   "помощь"
 ];
 
-function processMessage$1(param) {
+function processMessage(param) {
   var display = param.display;
   var text = param.text;
   switch (text) {
@@ -64,23 +30,22 @@ function processMessage$1(param) {
   }
 }
 
-var make$1 = TerminalBase.makeComponent({
-      header: header$1,
-      styleClass: styleClass$1,
+var make = TerminalBase.makeComponent({
+      header: header,
+      styleClass: styleClass,
       knownCommands: knownCommands,
-      processMessage: processMessage$1
+      processMessage: processMessage
     });
 
 var Handwatch = {
-  header: header$1,
-  styleClass: styleClass$1,
+  header: header,
+  styleClass: styleClass,
   knownCommands: knownCommands,
-  processMessage: processMessage$1,
-  make: make$1
+  processMessage: processMessage,
+  make: make
 };
 
 export {
-  RoomDoorTerminal ,
   Handwatch ,
 }
 /* make Not a pure module */

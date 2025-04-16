@@ -5,6 +5,7 @@ import * as Terminal from "./Terminal.res.mjs";
 import * as RoomTable from "./RoomTable.res.mjs";
 import * as RoomCenter from "./RoomCenter.res.mjs";
 import * as Caml_exceptions from "rescript/lib/es6/caml_exceptions.js";
+import * as RoomDoorTerminal from "./RoomDoorTerminal.res.mjs";
 
 var NotFound = /* @__PURE__ */Caml_exceptions.create("PathMap.NotFound");
 
@@ -27,7 +28,7 @@ var map = new Map([
         "RoomDoor",
         {
           left: RoomDoor.make,
-          right: Terminal.RoomDoorTerminal.make
+          right: RoomDoorTerminal.make
         }
       ]
     ]);
