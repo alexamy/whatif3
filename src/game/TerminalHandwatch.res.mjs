@@ -37,6 +37,8 @@ var make = TerminalBase.makeComponent({
       processMessage: processMessage
     });
 
+make.displayName = "TerminalHandwatch";
+
 export {
   header ,
   styleClass ,

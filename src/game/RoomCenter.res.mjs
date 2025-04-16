@@ -51,9 +51,11 @@ function make(props) {
             });
 }
 
+make.displayName = "RoomCenter";
+
 export {
   options ,
   note1Ref ,
   make ,
 }
-/* Utils Not a pure module */
+/*  Not a pure module */

@@ -40,6 +40,8 @@ var make = MobxReactLite.observer(function (props) {
                 });
     });
 
+make.displayName = "RoomDoor";
+
 export {
   StateDef ,
   State ,

@@ -10,3 +10,4 @@ let processMessage = ({text, display}: TerminalBase.processProps) => {
 }
 
 let make = TerminalBase.makeComponent({header, styleClass, knownCommands, processMessage})
+React.setDisplayName(make, "RoomDoorTerminal")

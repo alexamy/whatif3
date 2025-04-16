@@ -24,8 +24,10 @@ function make(props) {
             });
 }
 
+make.displayName = "RoomTable";
+
 export {
   options ,
   make ,
 }
-/* Utils Not a pure module */
+/*  Not a pure module */

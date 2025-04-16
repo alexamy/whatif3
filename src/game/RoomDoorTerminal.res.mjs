@@ -28,6 +28,8 @@ var make = TerminalBase.makeComponent({
       processMessage: processMessage
     });
 
+make.displayName = "RoomDoorTerminal";
+
 var knownCommands;
 
 export {

@@ -24,3 +24,5 @@ let make = Mobx.observer((props: Path.pathProps) => {
 
   <Screen content options goTo={props.goTo} />
 })
+
+React.setDisplayName(make, "RoomDoor")
