@@ -4,36 +4,36 @@ import * as Store from "./Store.res.mjs";
 import * as Utils from "./Utils.res.mjs";
 import * as $$Screen from "./Screen.res.mjs";
 import * as Caml_obj from "rescript/lib/es6/caml_obj.js";
+import * as PervasivesU from "rescript/lib/es6/pervasivesU.js";
 import * as Core__Option from "@rescript/core/src/Core__Option.res.mjs";
 import * as MobxReactLite from "mobx-react-lite";
 import * as JsxRuntime from "react/jsx-runtime";
-
-var store = Store.makeStore({
-      count: 1,
-      options: [[
-          "Вернуться",
-          "RoomCenter"
-        ]]
-    });
 
 function addOpenDoorTransition() {
   var exitTransition = [
     "Выйти",
     "RoomTable"
   ];
-  store.update(function (state) {
-        var existing = state.options.find(function (transition) {
-              return Caml_obj.equal(transition, exitTransition);
-            });
-        if (Core__Option.isNone(existing)) {
-          state.options.push(exitTransition);
-          return ;
-        }
-        
-      });
+  Store.update("RoomDoor", (function (state) {
+          if (state.TAG !== "RoomDoor") {
+            return PervasivesU.failwith("RoomDoor state not found");
+          }
+          var state$1 = state._0;
+          var existing = state$1.options.find(function (transition) {
+                return Caml_obj.equal(transition, exitTransition);
+              });
+          if (Core__Option.isNone(existing)) {
+            state$1.options.push(exitTransition);
+            return ;
+          }
+          
+        }));
 }
 
 var make = MobxReactLite.observer(function (props) {
+      var entry = Store.get("RoomDoor");
+      var state;
+      state = entry.TAG === "RoomDoor" ? entry._0 : PervasivesU.failwith("RoomDoor state not found");
       var content = JsxRuntime.jsxs(JsxRuntime.Fragment, {
             children: [
               Utils.strings([
@@ -42,12 +42,12 @@ var make = MobxReactLite.observer(function (props) {
                   ]),
               " ",
               "Количество посещений: ",
-              store.state.count.toString()
+              state.count.toString()
             ]
           });
       return JsxRuntime.jsx($$Screen.make, {
                   content: content,
-                  options: store.state.options,
+                  options: state.options,
                   goTo: props.goTo
                 });
     });
@@ -55,8 +55,7 @@ var make = MobxReactLite.observer(function (props) {
 make.displayName = "RoomDoor";
 
 export {
-  store ,
   addOpenDoorTransition ,
   make ,
 }
-/* store Not a pure module */
+/* make Not a pure module */

@@ -1,22 +1,26 @@
-type state = {mutable count: int, mutable options: array<Path.options>}
-
-let store = Store.makeStore({
-  count: 1,
-  options: [(React.string("Вернуться"), Path.RoomCenter)],
-})
-
 let addOpenDoorTransition = () => {
   let exitTransition = (React.string("Выйти"), Path.RoomTable)
 
-  store.update(state => {
-    let existing = Array.find(state.options, transition => transition == exitTransition)
-    if Option.isNone(existing) {
-      Array.push(state.options, exitTransition)
+  Store.update(Path.RoomDoor, state =>
+    switch state {
+    | RoomDoor(state) => {
+        let existing = Array.find(state.options, transition => transition == exitTransition)
+        if Option.isNone(existing) {
+          Array.push(state.options, exitTransition)
+        }
+      }
+    | _ => failwith("RoomDoor state not found")
     }
-  })
+  )
 }
 
 let make = Mobx.observer((props: Path.props) => {
+  let entry = Store.get(Path.RoomDoor)
+  let state = switch entry {
+  | RoomDoor(state) => state
+  | _ => failwith("RoomDoor state not found")
+  }
+
   let content =
     <>
       {Utils.strings([
@@ -25,10 +29,10 @@ let make = Mobx.observer((props: Path.props) => {
       ])}
       {React.string(" ")}
       {React.string("Количество посещений: ")}
-      {React.string(store.state.count->Int.toString)}
+      {React.string(state.count->Int.toString)}
     </>
 
-  <Screen content options={store.state.options} goTo={props.goTo} />
+  <Screen content options={state.options} goTo={props.goTo} />
 })
 
 React.setDisplayName(make, "RoomDoor")
