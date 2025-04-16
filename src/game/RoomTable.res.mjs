@@ -3,13 +3,14 @@
 import * as Utils from "./Utils.res.mjs";
 import * as React from "react";
 import * as $$Screen from "./Screen.res.mjs";
+import * as HookStore from "./HookStore.res.mjs";
 import * as HookSwitch from "./HookSwitch.res.mjs";
 import * as MobxReactLite from "mobx-react-lite";
 import * as JsxRuntime from "react/jsx-runtime";
 
-var state = {
-  note1: "Unvisited"
-};
+var state = HookStore.makeState({
+      note1: "Unvisited"
+    });
 
 var options = [[
     "Вернуться",
@@ -17,9 +18,11 @@ var options = [[
   ]];
 
 var make = MobxReactLite.observer(function (props) {
-      var note1 = HookSwitch.Toggle.useSwitch(state.note1);
+      var note1 = HookSwitch.Toggle.useSwitch(state.value.note1);
       React.useEffect((function () {
-              state.note1 = note1.state;
+              state.update(function (state) {
+                    state.note1 = note1.state;
+                  });
             }), [note1.state]);
       var content = JsxRuntime.jsxs(JsxRuntime.Fragment, {
             children: [
@@ -47,4 +50,4 @@ export {
   options ,
   make ,
 }
-/* make Not a pure module */
+/* state Not a pure module */

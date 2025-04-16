@@ -3,28 +3,29 @@
 import * as Utils from "./Utils.res.mjs";
 import * as $$Screen from "./Screen.res.mjs";
 import * as Caml_obj from "rescript/lib/es6/caml_obj.js";
+import * as HookStore from "./HookStore.res.mjs";
 import * as Core__Option from "@rescript/core/src/Core__Option.res.mjs";
 import * as MobxReactLite from "mobx-react-lite";
 import * as JsxRuntime from "react/jsx-runtime";
 
-var state = {
-  count: 1,
-  options: [[
-      "Выйти",
-      "RoomTable"
-    ]]
-};
+var state = HookStore.makeState({
+      count: 1,
+      options: [[
+          "Выйти",
+          "RoomTable"
+        ]]
+    });
 
 function addOpenDoorTransition() {
   var exitTransition = [
     "Выйти",
     "RoomTable"
   ];
-  var existing = state.options.find(function (transition) {
+  var existing = state.value.options.find(function (transition) {
         return Caml_obj.equal(transition, exitTransition);
       });
   if (Core__Option.isNone(existing)) {
-    state.options.push(exitTransition);
+    state.value.options.push(exitTransition);
     return ;
   }
   
@@ -39,12 +40,12 @@ var make = MobxReactLite.observer(function (props) {
                   ]),
               " ",
               "Количество посещений: ",
-              state.count.toString()
+              state.value.count.toString()
             ]
           });
       return JsxRuntime.jsx($$Screen.make, {
                   content: content,
-                  options: state.options,
+                  options: state.value.options,
                   goTo: props.goTo
                 });
     });
@@ -56,4 +57,4 @@ export {
   addOpenDoorTransition ,
   make ,
 }
-/* make Not a pure module */
+/* state Not a pure module */

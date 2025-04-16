@@ -1,16 +1,16 @@
 type state = {mutable note1: HookSwitch.state}
 
-let state = {
+let state = HookStore.makeState({
   note1: HookSwitch.Unvisited,
-}
+})
 
 let options: array<Path.options> = [(React.string("Вернуться"), Path.RoomCenter)]
 
 let make = Mobx.observer((props: Path.props) => {
-  let note1 = HookSwitch.Toggle.useSwitch(~initial=state.note1)
+  let note1 = HookSwitch.Toggle.useSwitch(~initial=state.value.note1)
 
   React.useEffect(() => {
-    state.note1 = note1.state
+    state.update(state => state.note1 = note1.state)
     None
   }, [note1.state])
 

@@ -1,17 +1,17 @@
 type state = {mutable count: int, mutable options: array<Path.options>}
 
-let state = {
+let state = HookStore.makeState({
   count: 1,
   options: [(React.string("Выйти"), Path.RoomTable)],
-}
+})
 
 let addOpenDoorTransition = () => {
   let exitTransition = (React.string("Выйти"), Path.RoomTable)
 
-  let existing = Array.find(state.options, transition => transition == exitTransition)
+  let existing = Array.find(state.value.options, transition => transition == exitTransition)
 
   if Option.isNone(existing) {
-    Array.push(state.options, exitTransition)
+    Array.push(state.value.options, exitTransition)
   }
 }
 
@@ -24,10 +24,10 @@ let make = Mobx.observer((props: Path.props) => {
       ])}
       {React.string(" ")}
       {React.string("Количество посещений: ")}
-      {React.string(state.count->Int.toString)}
+      {React.string(state.value.count->Int.toString)}
     </>
 
-  <Screen content options={state.options} goTo={props.goTo} />
+  <Screen content options={state.value.options} goTo={props.goTo} />
 })
 
 React.setDisplayName(make, "RoomDoor")
