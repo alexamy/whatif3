@@ -8,19 +8,16 @@ var styleClass = "bg-red-400";
 
 function processMessage(param) {
   var display = param.display;
-  var message = param.text.trim();
-  if (message === "1234") {
+  if (param.text === "1234") {
     return display.screen({
                 TAG: "Echo",
                 _0: ["Дверь открыта"]
               });
-  } else if (message.length > 0) {
+  } else {
     return display.screen({
                 TAG: "Echo",
-                _0: [message]
+                _0: ["Неверный пароль"]
               });
-  } else {
-    return ;
   }
 }
 
@@ -50,8 +47,8 @@ var knownCommands = [
 
 function processMessage$1(param) {
   var display = param.display;
-  var message = param.text.trim();
-  switch (message) {
+  var text = param.text;
+  switch (text) {
     case "очистить" :
         return display.screen("Clear");
     case "помощь" :
@@ -60,14 +57,10 @@ function processMessage$1(param) {
                     _0: ["Помощь"]
                   });
     default:
-      if (message.length > 0) {
-        return display.screen({
-                    TAG: "Echo",
-                    _0: [message]
-                  });
-      } else {
-        return ;
-      }
+      return display.screen({
+                  TAG: "Echo",
+                  _0: [text]
+                });
   }
 }
 

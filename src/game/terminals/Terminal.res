@@ -4,10 +4,9 @@ module RoomDoorTerminal = {
 
   let knownCommands = None
   let processMessage = ({text, display}: TerminalBase.processProps) => {
-    switch String.trim(text) {
+    switch text {
     | "1234" => display.screen(Echo(["Дверь открыта"]))
-    | message if String.length(message) > 0 => display.screen(Echo([message]))
-    | _ => ()
+    | _ => display.screen(Echo(["Неверный пароль"]))
     }
   }
 
@@ -20,11 +19,10 @@ module Handwatch = {
 
   let knownCommands = Some(["очистить", "помощь"])
   let processMessage = ({text, display}: TerminalBase.processProps) => {
-    switch String.trim(text) {
+    switch text {
     | "очистить" => display.screen(Clear)
     | "помощь" => display.screen(Echo(["Помощь"]))
-    | message if String.length(message) > 0 => display.screen(Echo([message]))
-    | _ => ()
+    | message => display.screen(Echo([message]))
     }
   }
 
