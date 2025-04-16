@@ -2,7 +2,7 @@ type state = {mutable count: int, mutable options: array<Path.options>}
 
 let state = HookStore.makeState({
   count: 1,
-  options: [(React.string("Выйти"), Path.RoomTable)],
+  options: [(React.string("Вернуться"), Path.RoomCenter)],
 })
 
 let addOpenDoorTransition = () => {
@@ -11,7 +11,7 @@ let addOpenDoorTransition = () => {
   let existing = Array.find(state.value.options, transition => transition == exitTransition)
 
   if Option.isNone(existing) {
-    Array.push(state.value.options, exitTransition)
+    state.update(state => Array.push(state.options, exitTransition))
   }
 }
 

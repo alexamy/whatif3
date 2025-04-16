@@ -11,8 +11,8 @@ import * as JsxRuntime from "react/jsx-runtime";
 var state = HookStore.makeState({
       count: 1,
       options: [[
-          "Выйти",
-          "RoomTable"
+          "Вернуться",
+          "RoomCenter"
         ]]
     });
 
@@ -25,8 +25,9 @@ function addOpenDoorTransition() {
         return Caml_obj.equal(transition, exitTransition);
       });
   if (Core__Option.isNone(existing)) {
-    state.value.options.push(exitTransition);
-    return ;
+    return state.update(function (state) {
+                state.options.push(exitTransition);
+              });
   }
   
 }
