@@ -1,8 +1,11 @@
 type state = {mutable note1: HookSwitch.state}
 
-let state = Store.makeState({
-  note1: HookSwitch.Unvisited,
-})
+let state = Store.makeState(
+  ~key=Path.RoomTable,
+  {
+    note1: HookSwitch.Unvisited,
+  },
+)
 
 let options: array<Path.options> = [(React.string("Вернуться"), Path.RoomCenter)]
 

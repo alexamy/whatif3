@@ -2,10 +2,13 @@
 
 import * as Mobx from "mobx";
 
-function makeState(initial) {
+function makeState(initial, key) {
   var value = Mobx.observable(initial);
   var update = Mobx.action(function (updater) {
         updater(value);
+      });
+  Mobx.autorun(function () {
+        console.log(key, Mobx.toJS(value));
       });
   return {
           value: value,

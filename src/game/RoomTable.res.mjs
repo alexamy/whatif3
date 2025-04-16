@@ -10,7 +10,7 @@ import * as JsxRuntime from "react/jsx-runtime";
 
 var state = Store.makeState({
       note1: "Unvisited"
-    });
+    }, "RoomTable");
 
 var options = [[
     "Вернуться",

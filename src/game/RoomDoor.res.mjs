@@ -14,7 +14,7 @@ var state = Store.makeState({
           "Вернуться",
           "RoomCenter"
         ]]
-    });
+    }, "RoomDoor");
 
 function addOpenDoorTransition() {
   var exitTransition = [

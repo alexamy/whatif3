@@ -1,9 +1,12 @@
 type state = {mutable count: int, mutable options: array<Path.options>}
 
-let state = Store.makeState({
-  count: 1,
-  options: [(React.string("Вернуться"), Path.RoomCenter)],
-})
+let state = Store.makeState(
+  ~key=Path.RoomDoor,
+  {
+    count: 1,
+    options: [(React.string("Вернуться"), Path.RoomCenter)],
+  },
+)
 
 let addOpenDoorTransition = () => {
   let exitTransition = (React.string("Выйти"), Path.RoomTable)
