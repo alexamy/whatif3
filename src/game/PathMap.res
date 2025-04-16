@@ -6,8 +6,8 @@ type info = {
 }
 
 let map: Map.t<Path.room, info> = Map.fromArray([
-  (Path.RoomCenter, {left: RoomCenter.make, right: Terminal.Handwatch.make}),
-  (Path.RoomTable, {left: RoomTable.make, right: Terminal.Handwatch.make}),
+  (Path.RoomCenter, {left: RoomCenter.make, right: TerminalHandwatch.make}),
+  (Path.RoomTable, {left: RoomTable.make, right: TerminalHandwatch.make}),
   (Path.RoomDoor, {left: RoomDoor.make, right: RoomDoorTerminal.make}),
 ])
 

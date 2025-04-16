@@ -37,15 +37,11 @@ var make = TerminalBase.makeComponent({
       processMessage: processMessage
     });
 
-var Handwatch = {
-  header: header,
-  styleClass: styleClass,
-  knownCommands: knownCommands,
-  processMessage: processMessage,
-  make: make
-};
-
 export {
-  Handwatch ,
+  header ,
+  styleClass ,
+  knownCommands ,
+  processMessage ,
+  make ,
 }
 /* make Not a pure module */
