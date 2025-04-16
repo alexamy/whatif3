@@ -1,6 +1,6 @@
 type state = {mutable count: int, mutable options: array<Path.options>}
 
-let state = HookStore.makeState({
+let state = Store.makeState({
   count: 1,
   options: [(React.string("Вернуться"), Path.RoomCenter)],
 })

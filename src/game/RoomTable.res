@@ -1,6 +1,6 @@
 type state = {mutable note1: HookSwitch.state}
 
-let state = HookStore.makeState({
+let state = Store.makeState({
   note1: HookSwitch.Unvisited,
 })
 
