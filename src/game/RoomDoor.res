@@ -5,9 +5,9 @@ let store = Store.makeStore({
   options: [(React.string("Вернуться"), Path.RoomCenter)],
 })
 
-let exitTransition = (React.string("Выйти"), Path.RoomTable)
-
 let addOpenDoorTransition = () => {
+  let exitTransition = (React.string("Выйти"), Path.RoomTable)
+
   store.update(state => {
     let existing = Array.find(state.options, transition => transition == exitTransition)
     if Option.isNone(existing) {

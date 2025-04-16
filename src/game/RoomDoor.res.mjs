@@ -16,12 +16,11 @@ var store = Store.makeStore({
         ]]
     });
 
-var exitTransition = [
-  "Выйти",
-  "RoomTable"
-];
-
 function addOpenDoorTransition() {
+  var exitTransition = [
+    "Выйти",
+    "RoomTable"
+  ];
   store.update(function (state) {
         var existing = state.options.find(function (transition) {
               return Caml_obj.equal(transition, exitTransition);
@@ -57,7 +56,6 @@ make.displayName = "RoomDoor";
 
 export {
   store ,
-  exitTransition ,
   addOpenDoorTransition ,
   make ,
 }
