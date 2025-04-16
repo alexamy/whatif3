@@ -14,6 +14,21 @@ var store = Store.makeStore({
         }]
     });
 
+function openDoorTransition() {
+  store.update(function (state) {
+        if (state.options.find(function (option) {
+                return option.room === "RoomTable";
+              }) === undefined) {
+          state.options.push({
+                element: "Выйти",
+                room: "RoomTable"
+              });
+          return ;
+        }
+        
+      });
+}
+
 var make = MobxReactLite.observer(function (props) {
       var content = JsxRuntime.jsxs(JsxRuntime.Fragment, {
             children: [
@@ -37,6 +52,7 @@ make.displayName = "RoomDoor";
 
 export {
   store ,
+  openDoorTransition ,
   make ,
 }
 /* store Not a pure module */

@@ -4,7 +4,10 @@ let styleClass = "bg-red-400"
 let knownCommands = None
 let processMessage = ({text, display}: TerminalBase.processProps) => {
   switch text {
-  | "1234" => display.screen(Echo(["Дверь открыта"]))
+  | "1234" => {
+      display.screen(Echo(["Дверь открыта"]))
+      RoomDoor.openDoorTransition()
+    }
   | _ => display.screen(Echo(["Неверный пароль"]))
   }
 }

@@ -5,6 +5,15 @@ let store = Store.makeStore({
   options: [{element: React.string("Вернуться"), room: Path.RoomCenter}],
 })
 
+let openDoorTransition = () => {
+  let target = Path.RoomTable
+  store.update(state => {
+    if Array.find(state.options, option => option.room == target) == None {
+      Array.push(state.options, {element: React.string("Выйти"), room: target})
+    }
+  })
+}
+
 let make = Mobx.observer((props: Path.props) => {
   let content =
     <>
