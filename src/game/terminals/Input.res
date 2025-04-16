@@ -49,8 +49,9 @@ let useInput = options => {
         setMessage(_ => allButLast)
       }
     | AddChar(char) => {
-        let isAllWidth = String.length(message) === options.width
-        setMessage(prev => isAllWidth ? prev : prev ++ char)
+        let newMessage = message ++ char
+        let isAllWidth = String.length(newMessage) === options.width + 1
+        setMessage(_ => isAllWidth ? message : newMessage)
       }
     }
   }

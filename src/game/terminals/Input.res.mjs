@@ -58,13 +58,13 @@ function useInput(options) {
                   return allButLast;
                 });
     } else {
-      var $$char = command._0;
-      var isAllWidth = message.length === options.width;
-      return setMessage(function (prev) {
+      var newMessage = message + command._0;
+      var isAllWidth = newMessage.length === (options.width + 1 | 0);
+      return setMessage(function (param) {
                   if (isAllWidth) {
-                    return prev;
+                    return message;
                   } else {
-                    return prev + $$char;
+                    return newMessage;
                   }
                 });
     }

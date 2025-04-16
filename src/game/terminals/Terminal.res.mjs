@@ -5,13 +5,23 @@ import * as React from "react";
 import * as Display from "./Display.res.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
 
+var RoomDoorTerminal = {
+  header: "Введите пароль для открытия двери",
+  colorClass: "bg-red-400"
+};
+
+var Handwatch = {
+  header: "Умные часы 3000",
+  colorClass: "bg-blue-400"
+};
+
 function make(props) {
   var display = Display.useDisplay({
-        width: 36,
-        height: 13
+        width: 35,
+        height: 14
       });
   var input = Input.useInput({
-        width: 36
+        width: 35
       });
   var match = React.useState(function () {
         return false;
@@ -87,7 +97,7 @@ function make(props) {
                       children: [
                         JsxRuntime.jsx("div", {
                               children: lines,
-                              className: "flex flex-col grow"
+                              className: "flex flex-col grow text-md/1"
                             }),
                         JsxRuntime.jsxs("div", {
                               children: [
@@ -120,6 +130,8 @@ function make(props) {
 }
 
 export {
+  RoomDoorTerminal ,
+  Handwatch ,
   make ,
 }
 /* Input Not a pure module */

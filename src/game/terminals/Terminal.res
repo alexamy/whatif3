@@ -1,10 +1,19 @@
-let make = (props: Path.terminalProps) => {
-  let display = Display.useDisplay({width: 36, height: 13})
-  let input = Input.useInput({
-    width: 36,
-  })
+module RoomDoorTerminal = {
+  let header = "Введите пароль для открытия двери"
+  let colorClass = "bg-red-400"
 
-  // TODO: split components
+  // let make = () => {}
+}
+
+module Handwatch = {
+  let header = "Умные часы 3000"
+  let colorClass = "bg-blue-400"
+}
+
+let make = (props: Path.terminalProps) => {
+  let display = Display.useDisplay({width: 35, height: 14})
+  let input = Input.useInput({width: 35})
+
   let header = "Умные часы 3000"
   let colorClass = "bg-blue-400"
 
@@ -62,7 +71,7 @@ let make = (props: Path.terminalProps) => {
     onBlur={_ => input.focus(Off)}>
     <div className="text-center"> {React.string(header)} </div>
     <div className="flex flex-col">
-      <div className="flex flex-col grow"> {lines} </div>
+      <div className="flex flex-col grow text-md/1"> {lines} </div>
       <div className="select-none">
         {React.string("> ")}
         <span className={`${highlighted ? "bg-green-800 text-white" : ""}`}>
