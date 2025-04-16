@@ -2,7 +2,7 @@
 
 import * as Utils from "./Utils.res.mjs";
 import * as $$Screen from "./Screen.res.mjs";
-import * as Caml_option from "rescript/lib/es6/caml_option.js";
+import * as HookSwitch from "./HookSwitch.res.mjs";
 import * as JsxRuntime from "react/jsx-runtime";
 
 var options = [[
@@ -11,11 +11,18 @@ var options = [[
   ]];
 
 function make(props) {
-  var content = JsxRuntime.jsx(JsxRuntime.Fragment, {
-        children: Caml_option.some(Utils.strings([
-                  "Вы стоите перед столом.",
-                  "На столе разбросаны документы, фотографии и записки."
-                ]))
+  var note1 = HookSwitch.Toggle.useSwitch("Unvisited");
+  var content = JsxRuntime.jsxs(JsxRuntime.Fragment, {
+        children: [
+          Utils.strings([
+                "Вы стоите перед столом.",
+                "На столе разбросаны документы, фотографии и записки."
+              ]),
+          note1.link("Читать заметку."),
+          note1.content(JsxRuntime.jsx("p", {
+                    children: "\"Привет, мир!\""
+                  }))
+        ]
       });
   return JsxRuntime.jsx($$Screen.make, {
               content: content,
