@@ -1,21 +1,43 @@
+type processProps = {
+  text: string,
+  display: Display.t,
+  input: Input.t,
+}
+
+type constructProps = {
+  header: string,
+  styleClass: string,
+  knownCommands: array<string>,
+  processMessage: processProps => unit,
+}
+
 module RoomDoorTerminal = {
   let header = "Введите пароль для открытия двери"
-  let colorClass = "bg-red-400"
+  let styleClass = "bg-red-400"
 
   // let make = () => {}
 }
 
 module Handwatch = {
   let header = "Умные часы 3000"
-  let colorClass = "bg-blue-400"
+  let styleClass = "bg-blue-400"
+
+  let knownCommands = ["очистить", "помощь"]
+  let processMessage = ({text, display}: processProps) => {
+    switch String.trim(text) {
+    | "очистить" => display.screen(Clear)
+    | "помощь" => display.screen(Echo(["Помощь"]))
+    | message if String.length(message) > 0 => display.screen(Echo([message]))
+    | _ => ()
+    }
+  }
 }
 
-let make = (props: Path.terminalProps) => {
+let make = ({header, styleClass, knownCommands, processMessage}: constructProps) => (
+  _: Path.terminalProps,
+) => {
   let display = Display.useDisplay({width: 35, height: 14})
   let input = Input.useInput({width: 35})
-
-  let header = "Умные часы 3000"
-  let colorClass = "bg-blue-400"
 
   let (highlighted, setHighlighted) = React.useState(_ => false)
 
@@ -25,13 +47,10 @@ let make = (props: Path.terminalProps) => {
     ),
   )
 
-  let knownCommands = ["очистить", "помощь"]
-  let processMessage = text => {
+  let runProcessMessage = text => {
     switch String.trim(text) {
-    | "очистить" => display.screen(Clear)
-    | "помощь" => display.screen(Echo(["Помощь"]))
     | message if String.length(message) > 0 => display.screen(Echo([message]))
-    | _ => ()
+    | message => processMessage({text: message, display, input})
     }
   }
 
@@ -48,7 +67,7 @@ let make = (props: Path.terminalProps) => {
     | "ArrowDown" => display.viewport(Down)
     | "Backspace" => input.run(RemoveChar)
     | "Enter" => {
-        processMessage(input.message)
+        runProcessMessage(input.message)
         display.viewport(Reset)
         input.run(Clear)
       }
@@ -62,7 +81,7 @@ let make = (props: Path.terminalProps) => {
       monospace screen-w screen-h
       outline-0 whitespace-pre text-nowrap
       p-2 flex flex-col justify-between
-      text-gray-800 ${colorClass}
+      text-gray-800 ${styleClass}
     `}
     tabIndex=0
     onKeyDown

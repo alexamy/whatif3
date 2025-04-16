@@ -7,126 +7,152 @@ import * as JsxRuntime from "react/jsx-runtime";
 
 var RoomDoorTerminal = {
   header: "Введите пароль для открытия двери",
-  colorClass: "bg-red-400"
+  styleClass: "bg-red-400"
 };
+
+var knownCommands = [
+  "очистить",
+  "помощь"
+];
+
+function processMessage(param) {
+  var display = param.display;
+  var message = param.text.trim();
+  switch (message) {
+    case "очистить" :
+        return display.screen("Clear");
+    case "помощь" :
+        return display.screen({
+                    TAG: "Echo",
+                    _0: ["Помощь"]
+                  });
+    default:
+      if (message.length > 0) {
+        return display.screen({
+                    TAG: "Echo",
+                    _0: [message]
+                  });
+      } else {
+        return ;
+      }
+  }
+}
 
 var Handwatch = {
   header: "Умные часы 3000",
-  colorClass: "bg-blue-400"
+  styleClass: "bg-blue-400",
+  knownCommands: knownCommands,
+  processMessage: processMessage
 };
 
-function make(props) {
-  var display = Display.useDisplay({
-        width: 35,
-        height: 14
-      });
-  var input = Input.useInput({
-        width: 35
-      });
-  var match = React.useState(function () {
-        return false;
-      });
-  var setHighlighted = match[1];
-  var lines = display.lines.map(function (line, i) {
-        return JsxRuntime.jsx("div", {
-                    children: line
-                  }, i.toString());
-      });
-  var knownCommands = [
-    "очистить",
-    "помощь"
-  ];
-  var processMessage = function (text) {
-    var message = text.trim();
-    switch (message) {
-      case "очистить" :
-          return display.screen("Clear");
-      case "помощь" :
-          return display.screen({
-                      TAG: "Echo",
-                      _0: ["Помощь"]
-                    });
-      default:
-        if (message.length > 0) {
-          return display.screen({
-                      TAG: "Echo",
-                      _0: [message]
-                    });
-        } else {
-          return ;
-        }
-    }
-  };
-  var onKeyDown = function (e) {
-    var key = e.key;
-    if (key.length === 1 || key === "Backspace") {
-      var newMessage = input.message + key;
-      setHighlighted(function (param) {
-            return knownCommands.includes(newMessage);
-          });
-    }
-    switch (key) {
-      case "ArrowDown" :
-          return display.viewport("Down");
-      case "ArrowUp" :
-          return display.viewport("Up");
-      case "Backspace" :
-          return input.run("RemoveChar");
-      case "Enter" :
-          processMessage(input.message);
-          display.viewport("Reset");
-          return input.run("Clear");
-      default:
-        if (key.length === 1) {
-          return input.run({
-                      TAG: "AddChar",
-                      _0: key
-                    });
-        } else {
-          return ;
-        }
-    }
-  };
-  return JsxRuntime.jsxs("div", {
-              children: [
-                JsxRuntime.jsx("div", {
-                      children: "Умные часы 3000",
-                      className: "text-center"
-                    }),
-                JsxRuntime.jsxs("div", {
-                      children: [
-                        JsxRuntime.jsx("div", {
-                              children: lines,
-                              className: "flex flex-col grow text-md/1"
-                            }),
-                        JsxRuntime.jsxs("div", {
-                              children: [
-                                "> ",
-                                JsxRuntime.jsx("span", {
-                                      children: input.message,
-                                      className: match[0] ? "bg-green-800 text-white" : ""
-                                    }),
-                                input.beam
-                              ],
-                              className: "select-none"
-                            })
-                      ],
-                      className: "flex flex-col"
-                    })
-              ],
-              className: "\n      monospace screen-w screen-h\n      outline-0 whitespace-pre text-nowrap\n      p-2 flex flex-col justify-between\n      text-gray-800 bg-blue-400\n    ",
-              tabIndex: 0,
-              onKeyDown: onKeyDown,
-              onFocus: (function (param) {
-                  input.focus("On");
-                }),
-              onBlur: (function (param) {
-                  input.focus("Off");
-                }),
-              onClick: (function (param) {
-                  input.focus("On");
-                })
+function make(param) {
+  var processMessage = param.processMessage;
+  var knownCommands = param.knownCommands;
+  var styleClass = param.styleClass;
+  var header = param.header;
+  return function (param) {
+    var display = Display.useDisplay({
+          width: 35,
+          height: 14
+        });
+    var input = Input.useInput({
+          width: 35
+        });
+    var match = React.useState(function () {
+          return false;
+        });
+    var setHighlighted = match[1];
+    var lines = display.lines.map(function (line, i) {
+          return JsxRuntime.jsx("div", {
+                      children: line
+                    }, i.toString());
+        });
+    var runProcessMessage = function (text) {
+      var message = text.trim();
+      if (message.length > 0) {
+        return display.screen({
+                    TAG: "Echo",
+                    _0: [message]
+                  });
+      } else {
+        return processMessage({
+                    text: message,
+                    display: display,
+                    input: input
+                  });
+      }
+    };
+    var onKeyDown = function (e) {
+      var key = e.key;
+      if (key.length === 1 || key === "Backspace") {
+        var newMessage = input.message + key;
+        setHighlighted(function (param) {
+              return knownCommands.includes(newMessage);
             });
+      }
+      switch (key) {
+        case "ArrowDown" :
+            return display.viewport("Down");
+        case "ArrowUp" :
+            return display.viewport("Up");
+        case "Backspace" :
+            return input.run("RemoveChar");
+        case "Enter" :
+            runProcessMessage(input.message);
+            display.viewport("Reset");
+            return input.run("Clear");
+        default:
+          if (key.length === 1) {
+            return input.run({
+                        TAG: "AddChar",
+                        _0: key
+                      });
+          } else {
+            return ;
+          }
+      }
+    };
+    return JsxRuntime.jsxs("div", {
+                children: [
+                  JsxRuntime.jsx("div", {
+                        children: header,
+                        className: "text-center"
+                      }),
+                  JsxRuntime.jsxs("div", {
+                        children: [
+                          JsxRuntime.jsx("div", {
+                                children: lines,
+                                className: "flex flex-col grow text-md/1"
+                              }),
+                          JsxRuntime.jsxs("div", {
+                                children: [
+                                  "> ",
+                                  JsxRuntime.jsx("span", {
+                                        children: input.message,
+                                        className: match[0] ? "bg-green-800 text-white" : ""
+                                      }),
+                                  input.beam
+                                ],
+                                className: "select-none"
+                              })
+                        ],
+                        className: "flex flex-col"
+                      })
+                ],
+                className: "\n      monospace screen-w screen-h\n      outline-0 whitespace-pre text-nowrap\n      p-2 flex flex-col justify-between\n      text-gray-800 " + styleClass + "\n    ",
+                tabIndex: 0,
+                onKeyDown: onKeyDown,
+                onFocus: (function (param) {
+                    input.focus("On");
+                  }),
+                onBlur: (function (param) {
+                    input.focus("Off");
+                  }),
+                onClick: (function (param) {
+                    input.focus("On");
+                  })
+              });
+  };
 }
 
 export {
