@@ -2,8 +2,8 @@
 
 import * as Mobx from "mobx";
 
-function MakeState(State) {
-  var state = Mobx.observable(State.$$default);
+function makeStore(initial) {
+  var state = Mobx.observable(initial);
   var update = Mobx.action(function (updater) {
         updater(state);
       });
@@ -14,6 +14,6 @@ function MakeState(State) {
 }
 
 export {
-  MakeState ,
+  makeStore ,
 }
 /* mobx Not a pure module */

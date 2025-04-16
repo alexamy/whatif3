@@ -1,12 +1,8 @@
-module StateDef = {
-  type t = {mutable count: int}
+type state = {mutable count: int}
 
-  let default = {
-    count: 1,
-  }
-}
-
-module State = Store.MakeState(StateDef)
+let store = Store.makeStore({
+  count: 1,
+})
 
 let options = [(React.string("Вернуться"), Path.RoomCenter)]
 
@@ -19,7 +15,7 @@ let make = Mobx.observer((props: Path.pathProps) => {
       ])}
       {React.string(" ")}
       {React.string("Количество посещений: ")}
-      {React.string(State.state.count->Int.toString)}
+      {React.string(store.state.count->Int.toString)}
     </>
 
   <Screen content options goTo={props.goTo} />

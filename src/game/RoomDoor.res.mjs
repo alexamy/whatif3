@@ -6,15 +6,9 @@ import * as $$Screen from "./Screen.res.mjs";
 import * as MobxReactLite from "mobx-react-lite";
 import * as JsxRuntime from "react/jsx-runtime";
 
-var $$default = {
-  count: 1
-};
-
-var StateDef = {
-  $$default: $$default
-};
-
-var State = Store.MakeState(StateDef);
+var store = Store.makeStore({
+      count: 1
+    });
 
 var options = [[
     "Вернуться",
@@ -30,7 +24,7 @@ var make = MobxReactLite.observer(function (props) {
                   ]),
               " ",
               "Количество посещений: ",
-              State.state.count.toString()
+              store.state.count.toString()
             ]
           });
       return JsxRuntime.jsx($$Screen.make, {
@@ -43,9 +37,8 @@ var make = MobxReactLite.observer(function (props) {
 make.displayName = "RoomDoor";
 
 export {
-  StateDef ,
-  State ,
+  store ,
   options ,
   make ,
 }
-/* State Not a pure module */
+/* store Not a pure module */

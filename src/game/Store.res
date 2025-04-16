@@ -1,9 +1,11 @@
-module type State = {
-  type t
-  let default: t
+type store<'a> = {
+  state: 'a,
+  update: ('a => unit) => unit,
 }
 
-module MakeState = (State: State) => {
-  let state = Mobx.observable(State.default)
+let makeStore = initial => {
+  let state = Mobx.observable(initial)
   let update = Mobx.action1(updater => updater(state))
+
+  {state, update}
 }
