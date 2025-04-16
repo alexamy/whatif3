@@ -1,6 +1,6 @@
 let options: array<Path.options> = [(React.string("Вернуться"), Path.RoomCenter)]
 
-let make = (props: Path.props) => {
+let make = Mobx.observer((props: Path.props) => {
   let note1 = HookSwitch.Toggle.useSwitch(~initial=HookSwitch.Unvisited)
 
   let content =
@@ -14,6 +14,6 @@ let make = (props: Path.props) => {
     </>
 
   <Screen content options goTo={props.goTo} />
-}
+})
 
 React.setDisplayName(make, "RoomTable")

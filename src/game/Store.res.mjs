@@ -3,28 +3,32 @@
 import * as Mobx from "mobx";
 import * as PervasivesU from "rescript/lib/es6/pervasivesU.js";
 
-var store = Mobx.observable(new Map([
-          [
-            "RoomDoor",
-            {
-              TAG: "RoomDoor",
-              _0: {
-                count: 1,
-                options: [[
-                    "Вернуться",
-                    "RoomCenter"
-                  ]]
-              }
-            }
-          ],
-          [
-            "RoomTable",
-            {
-              TAG: "RoomTable",
-              _0: {}
-            }
-          ]
-        ]));
+var initial = new Map([
+      [
+        "RoomDoor",
+        {
+          TAG: "RoomDoor",
+          _0: {
+            count: 1,
+            options: [[
+                "Вернуться",
+                "RoomCenter"
+              ]]
+          }
+        }
+      ],
+      [
+        "RoomTable",
+        {
+          TAG: "RoomTable",
+          _0: {
+            note1: "Unvisited"
+          }
+        }
+      ]
+    ]);
+
+var store = Mobx.observable(initial);
 
 function get(key) {
   var state = store.get(key);
@@ -45,8 +49,9 @@ function update(key, updater) {
 }
 
 export {
+  initial ,
   store ,
   get ,
   update ,
 }
-/* store Not a pure module */
+/* initial Not a pure module */

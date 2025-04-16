@@ -3,6 +3,7 @@
 import * as Utils from "./Utils.res.mjs";
 import * as $$Screen from "./Screen.res.mjs";
 import * as HookSwitch from "./HookSwitch.res.mjs";
+import * as MobxReactLite from "mobx-react-lite";
 import * as JsxRuntime from "react/jsx-runtime";
 
 var options = [[
@@ -10,26 +11,26 @@ var options = [[
     "RoomCenter"
   ]];
 
-function make(props) {
-  var note1 = HookSwitch.Toggle.useSwitch("Unvisited");
-  var content = JsxRuntime.jsxs(JsxRuntime.Fragment, {
-        children: [
-          Utils.strings([
-                "Вы стоите перед столом.",
-                "На столе разбросаны документы, фотографии и записки."
-              ]),
-          note1.link("Читать заметку."),
-          note1.content(JsxRuntime.jsx("p", {
-                    children: "\"Привет, мир!\""
-                  }))
-        ]
-      });
-  return JsxRuntime.jsx($$Screen.make, {
-              content: content,
-              options: options,
-              goTo: props.goTo
-            });
-}
+var make = MobxReactLite.observer(function (props) {
+      var note1 = HookSwitch.Toggle.useSwitch("Unvisited");
+      var content = JsxRuntime.jsxs(JsxRuntime.Fragment, {
+            children: [
+              Utils.strings([
+                    "Вы стоите перед столом.",
+                    "На столе разбросаны документы, фотографии и записки."
+                  ]),
+              note1.link("Читать заметку."),
+              note1.content(JsxRuntime.jsx("p", {
+                        children: "\"Привет, мир!\""
+                      }))
+            ]
+          });
+      return JsxRuntime.jsx($$Screen.make, {
+                  content: content,
+                  options: options,
+                  goTo: props.goTo
+                });
+    });
 
 make.displayName = "RoomTable";
 
@@ -37,4 +38,4 @@ export {
   options ,
   make ,
 }
-/*  Not a pure module */
+/* make Not a pure module */
