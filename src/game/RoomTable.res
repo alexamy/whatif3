@@ -1,6 +1,6 @@
 let options = [(React.string("Вернуться"), Path.RoomCenter)]
 
-let make = (props: Path.roomProps) => {
+let make = (props: Path.pathProps) => {
   let content =
     <>
       {Utils.strings([

@@ -5,5 +5,4 @@ type room =
   | RoomWindow
   | RoomDoor
 
-type roomProps = {goTo: room => unit}
-type terminalProps = {}
+type pathProps = {goTo: room => unit}

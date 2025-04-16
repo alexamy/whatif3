@@ -15,6 +15,6 @@ let make = () => {
 
   <div className="flex gap-4 justify-center">
     <CurrentLeft goTo />
-    <CurrentRight />
+    <CurrentRight goTo />
   </div>
 }

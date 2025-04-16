@@ -6,7 +6,7 @@ let options = [
 
 let note1Ref = ref(HookSwitch.Unvisited)
 
-let make = (props: Path.roomProps) => {
+let make = (props: Path.pathProps) => {
   let note1 = HookSwitch.Toggle.useSwitch(~initial=note1Ref.contents)
 
   // useContext?

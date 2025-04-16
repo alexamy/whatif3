@@ -10,7 +10,7 @@ module State = Store.MakeState(StateDef)
 
 let options = [(React.string("Вернуться"), Path.RoomCenter)]
 
-let make = Mobx.observer((props: Path.roomProps) => {
+let make = Mobx.observer((props: Path.pathProps) => {
   let content =
     <>
       {Utils.strings([

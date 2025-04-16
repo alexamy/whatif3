@@ -20,7 +20,9 @@ function Game(props) {
                 JsxRuntime.jsx(match$1.left, {
                       goTo: goTo
                     }),
-                JsxRuntime.jsx(match$1.right, {})
+                JsxRuntime.jsx(match$1.right, {
+                      goTo: goTo
+                    })
               ],
               className: "flex gap-4 justify-center"
             });
