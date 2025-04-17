@@ -12,9 +12,9 @@ let addOpenDoorTransition = () => {
   let exitTransition = (React.string("Выйти"), Path.RoomTable)
 
   let existing = Array.find(state.value.options, transition => transition == exitTransition)
-
-  if Option.isNone(existing) {
-    state.update(state => Array.push(state.options, exitTransition))
+  switch existing {
+  | Some(_) => ()
+  | None => state.update(state => Array.push(state.options, exitTransition))
   }
 }
 
