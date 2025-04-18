@@ -4,7 +4,6 @@ import * as Store from "./Store.res.mjs";
 import * as Utils from "./Utils.res.mjs";
 import * as $$Screen from "./Screen.res.mjs";
 import * as Caml_obj from "rescript/lib/es6/caml_obj.js";
-import * as Core__Option from "@rescript/core/src/Core__Option.res.mjs";
 import * as MobxReactLite from "mobx-react-lite";
 import * as JsxRuntime from "react/jsx-runtime";
 
@@ -24,12 +23,13 @@ function addOpenDoorTransition() {
   var existing = state.value.options.find(function (transition) {
         return Caml_obj.equal(transition, exitTransition);
       });
-  if (Core__Option.isNone(existing)) {
+  if (existing !== undefined) {
+    return ;
+  } else {
     return state.update(function (state) {
                 state.options.push(exitTransition);
               });
   }
-  
 }
 
 var make = MobxReactLite.observer(function (props) {
